@@ -25,6 +25,9 @@
     h1 {
         padding-top: 20px;
     }
+    h3 {
+        margin: 5px auto;
+    }
 
     h4 {
         max-width: 400px;
@@ -70,7 +73,7 @@
         flex-direction: column;
     }
     .thanks {
-        width: 40%;
+        width: 80%;
         height: 90vh;
         margin: 0 auto;
         display: flex;
