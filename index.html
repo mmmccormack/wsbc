@@ -17,9 +17,13 @@
             <div class="numbers">Runs</div>
         </div>
     </div>
+
+    <h2>Current Week</h2>
+    <div class="upcomingGame">
+    </div>
+
     <h2>Schedule</h2>
     <div class="schedule">
-
     </div>
 
 
@@ -33,10 +37,10 @@
 
     const weeklyScores = {
         1 : {
-            'glovers' : 12,
-            'balls' : 11,
-            'cocks' : 14,
-            'bongs' : 10
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : '',
+            'bongs' : ''
         },
         2 : {
             'bongs' : '',
@@ -172,7 +176,7 @@
         }
     };
 
-    // end of loop will be updated for number of weeks
+
     for (let i = 1; i < weeklySchedule.length; i++) {
         const schedule = document.querySelector('.schedule');
         const weekHeading = document.createElement('h2');
@@ -296,6 +300,49 @@
 
     }
     postStandings()
+
+    const getCurrentWeek = () => {
+        for (let i = 1; i < weeklySchedule.length; i++) {
+            for (let item in weeklyScores[i]) {
+                if (weeklyScores[i][item] == '') {
+                    console.log(weeklyScores[i])
+                    const upcomingGame = document.querySelector('.upcomingGame');
+                    const weekHeading = document.createElement('h2');
+                    upcomingGame.appendChild(weekHeading).innerHTML = `Week ${i} - ${weeklySchedule[i-1]}`;
+                    const week = document.createElement('div');
+                    upcomingGame.appendChild(week).classList.add(`week`);
+
+                    let teamCounter = 1;
+
+                    for (let item in weeklyScores[i]) {
+                        const teamAndScore = document.createElement('div');
+                        if (weeklyScores[i][item] === '') {
+                            teamAndScore.innerHTML = `${addTeamInfo(item)}`;
+                        } else {
+                            teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[i][item]}`;
+                        }
+                        week.appendChild(teamAndScore).classList.add(item, `team`, `team${teamCounter}`, `week${i}`);
+                        if (teamCounter == 2) {
+                            teamAndScore.classList.add('secondTeam');
+                            week.appendChild(document.createElement('div')).classList.add('spacer');
+                        }
+                        teamCounter++;
+                    }
+                    for (let i = 1; i < 3; i++) {
+                        const versus = document.createElement('h4');
+                        const gameTime = document.createElement('h5');
+                        gameTime.innerText = gameTimes[i-1];
+                        versus.innerText = `vs`;
+                        week.appendChild(versus).classList.add(`versus`,`versus${i}`);
+                        week.appendChild(gameTime).classList.add(`gameTime`,`gameTime${i}`);
+                    }
+                    return;
+                }
+            }
+        }
+            
+    }
+    getCurrentWeek();
 
 </script>
 </html>
