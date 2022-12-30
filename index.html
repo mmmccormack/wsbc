@@ -33,10 +33,10 @@
 
     const weeklyScores = {
         1 : {
-            'glovers' : '',
-            'balls' : '',
-            'cocks' : '',
-            'bongs' : ''
+            'glovers' : 12,
+            'balls' : 11,
+            'cocks' : 14,
+            'bongs' : 10
         },
         2 : {
             'bongs' : '',
@@ -87,9 +87,9 @@
             'glovers' : '0'
         },
         10 : {
+            'bongs' : '',
             'glovers' : '',
             'balls' : '',
-            'bongs' : '',
             'cocks' : ''
         },
         11 : {
@@ -99,45 +99,45 @@
             'cocks' : ''
         },
         12 : {
-            'glovers' : '',
             'balls' : '',
             'bongs' : '',
+            'glovers' : '',
             'cocks' : ''
         },
         13 : {
-            'glovers' : '',
-            'balls' : '',
             'bongs' : '',
-            'cocks' : ''
+            'cocks' : '',
+            'balls' : '',
+            'glovers' : ''
         },
         14 : {
-            'glovers' : '0',
-            'balls' : '0',
-            'bongs' : '0',
-            'cocks' : '0'
+            'cocks' : '',
+            'balls' : '',
+            'glovers' : '',
+            'bongs' : ''
         },
         15 : {
+            'cocks' : '',
             'glovers' : '',
-            'balls' : '',
             'bongs' : '',
-            'cocks' : ''
+            'balls' : ''
         },
         16 : {
             'glovers' : '',
             'balls' : '',
-            'bongs' : '',
-            'cocks' : ''
+            'cocks' : '',
+            'bongs' : ''
         },
         17 : {
+            'bongs' : '',
             'glovers' : '',
             'balls' : '',
-            'bongs' : '',
             'cocks' : ''
         },
         18 : {
+            'bongs' : '0',
             'glovers' : '0',
             'balls' : '0',
-            'bongs' : '0',
             'cocks' : '0'
         },
 
@@ -188,7 +188,11 @@
     
             for (let item in weeklyScores[i]) {
                 const teamAndScore = document.createElement('div');
-                teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[i][item]}`;
+                if (weeklyScores[i][item] === '') {
+                    teamAndScore.innerHTML = `${addTeamInfo(item)}`;
+                } else {
+                    teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[i][item]}`;
+                }
                 week.appendChild(teamAndScore).classList.add(item, `team`, `team${teamCounter}`, `week${i}`);
                 if (teamCounter == 2) {
                     teamAndScore.classList.add('secondTeam');
