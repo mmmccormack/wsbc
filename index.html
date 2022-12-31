@@ -27,7 +27,27 @@
     </div>
 
 </body>
-<script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBkWHwvti8CVooEKRZAno9NSIRRqy3JMQ",
+      authDomain: "west-side-baseball-club-b9921.firebaseapp.com",
+      projectId: "west-side-baseball-club-b9921",
+      storageBucket: "west-side-baseball-club-b9921.appspot.com",
+      messagingSenderId: "167176217443",
+      appId: "1:167176217443:web:1cb69cd0f4e8bcc8bc2956"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const dbRef = ref(database);
 
     const gameTimes = [`8:00pm`, `9:00pm`];
 
@@ -113,10 +133,10 @@
             'glovers' : ''
         },
         14 : {
-            'cocks' : '',
-            'balls' : '',
-            'glovers' : '',
-            'bongs' : ''
+            'cocks' : '0',
+            'balls' : '0',
+            'glovers' : '0',
+            'bongs' : '0'
         },
         15 : {
             'cocks' : '',
@@ -144,6 +164,30 @@
         },
 
     };
+
+
+get(dbRef).then((snapshot) => {
+
+if(snapshot.exists()){
+    const dbSnapshot = snapshot.val()['-NKd-kS06Y9qY5yLoiKZ'];
+    dbSnapshot.forEach((week, index) => {
+        weeklyScores[index].balls = dbSnapshot[index].balls;
+        weeklyScores[index].bongs = dbSnapshot[index].bongs;
+        weeklyScores[index].cocks = dbSnapshot[index].cocks;
+        weeklyScores[index].glovers = dbSnapshot[index].glovers;
+
+    });
+    setTimeout( () => {
+        populateSchedule();
+        postStandings();
+        getCurrentWeek();
+    }, 2000);
+} else {
+    console.log("No data available")
+}
+}).catch((error) => {
+console.log(error)
+});
 
     const totalStandings = {
         'wins' : {
@@ -210,19 +254,21 @@
     }
 
 
-    for (let i = 1; i < weeklySchedule.length; i++) {
-        const schedule = document.querySelector('.schedule');
-        const week = document.createElement('div');
-        addWeek(schedule, week, i);
-        if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
-            week.innerText = 'Holiday Weekend - NO GAMES' 
-            week.classList.add(`holiday`);
-        } else {
-            populateTeams(week, i);
-            addVersusAndGameTimes(week);
-        }
-        
-    };
+    const populateSchedule = () => {
+        for (let i = 1; i < weeklySchedule.length; i++) {
+            const schedule = document.querySelector('.schedule');
+            const week = document.createElement('div');
+            addWeek(schedule, week, i);
+            if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
+                week.innerText = 'Holiday Weekend - NO GAMES' 
+                week.classList.add(`holiday`);
+            } else {
+                populateTeams(week, i);
+                addVersusAndGameTimes(week);
+            }
+            
+        };
+    }
 
     const getWinningTeam = (object, value) => {
         const winningTeam = Object.keys(object).find(key => object[key] === value);
@@ -255,7 +301,7 @@
     const postStandings = () => {
         const scores = [];
         // runs through scores of each week
-        for (let i = 1; i < 3; i++) {
+        for (let i = 1; i < weeklySchedule.length; i++) {
             // find each score for each team in the week
             for (let item in weeklyScores[i]) {
                 if (typeof weeklyScores[i][item] === `number`) {
@@ -271,7 +317,7 @@
 
         const standings = document.querySelector(`.standings`);
 
-        for (team in totalStandings.wins) {
+        for (let team in totalStandings.wins) {
             const place = document.createElement('div');
             place.innerText = `${addTeamInfo(team)} -   ${totalStandings.wins[team]}${totalStandings.runs[team]}`;
             standings.appendChild(place).classList.add(team, `place`)
@@ -307,7 +353,7 @@
         })
 
     }
-    postStandings()
+    
 
     const getCurrentWeek = () => {
         for (let i = 1; i < weeklySchedule.length; i++) {
@@ -323,7 +369,7 @@
             }
         }     
     }
-    getCurrentWeek();
+    
 
 </script>
 </html>

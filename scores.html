@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>WSBC Score Tracker</title>
+</head>
+<body>
+    <h1>WSBC Weekly Score Entry</h1>
+    <h2 class="scoreAdmin">You <span class="unlock">must</span> be an administrator to track scores.</h2>
+
+    <div class="tracker">
+        <select name="scoreWeek" id="scoreWeek">
+            <option value="week1" selected disabled hidden>Select Week</option>
+            <option value="week1">May 7</option>
+            <option value="week2">May 14</option>
+            <option value="week4">May 28</option>
+            <option value="week5">June 4</option>
+            <option value="week6">June 11</option>
+            <option value="week7">June 18</option>
+            <option value="week8">June 25</option>
+            <option value="week10">July 9</option>
+            <option value="week11">July 16</option>
+            <option value="week12">July 23</option>
+            <option value="week13">July 30</option>
+            <option value="week15">August 13</option>
+            <option value="week16">August 20</option>
+            <option value="week17">August 27</option>
+        </select>
+    
+        <div class="scoreKeeper">
+    
+        </div>
+        <button id="submitButton" disabled="true">Submit Scores</button>
+
+    </div>
+    
+</body>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { push, getDatabase, ref, get, set} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBkWHwvti8CVooEKRZAno9NSIRRqy3JMQ",
+      authDomain: "west-side-baseball-club-b9921.firebaseapp.com",
+      projectId: "west-side-baseball-club-b9921",
+      storageBucket: "west-side-baseball-club-b9921.appspot.com",
+      messagingSenderId: "167176217443",
+      appId: "1:167176217443:web:1cb69cd0f4e8bcc8bc2956"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const dbRef = ref(database);
+
+    // populate all scores from DB
+    const weeklyScores = {};
+
+    get(dbRef).then((snapshot) => {
+
+    if(snapshot.exists()){
+        const dbSnapshot = snapshot.val()['-NKd-kS06Y9qY5yLoiKZ'];
+        dbSnapshot.forEach((week, index) => {
+            weeklyScores[index] = week;
+        })
+    } else {
+        console.log("No data available")
+    }
+    }).catch((error) => {
+    console.log(error)
+    });
+
+
+    const scoreWeek = document.getElementById('scoreWeek');
+    const submitButton = document.querySelector('button');
+    const scoreKeeper = document.querySelector('.scoreKeeper');
+    const unlock = document.querySelector('.unlock');
+    const scoreAdmin = document.querySelector('.scoreAdmin');
+
+    unlock.addEventListener('click', () => {
+        document.querySelector('.tracker').classList.remove('tracker');
+        scoreAdmin.style.display = 'none';
+    })
+
+    scoreWeek.addEventListener('change', e => {
+        scoreKeeper.textContent = ``;
+        const weekToScore = e.target.value.slice(-1);
+        for (let team in weeklyScores[weekToScore]) {
+            const teamInput = document.createElement('input');
+            teamInput.setAttribute(`id`, `${team}${weekToScore}`);
+            if (weeklyScores[weekToScore][team] != '') {
+                const previousScore = weeklyScores[weekToScore][team];
+                teamInput.setAttribute(`placeholder`, `${team} score: ${previousScore}`);
+            } else {
+                teamInput.setAttribute(`placeholder`, `${team} score`);
+            }
+            scoreKeeper.appendChild(teamInput);
+        }
+        submitButton.disabled = false;
+    })
+
+    submitButton.addEventListener('click', e => {
+        e.preventDefault();
+        const weeksScores = document.querySelectorAll('input');
+        let weekInQuestion = 0;
+        weeksScores.forEach(team => {
+            if (team.value == '') {
+                alert(`You did not enter a value for ${team.id.slice(0, -1)}, so they will have a score of zero unless otherwise changed.`)
+            }
+            const scoreForTeam = Number(team.value);
+            const teamToScore = team.id.slice(0, -1);
+            weekInQuestion = team.id.slice(-1);
+            weeklyScores[weekInQuestion][teamToScore] = scoreForTeam;
+        })
+        // update DB with new scores
+        scoreKeeper.textContent = `Scores submitted for week ${weekInQuestion}`;
+        const childRef = ref(database, '-NKd-kS06Y9qY5yLoiKZ')
+        return set(childRef, weeklyScores)
+    })
+
+</script>
+</html>

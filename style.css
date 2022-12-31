@@ -92,6 +92,10 @@
         box-shadow: 2px 2px 2px cadetblue;
         font-size: 1rem;
     }
+    button:disabled {
+        background: grey;
+        color: #666666;
+    }
     .inputBox {
         display: flex;
         flex-direction: column;
@@ -184,6 +188,18 @@
     .spacer {
         grid-column: span 2;
         margin: 20px;
+    }
+
+    /* scorekeeper styling */
+
+    .tracker {
+        display: none;
+    }
+
+    .scoreKeeper {
+        display: flex;
+        flex-direction: column;
+        margin: 50px 0;
     }
 
     @media (max-width: 890px) {
