@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>West Side Baseball Club</title>
 </head>
 <body>
@@ -165,11 +165,28 @@
 
     };
 
+    // const dbSnapshot = {
+    //     1: {
+    //         'glovers' : 15,
+    //         'balls' : 0,
+    //         'cocks' : 15,
+    //         'bongs' : 0
+    //     },
+    //     2 : {
+    //         'bongs' : '',
+    //         'glovers' : '',
+    //         'balls' : '',
+    //         'cocks' : ''
+    //     },
+    // }
+
+    let dbSnapshot;
+
 
 get(dbRef).then((snapshot) => {
 
 if(snapshot.exists()){
-    const dbSnapshot = snapshot.val()['-NKd-kS06Y9qY5yLoiKZ'];
+    dbSnapshot = snapshot.val()['-NKd-kS06Y9qY5yLoiKZ'];
     dbSnapshot.forEach((week, index) => {
         weeklyScores[index].balls = dbSnapshot[index].balls;
         weeklyScores[index].bongs = dbSnapshot[index].bongs;
@@ -188,6 +205,8 @@ if(snapshot.exists()){
 }).catch((error) => {
 console.log(error)
 });
+
+
 
     const totalStandings = {
         'wins' : {
@@ -271,17 +290,19 @@ console.log(error)
     }
 
     const getWinningTeam = (object, value) => {
-        const winningTeam = Object.keys(object).find(key => object[key] === value);
+        const winningTeam = Object .keys(object).find(key => object[key] === value);
         const totalWins = totalStandings.wins[winningTeam];
         const totalRuns = totalStandings.runs[winningTeam];
         totalStandings.wins[winningTeam] = totalWins + 1;
         totalStandings.runs[winningTeam] = totalRuns + value;
+        object[winningTeam] = '';
     }
 
     const getLosingTeam = (object, value) => {
         const losingTeam = Object.keys(object).find(key => object[key] === value);
         const totalRuns = totalStandings.runs[losingTeam];
         totalStandings.runs[losingTeam] = totalRuns + value;
+        object[losingTeam] = '';
     }
 
     const findWinner = (scores, week) => {
@@ -290,12 +311,14 @@ console.log(error)
         if (homeScore > visScore) {
             getWinningTeam(weeklyScores[week], homeScore);
             getLosingTeam(weeklyScores[week], visScore);
+            scores.shift();
+            scores.shift();
         } else {
             getWinningTeam(weeklyScores[week], visScore);
             getLosingTeam(weeklyScores[week], homeScore);
+            scores.shift();
+            scores.shift();
         }
-        scores.shift();
-        scores.shift();
     }
 
     const postStandings = () => {
@@ -357,8 +380,8 @@ console.log(error)
 
     const getCurrentWeek = () => {
         for (let i = 1; i < weeklySchedule.length; i++) {
-            for (let item in weeklyScores[i]) {
-                if (weeklyScores[i][item] == '') {
+            for (let item in dbSnapshot[i]) {
+                if (dbSnapshot[i][item] === '') {
                     const upcomingGame = document.querySelector('.upcomingGame');
                     const week = document.createElement('div');
                     addWeek(upcomingGame, week, i)
@@ -369,6 +392,10 @@ console.log(error)
             }
         }     
     }
+
+// populateSchedule();
+// postStandings();
+// getCurrentWeek();
     
 
 </script>

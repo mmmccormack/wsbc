@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>WSBC Score Tracker</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 
     <div class="tracker">
         <select name="scoreWeek" id="scoreWeek">
-            <option value="week1" selected disabled hidden>Select Week</option>
+            <option value="week0" selected disabled hidden>Select Week</option>
             <option value="week1">May 7</option>
             <option value="week2">May 14</option>
             <option value="week4">May 28</option>
@@ -36,6 +36,8 @@
         <button id="submitButton" disabled="true">Submit Scores</button>
 
     </div>
+
+    <a href="./index.html">Return to main page</a>
     
 </body>
 
@@ -78,7 +80,6 @@
     console.log(error)
     });
 
-
     const scoreWeek = document.getElementById('scoreWeek');
     const submitButton = document.querySelector('button');
     const scoreKeeper = document.querySelector('.scoreKeeper');
@@ -112,18 +113,29 @@
         const weeksScores = document.querySelectorAll('input');
         let weekInQuestion = 0;
         weeksScores.forEach(team => {
-            if (team.value == '') {
-                alert(`You did not enter a value for ${team.id.slice(0, -1)}, so they will have a score of zero unless otherwise changed.`)
+            const score = Number(team.value);
+            let scoreForTeam;
+            // if no value is entered in when you first add scores, the empty fields will be set to zero
+            if (team.placeholder.slice(-2) === 're' && score === 0) {
+                alert(`You did not enter a value for ${team.id.slice(0, -1)}, so they will have a score of zero unless otherwise changed.`);
+                scoreForTeam = 0;
+            // if you're re-entering scores and you leave one empty, it will keep the previous value that you put into the field.
+            } else if (typeof Number(team.placeholder.slice(-2)) === 'number' && team.value === ''){
+                scoreForTeam = Number(team.placeholder.slice(-2));
+            } else {
+                scoreForTeam = score;
             }
-            const scoreForTeam = Number(team.value);
+            // each team gets the score added to the input box for the week in question added to an object for the week's scores
             const teamToScore = team.id.slice(0, -1);
             weekInQuestion = team.id.slice(-1);
             weeklyScores[weekInQuestion][teamToScore] = scoreForTeam;
-        })
-        // update DB with new scores
+        });
+        console.log(weeklyScores)
+        // update DB with new scores from that week and disable submit button
+        submitButton.disabled = true;
         scoreKeeper.textContent = `Scores submitted for week ${weekInQuestion}`;
-        const childRef = ref(database, '-NKd-kS06Y9qY5yLoiKZ')
-        return set(childRef, weeklyScores)
+        const childRef = ref(database, '-NKd-kS06Y9qY5yLoiKZ');
+        return set(childRef, weeklyScores);
     })
 
 </script>

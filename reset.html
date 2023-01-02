@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Reset Database</title>
+</head>
+<body>
+    <div class="resetScreen">
+        <h1>Reset all scores for the year</h1>
+        <h2>If you're here, it's because it's the end of the season and you need to reset all the scores to get them out of the database, or something fucked up. Press the button below to reset everything in the database.</h2>
+        <h3>Note that if you press this button, you can't bring anything back, so if you need to add all the scores in again, you'll need a written record of them to input into the system.</h3>
+        <button class="resetAll">Reset</button>
+    </div>
+    <a href="./index.html">Return to main page</a>
+</body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBkWHwvti8CVooEKRZAno9NSIRRqy3JMQ",
+      authDomain: "west-side-baseball-club-b9921.firebaseapp.com",
+      projectId: "west-side-baseball-club-b9921",
+      storageBucket: "west-side-baseball-club-b9921.appspot.com",
+      messagingSenderId: "167176217443",
+      appId: "1:167176217443:web:1cb69cd0f4e8bcc8bc2956"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const dbRef = ref(database);
+
+    const weeklyScores = {
+        1 : {
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : '',
+            'bongs' : ''
+        },
+        2 : {
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : ''
+        },
+        3 : {
+            'balls' : '0',
+            'bongs' : '0',
+            'glovers' : '0',
+            'cocks' : '0'
+        },
+        4 : {
+            'balls' : '',
+            'bongs' : '',
+            'glovers' : '',
+            'cocks' : ''
+        },
+        5 : {
+            'bongs' : '',
+            'cocks' : '',
+            'balls' : '',
+            'glovers' : ''
+        },
+        6 : {
+            'cocks' : '',
+            'balls' : '',
+            'glovers' : '',
+            'bongs' : ''
+        },
+        7 : {
+            'cocks' : '',
+            'glovers' : '',
+            'bongs' : '',
+            'balls' : ''
+        },
+        8 : {
+            'glovers' : '',
+            'balls' : '',
+            'bongs' : '',
+            'cocks' : ''
+        },
+        9 : {
+            'bongs' : '0',
+            'balls' : '0',
+            'cocks' : '0',
+            'glovers' : '0'
+        },
+        10 : {
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : ''
+        },
+        11 : {
+            'glovers' : '',
+            'balls' : '',
+            'bongs' : '',
+            'cocks' : ''
+        },
+        12 : {
+            'balls' : '',
+            'bongs' : '',
+            'glovers' : '',
+            'cocks' : ''
+        },
+        13 : {
+            'bongs' : '',
+            'cocks' : '',
+            'balls' : '',
+            'glovers' : ''
+        },
+        14 : {
+            'cocks' : '0',
+            'balls' : '0',
+            'glovers' : '0',
+            'bongs' : '0'
+        },
+        15 : {
+            'cocks' : '',
+            'glovers' : '',
+            'bongs' : '',
+            'balls' : ''
+        },
+        16 : {
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : '',
+            'bongs' : ''
+        },
+        17 : {
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : ''
+        },
+        18 : {
+            'bongs' : '0',
+            'glovers' : '0',
+            'balls' : '0',
+            'cocks' : '0'
+        },
+
+    };
+
+    const resetDB = () => {
+        const childRef = ref(database, '-NKd-kS06Y9qY5yLoiKZ');
+        return set(childRef, weeklyScores);
+    }
+
+    document.querySelector('.resetAll').addEventListener('click', e => {
+        e.preventDefault();
+        alert('All scores have been removed from the database.')
+        resetDB();
+    })
+</script>
+</html>
