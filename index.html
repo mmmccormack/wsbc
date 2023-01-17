@@ -5,10 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet"> 
     <title>West Side Baseball Club</title>
 </head>
 <body>
     <h1>West Side Baseball Club</h1>
+    <h2 class="loading">Loading...</h2>
     <h2>Current Standings</h2>
     <div class="standings">
         <div class="legend">
@@ -18,11 +22,11 @@
         </div>
     </div>
 
-    <h2>Current Week's Games</h2>
+    <h2>This Week's Games</h2>
     <div class="upcomingGame">
     </div>
 
-    <h2>Full Schedule</h2>
+    <h2>Full Season Schedule</h2>
     <div class="schedule">
     </div>
 
@@ -67,16 +71,16 @@
             'cocks' : ''
         },
         3 : {
-            'balls' : '0',
-            'bongs' : '0',
-            'glovers' : '0',
-            'cocks' : '0'
-        },
-        4 : {
             'balls' : '',
             'bongs' : '',
             'glovers' : '',
             'cocks' : ''
+        },
+        4 : {
+            'balls' : '0',
+            'bongs' : '0',
+            'glovers' : '0',
+            'cocks' : '0'
         },
         5 : {
             'bongs' : '',
@@ -103,16 +107,16 @@
             'cocks' : ''
         },
         9 : {
-            'bongs' : '0',
-            'balls' : '0',
-            'cocks' : '0',
-            'glovers' : '0'
+            'bongs' : '',
+            'balls' : '',
+            'cocks' : '',
+            'glovers' : ''
         },
         10 : {
-            'bongs' : '',
-            'glovers' : '',
-            'balls' : '',
-            'cocks' : ''
+            'bongs' : '0',
+            'glovers' : '0',
+            'balls' : '0',
+            'cocks' : '0'
         },
         11 : {
             'glovers' : '',
@@ -133,16 +137,16 @@
             'glovers' : ''
         },
         14 : {
-            'cocks' : '0',
-            'balls' : '0',
-            'glovers' : '0',
-            'bongs' : '0'
+            'cocks' : '',
+            'balls' : '',
+            'glovers' : '',
+            'bongs' : ''
         },
         15 : {
-            'cocks' : '',
-            'glovers' : '',
-            'bongs' : '',
-            'balls' : ''
+            'cocks' : '0',
+            'glovers' : '0',
+            'bongs' : '0',
+            'balls' : '0'
         },
         16 : {
             'glovers' : '',
@@ -157,12 +161,17 @@
             'cocks' : ''
         },
         18 : {
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : ''
+        },
+        19 : {
             'bongs' : '0',
             'glovers' : '0',
             'balls' : '0',
             'cocks' : '0'
-        },
-
+        }
     };
 
     let dbSnapshot;
@@ -183,6 +192,7 @@ if(snapshot.exists()){
         populateSchedule();
         postStandings();
         getCurrentWeek();
+        document.querySelector(`.loading`).style.display = `none`;
     }, 2000);
 } else {
     console.log("No data available")
@@ -322,46 +332,40 @@ console.log(error)
             }
         }
         // post standings inside div
-
         const standings = document.querySelector(`.standings`);
 
-        for (let team in totalStandings.wins) {
-            const place = document.createElement('div');
-            place.innerText = `${addTeamInfo(team)} -   ${totalStandings.wins[team]}${totalStandings.runs[team]}`;
-            standings.appendChild(place).classList.add(team, `place`)
-        }
-        // update each place with a flexbox ordering
-        const placeOrder = document.querySelectorAll(`.place`);
-        const places = [...placeOrder];
+        const teamAndWinsRuns =[];
 
-        places.sort((a,b) => a.innerText.slice(-5) < b.innerText.slice(-5));
-        places.forEach((place, index ) => {
-            place.style.order = index;
-            const firstLetter = place.innerText.slice(0,1);
-            let teamName;
+        for (let team in totalStandings.wins) {
+            const teamInfo = {};
+            teamInfo.team = team;
+            teamInfo.winsRuns = `${totalStandings.wins[team]}${totalStandings.runs[team]}`;
+            teamAndWinsRuns.push(teamInfo)
+        }
+        function compare( a, b ) {
+            if ( b.winsRuns < a.winsRuns ){
+                return -1;
+            }
+            if ( b.winsRuns > a.winsRuns ){
+                return 1;
+            }
+            return 0;
+        }
+        teamAndWinsRuns.sort( compare );
+
+        for (let item in teamAndWinsRuns) {
+            const teamInQuestion = teamAndWinsRuns[item].team;
+            const place = document.createElement('div');
+            place.innerText = `${addTeamInfo(teamInQuestion)}`;
+            standings.appendChild(place).classList.add(teamInQuestion, `place`)
             const winTotal = document.createElement('div');
             const runTotal = document.createElement('div');
-            winTotal.classList.add('numbers')
-            runTotal.classList.add('numbers')
-            if (firstLetter === 'N'){
-                teamName = 'cocks'
-                place.innerText = "Northcocks";
-            } else if (firstLetter === 'M'){
-                teamName = 'glovers'
-                place.innerText = "Modern Glovers";
-            } else if (firstLetter === 'B'){
-                teamName = 'bongs'
-                place.innerHTML = "Bongs&nbsp;4 Kitties";
-            } else if (firstLetter === 'L'){
-                teamName = 'balls'
-                place.innerText = "Lucille Balls";
-            }
-            place.appendChild(winTotal).innerText = totalStandings.wins[teamName]
-            place.appendChild(runTotal).innerText = totalStandings.runs[teamName]
-        })
-
+            winTotal.classList.add('numbers');
+            runTotal.classList.add('numbers');
+            place.appendChild(winTotal).innerText = totalStandings.wins[teamInQuestion]
+            place.appendChild(runTotal).innerText = totalStandings.runs[teamInQuestion]
+        }
     }
-    
 
     const getCurrentWeek = () => {
         for (let i = 1; i < weeklySchedule.length; i++) {
@@ -377,10 +381,6 @@ console.log(error)
             }
         }     
     }
-
-// populateSchedule();
-// postStandings();
-// getCurrentWeek();
     
 
 </script>

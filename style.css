@@ -117,7 +117,9 @@
     }
 
     /* schedule page */
-
+    .loading{
+        font-size: 3rem;
+    }
     .standings {
         display: flex;
         flex-direction: column;
@@ -126,11 +128,14 @@
     .place, 
     .legend {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr 0.6fr 0.6fr;
         text-align: left;
         border: 2px solid;
         width: 80%;
         margin: 0 auto;
+    }
+    .legend {
+        order: -5;
     }
     .numbers {
         width: max-content;
@@ -243,7 +248,7 @@
             width: 100%;
         }
         .team {
-            font-size: 1.3rem;
+            font-size: 1rem;
         }
         .gameTime2 {
             top: 210px;
