@@ -125,6 +125,11 @@
         flex-direction: column;
         margin: 20px 0;
     }
+    hr {
+        border: 2px solid aliceblue;
+        width: 60%;
+    }
+
     .place, 
     .legend {
         display: grid;

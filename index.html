@@ -22,9 +22,15 @@
         </div>
     </div>
 
+    <hr />
+    <hr />
+
     <h2>This Week's Games</h2>
     <div class="upcomingGame">
     </div>
+
+    <hr />
+    <hr />
 
     <h2>Full Season Schedule</h2>
     <div class="schedule">
@@ -55,7 +61,7 @@
 
     const gameTimes = [`8:00pm`, `9:00pm`];
 
-    const weeklySchedule = ['April 30','May 7', 'May 14', 'May 21', 'May 28', 'June 4', 'June 11', 'June 18', 'June 25', 'July 2', 'July 9', 'July 16', 'July 23', 'July 30', 'August 6', 'August 13', 'August 20', 'August 27', 'September 3', 'playoffs'];
+    const weeklySchedule = ['April 30 (Exhibition)','May 7', 'May 14', 'May 21', 'May 28', 'June 4', 'June 11', 'June 18', 'June 25', 'July 2', 'July 9', 'July 16', 'July 23', 'July 30', 'August 6', 'August 13', 'August 20', 'August 27', 'September 3', 'playoffs'];
 
     const weeklyScores = {
         1 : {
@@ -161,15 +167,15 @@
             'cocks' : ''
         },
         18 : {
+            'balls' : '',
             'bongs' : '',
             'glovers' : '',
-            'balls' : '',
             'cocks' : ''
         },
         19 : {
+            'balls' : '0',
             'bongs' : '0',
             'glovers' : '0',
-            'balls' : '0',
             'cocks' : '0'
         }
     };
@@ -218,7 +224,6 @@ console.log(error)
         }
 
     }
-    const week1 = document.querySelector('.week1');
 
     const addTeamInfo = team => {
         if (team === 'bongs') {
@@ -319,7 +324,7 @@ console.log(error)
     const postStandings = () => {
         const scores = [];
         // runs through scores of each week
-        for (let i = 1; i < weeklySchedule.length; i++) {
+        for (let i = 2; i < weeklySchedule.length; i++) {
             // find each score for each team in the week
             for (let item in weeklyScores[i]) {
                 if (typeof weeklyScores[i][item] === `number`) {
