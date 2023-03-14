@@ -145,6 +145,8 @@
     .numbers {
         width: max-content;
         margin: 0 auto;
+        display: flex;
+        align-items: center;
     }
     .week {
         display: grid;
