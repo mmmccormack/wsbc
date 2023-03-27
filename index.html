@@ -242,17 +242,6 @@ console.log(error)
         for (let item in weeklyScores[currentWeek]) {
 
             const teamAndScore = document.createElement('div');
-            // add home and away markers
-            // if (teamCounter == 1) {
-            //     const homeMarker = document.createElement('div');
-            //     homeMarker.innerHTML = 'home'
-            //     teamAndScore.appendChild(homeMarker)
-            // }
-            // if (teamCounter == 2) {
-            //     const awayMarker = document.createElement('div');
-            //     awayMarker.innerHTML = 'away'
-            //     teamAndScore.appendChild(awayMarker)
-            // }
             if (weeklyScores[currentWeek][item] === '') {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}`;
             } else {
