@@ -77,10 +77,10 @@
             'cocks' : ''
         },
         3 : {
-            'glovers' : '',
-            'cocks' : '',
             'balls' : '',
-            'bongs' : ''
+            'bongs' : '',
+            'glovers' : '',
+            'cocks' : ''
         },
         4 : {
             'balls' : '0',
@@ -107,16 +107,16 @@
             'balls' : ''
         },
         8 : {
-            'bongs' : '',
-            'cocks' : '',
             'glovers' : '',
-            'balls' : ''
+            'balls' : '',
+            'cocks' : '',
+            'bongs' : ''
         },
         9 : {
             'bongs' : '',
+            'glovers' : '',
             'balls' : '',
-            'cocks' : '',
-            'glovers' : ''
+            'cocks' : ''
         },
         10 : {
             'bongs' : '0',
@@ -125,52 +125,52 @@
             'cocks' : '0'
         },
         11 : {
-            'glovers' : '',
             'balls' : '',
             'bongs' : '',
+            'glovers' : '',
             'cocks' : ''
         },
         12 : {
-            'balls' : '',
             'bongs' : '',
             'cocks' : '',
+            'balls' : '',
             'glovers' : ''
         },
         13 : {
-            'bongs' : '',
-            'cocks' : '',
-            'balls' : '',
-            'glovers' : ''
-        },
-        14 : {
             'cocks' : '',
             'balls' : '',
             'glovers' : '',
             'bongs' : ''
         },
-        15 : {
+        14 : {
             'cocks' : '0',
+            'balls' : '0',
             'glovers' : '0',
-            'bongs' : '0',
-            'balls' : '0'
+            'bongs' : '0'
         },
-        16 : {
+        15 : {
             'cocks' : '',
-            'bongs' : '',
             'glovers' : '',
+            'bongs' : '',
             'balls' : ''
         },
+        16 : {
+            'cocks' : 'sem',
+            'bongs' : 'sem',
+            'glovers' : 'sem',
+            'balls' : 'sem'
+        },
         17 : {
-            'bongs' : '',
-            'glovers' : '',
-            'balls' : '',
-            'cocks' : ''
+            'cocks' : 'sem',
+            'bongs' : 'sem',
+            'glovers' : 'sem',
+            'balls' : 'sem'
         },
         18 : {
-            'balls' : '',
-            'bongs' : '',
-            'glovers' : '',
-            'cocks' : ''
+            'cocks' : 'sem',
+            'bongs' : 'sem',
+            'glovers' : 'sem',
+            'balls' : 'sem'
         },
         19 : {
             'balls' : '0',
@@ -190,8 +190,8 @@ if(snapshot.exists()){
     dbSnapshot.forEach((week, index) => {
         weeklyScores[index].balls = dbSnapshot[index].balls;
         weeklyScores[index].bongs = dbSnapshot[index].bongs;
-        weeklyScores[index].cocks = dbSnapshot[index].cocks;
         weeklyScores[index].glovers = dbSnapshot[index].glovers;
+        weeklyScores[index].cocks = dbSnapshot[index].cocks;
 
     });
     setTimeout( () => {
@@ -213,14 +213,14 @@ console.log(error)
         'wins' : {
             'bongs' : 0,
             'balls' : 0,
-            'cocks' : 0,
-            'glovers' : 0
+            'glovers' : 0,
+            'cocks' : 0
         },
         'runs' : {
             'bongs' : 0,
             'balls' : 0,
-            'cocks' : 0,
-            'glovers' : 0
+            'glovers' : 0,
+            'cocks' : 0
         }
 
     }
@@ -240,12 +240,25 @@ console.log(error)
     const populateTeams = (week, currentWeek) => {
         let teamCounter = 1;
         for (let item in weeklyScores[currentWeek]) {
+
             const teamAndScore = document.createElement('div');
+            // add home and away markers
+            // if (teamCounter == 1) {
+            //     const homeMarker = document.createElement('div');
+            //     homeMarker.innerHTML = 'home'
+            //     teamAndScore.appendChild(homeMarker)
+            // }
+            // if (teamCounter == 2) {
+            //     const awayMarker = document.createElement('div');
+            //     awayMarker.innerHTML = 'away'
+            //     teamAndScore.appendChild(awayMarker)
+            // }
             if (weeklyScores[currentWeek][item] === '') {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}`;
             } else {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[currentWeek][item]}`;
             }
+
             week.appendChild(teamAndScore).classList.add(item, `team`, `team${teamCounter}`, `week${currentWeek}`);
             if (teamCounter == 2) {
                 teamAndScore.classList.add('secondTeam');
@@ -265,8 +278,14 @@ console.log(error)
         for (let i = 1; i < 3; i++) {
             const versus = document.createElement('h4');
             const gameTime = document.createElement('h5');
+            const home = document.createElement('div')
+            const away = document.createElement('div')
+            home.innerHTML = '<h6>home</h6>';
+            away.innerHTML = '<h6>away</h6>';
             gameTime.innerText = gameTimes[i-1];
             versus.innerText = `vs`;
+            week.appendChild(home).classList.add(`home${i}`);
+            week.appendChild(away).classList.add(`away${i}`);
             week.appendChild(versus).classList.add(`versus`,`versus${i}`);
             week.appendChild(gameTime).classList.add(`gameTime`,`gameTime${i}`);
         }
@@ -278,8 +297,11 @@ console.log(error)
             const schedule = document.querySelector('.schedule');
             const week = document.createElement('div');
             addWeek(schedule, week, i);
-            if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
+            if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'July 30' || weeklySchedule[i-1] === 'September 3') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
+                week.classList.add(`holiday`);
+            } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
+                week.innerText = 'Semi Finals' 
                 week.classList.add(`holiday`);
             } else {
                 populateTeams(week, i);

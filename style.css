@@ -186,6 +186,26 @@
     .versus2 {
         top: 70%;
     }
+    .home1 {
+        position: absolute;
+        top: 1%;
+        left: 3%;
+    }
+    .home2 {
+        position: absolute;
+        top: 58%;
+        left: 3%;
+    }
+    .away1 {
+        position: absolute;
+        top: 1%;
+        right: 3%;
+    }
+    .away2 {
+        position: absolute;
+        top: 58%;
+        right: 3%;
+    }
     .gameTime {
         font-size: 1.5rem;
         border: none;
@@ -237,6 +257,18 @@
         }
         .versus2 {
             top: 72%;
+        }
+        .home1 {
+            top: 0%;
+        }
+        .home2 {
+            top: 55%;
+        }
+        .away1 {
+            top: 23%;
+        }
+        .away2 {
+            top: 78%;
         }
         .secondTeam {
             margin-bottom: 60px;
