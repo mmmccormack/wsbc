@@ -187,6 +187,7 @@ get(dbRef).then((snapshot) => {
 
 if(snapshot.exists()){
     dbSnapshot = snapshot.val()['-NKd-kS06Y9qY5yLoiKZ'];
+    console.log(dbSnapshot)
     dbSnapshot.forEach((week, index) => {
         weeklyScores[index].balls = dbSnapshot[index].balls;
         weeklyScores[index].bongs = dbSnapshot[index].bongs;
@@ -335,7 +336,7 @@ console.log(error)
     const postStandings = () => {
         const scores = [];
         // runs through scores of each week
-        for (let i = 2; i < weeklySchedule.length; i++) {
+        for (let i = 1; i < weeklySchedule.length; i++) {
             // find each score for each team in the week
             for (let item in weeklyScores[i]) {
                 if (typeof weeklyScores[i][item] === `number`) {
