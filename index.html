@@ -328,9 +328,12 @@ console.log(error)
             getLosingTeam(weeklyScores[week], visScore);
             scores.shift();
             scores.shift();
-        } else {
+        } else if (homeScore < visScore) {
             getWinningTeam(weeklyScores[week], visScore);
             getLosingTeam(weeklyScores[week], homeScore);
+            scores.shift();
+            scores.shift();
+        } else {
             scores.shift();
             scores.shift();
         }
