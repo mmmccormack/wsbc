@@ -190,7 +190,6 @@ get(dbRef).then((snapshot) => {
 
 if(snapshot.exists()){
     dbSnapshot = snapshot.val()['-NKd-kS06Y9qY5yLoiKZ'];
-    console.log(dbSnapshot)
     dbSnapshot.forEach((week, index) => {
         weeklyScores[index].balls = dbSnapshot[index].balls;
         weeklyScores[index].bongs = dbSnapshot[index].bongs;
@@ -362,7 +361,8 @@ console.log(error)
         for (let team in totalStandings.wins) {
             const teamInfo = {};
             teamInfo.team = team;
-            teamInfo.winsRuns = `${totalStandings.wins[team]}${totalStandings.runs[team]}`;
+            teamInfo.winsRuns = `${totalStandings.wins[team]}0${totalStandings.runs[team]}`;
+            teamInfo.winsRuns = ~~teamInfo.winsRuns;
             teamAndWinsRuns.push(teamInfo)
         }
         function compare( a, b ) {
@@ -377,7 +377,9 @@ console.log(error)
         teamAndWinsRuns.sort( compare );
 
         for (let item in teamAndWinsRuns) {
+            console.log(teamAndWinsRuns)
             const teamInQuestion = teamAndWinsRuns[item].team;
+            console.log(teamInQuestion)
             const place = document.createElement('div');
             place.innerText = `${addTeamInfo(teamInQuestion)}`;
             standings.appendChild(place).classList.add(teamInQuestion, `place`)
