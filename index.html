@@ -365,21 +365,20 @@ console.log(error)
             teamInfo.winsRuns = ~~teamInfo.winsRuns;
             teamAndWinsRuns.push(teamInfo)
         }
-        function compare( a, b ) {
-            if ( b.winsRuns < a.winsRuns ){
-                return -1;
-            }
-            if ( b.winsRuns > a.winsRuns ){
-                return 1;
-            }
-            return 0;
+        function compare( a, b ) { return b - a
+            // if ( b.winsRuns < a.winsRuns ){
+            //     return -1;
+            // }
+            // if ( b.winsRuns > a.winsRuns ){
+            //     return 1;
+            // }
+            // return 0;
         }
         teamAndWinsRuns.sort( compare );
 
-        for (let item in teamAndWinsRuns) {
-            console.log(teamAndWinsRuns)
-            const teamInQuestion = teamAndWinsRuns[item].team;
-            console.log(teamInQuestion)
+        for (let i = 3; i > -1; i--) {
+        // for (let item in teamAndWinsRuns) {
+            const teamInQuestion = teamAndWinsRuns[i].team;
             const place = document.createElement('div');
             place.innerText = `${addTeamInfo(teamInQuestion)}`;
             standings.appendChild(place).classList.add(teamInQuestion, `place`)
