@@ -74,6 +74,7 @@
         dbSnapshot.forEach((week, index) => {
             weeklyScores[index] = week;
         })
+        console.log(dbSnapshot)
     } else {
         console.log("No data available")
     }
@@ -94,7 +95,7 @@
 
     scoreWeek.addEventListener('change', e => {
         scoreKeeper.textContent = ``;
-        const weekToScore = e.target.value.slice(-1);
+        const weekToScore = e.target.value.substring(4);
         for (let team in weeklyScores[weekToScore]) {
             const teamInput = document.createElement('input');
             teamInput.setAttribute(`id`, `${team}${weekToScore}`);
@@ -128,10 +129,14 @@
             }
             // each team gets the score added to the input box for the week in question added to an object for the week's scores
             const teamToScore = team.id.slice(0, -1);
-            weekInQuestion = team.id.slice(-1);
+            weekInQuestion = team.id.slice(-2);
+            console.log(team.id)
+            if (weekInQuestion[0] === "s") {
+                weekInQuestion = weekInQuestion[1];
+            }
             weeklyScores[weekInQuestion][teamToScore] = scoreForTeam;
         });
-        console.log(weeklyScores)
+
         // update DB with new scores from that week and disable submit button
         submitButton.disabled = true;
         scoreKeeper.textContent = `Scores submitted for week ${weekInQuestion}`;

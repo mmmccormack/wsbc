@@ -146,16 +146,16 @@
             'bongs' : ''
         },
         14 : {
-            'cocks' : '0',
-            'balls' : '0',
-            'glovers' : '0',
-            'bongs' : '0'
-        },
-        15 : {
             'cocks' : '',
             'glovers' : '',
             'bongs' : '',
             'balls' : ''
+        },
+        15 : {
+            'cocks' : '0',
+            'glovers' : '0',
+            'bongs' : '0',
+            'balls' : '0'
         },
         16 : {
             'cocks' : 'sem',
@@ -289,7 +289,7 @@ console.log(error)
             const schedule = document.querySelector('.schedule');
             const week = document.createElement('div');
             addWeek(schedule, week, i);
-            if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'July 30' || weeklySchedule[i-1] === 'September 3') {
+            if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
             } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
@@ -377,7 +377,6 @@ console.log(error)
         teamAndWinsRuns.sort( compare );
 
         for (let i = 3; i > -1; i--) {
-        // for (let item in teamAndWinsRuns) {
             const teamInQuestion = teamAndWinsRuns[i].team;
             const place = document.createElement('div');
             place.innerText = `${addTeamInfo(teamInQuestion)}`;
