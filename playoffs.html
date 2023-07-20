@@ -25,12 +25,12 @@
         </div>
     </div>
 
-    <hr />
+    <!-- <hr />
     <hr />
 
     <h2>This Week's Games</h2>
     <div class="upcomingGame">
-    </div>
+    </div> -->
 
     <hr />
     <hr />
@@ -201,7 +201,7 @@ if(snapshot.exists()){
     setTimeout( () => {
         populateSchedule();
         postStandings();
-        getCurrentWeek();
+        // getCurrentWeek();
         document.querySelector(`.loading`).style.display = `none`;
     }, 2000);
 } else {
