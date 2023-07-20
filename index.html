@@ -246,7 +246,8 @@ console.log(error)
         let teamCounter = 1;
         for (let item in weeklyScores[currentWeek]) {
             const teamAndScore = document.createElement('div');
-            if (weeklyScores[currentWeek][item] === '' || weeklyScores[currentWeek][item] === 'sem') {
+            if (weeklyScores[currentWeek][item] === '') {
+            // if (weeklyScores[currentWeek][item] === '' || weeklyScores[currentWeek][item] === 'sem') {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}`;
             } else {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[currentWeek][item]}`;
@@ -296,9 +297,9 @@ console.log(error)
             if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
-            // } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
-                // week.innerText = 'Semi Finals' 
-                // week.classList.add(`holiday`);
+            } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
+                week.innerText = 'Semi Finals' 
+                week.classList.add(`holiday`);
             } else {
                 populateTeams(week, i);
                 addVersusAndGameTimes(week);
