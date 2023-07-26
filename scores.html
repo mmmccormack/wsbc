@@ -128,9 +128,8 @@
                 scoreForTeam = score;
             }
             // each team gets the score added to the input box for the week in question added to an object for the week's scores
-            const teamToScore = team.id.slice(0, -1);
+            const teamToScore = team["id"].replace(/[0-9]/g, '');
             weekInQuestion = team.id.slice(-2);
-            console.log(team.id)
             if (weekInQuestion[0] === "s") {
                 weekInQuestion = weekInQuestion[1];
             }
