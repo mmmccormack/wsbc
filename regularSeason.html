@@ -16,7 +16,7 @@
     </div>
     <h1>West Side Baseball Club</h1>
     <h2 class="loading">Loading...</h2>
-    <h2>Season Standings</h2>
+    <h2>Current Standings</h2>
     <div class="standings">
         <div class="legend">
             <div>Team</div>
@@ -25,17 +25,17 @@
         </div>
     </div>
 
-    <!-- <hr />
+    <hr />
     <hr />
 
     <h2>This Week's Games</h2>
     <div class="upcomingGame">
-    </div> -->
+    </div>
 
     <hr />
     <hr />
 
-    <h2>Playoff Schedule</h2>
+    <h2>Full Season Schedule</h2>
     <div class="schedule">
     </div>
 
@@ -56,7 +56,6 @@
       messagingSenderId: "167176217443",
       appId: "1:167176217443:web:1cb69cd0f4e8bcc8bc2956"
     };
-
   
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
@@ -165,10 +164,10 @@
             'balls' : 'sem'
         },
         17 : {
-            'balls' : 'sem',
-            'glovers' : 'sem',
+            'cocks' : 'sem',
             'bongs' : 'sem',
-            'cocks' : 'sem'
+            'glovers' : 'sem',
+            'balls' : 'sem'
         },
         18 : {
             'cocks' : 'sem',
@@ -201,7 +200,7 @@ if(snapshot.exists()){
     setTimeout( () => {
         populateSchedule();
         postStandings();
-        // getCurrentWeek();
+        getCurrentWeek();
         document.querySelector(`.loading`).style.display = `none`;
     }, 2000);
 } else {
@@ -229,7 +228,7 @@ console.log(error)
 
     }
 
-    const teamAndWinsRuns = [];
+    const teamAndWinsRuns =[];
 
     const addTeamInfo = team => {
         if (team === 'bongs') {
@@ -245,16 +244,13 @@ console.log(error)
 
     const populateTeams = (week, currentWeek) => {
         let teamCounter = 1;
-        const weekToAdd = weeklyScores[currentWeek];
-
-        for (let item in weekToAdd) {
+        for (let item in weeklyScores[currentWeek]) {
             const teamAndScore = document.createElement('div');
-            if (weekToAdd[item] === '' || weekToAdd[item] === 'sem') {
+            if (weeklyScores[currentWeek][item] === '') {
+            // if (weeklyScores[currentWeek][item] === '' || weeklyScores[currentWeek][item] === 'sem') {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}`;
-            } else if (weekToAdd[item] === 'win') {
-                teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; WIN`;
             } else {
-                teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weekToAdd[item]}`;
+                teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[currentWeek][item]}`;
             }
             week.appendChild(teamAndScore).classList.add(item, `team`, `team${teamCounter}`, `week${currentWeek}`);
             if (teamCounter == 2) {
@@ -294,16 +290,16 @@ console.log(error)
 
 
     const populateSchedule = () => {
-        for (let i = 16; i < 19; i++) {
+        for (let i = 1; i < weeklySchedule.length; i++) {
             const schedule = document.querySelector('.schedule');
             const week = document.createElement('div');
             addWeek(schedule, week, i);
             if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
-            // } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
-                // week.innerText = 'Semi Finals' 
-                // week.classList.add(`holiday`);
+            } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
+                week.innerText = 'Semi Finals' 
+                week.classList.add(`holiday`);
             } else {
                 populateTeams(week, i);
                 addVersusAndGameTimes(week);
@@ -397,13 +393,13 @@ console.log(error)
     }
 
     const getCurrentWeek = () => {
-        for (let i = 16; i < weeklySchedule.length; i++) {
-            for (let item in dbSnapshot[16]) {
-                if (dbSnapshot[16][item] === 'sem') {
+        for (let i = 1; i < weeklySchedule.length; i++) {
+            for (let item in dbSnapshot[i]) {
+                if (dbSnapshot[i][item] === '') {
                     const upcomingGame = document.querySelector('.upcomingGame');
                     const week = document.createElement('div');
-                    addWeek(upcomingGame, week, 16)
-                    populateTeams(week, 16);
+                    addWeek(upcomingGame, week, i)
+                    populateTeams(week, i);
                     addVersusAndGameTimes(week);
                     return;
                 }
