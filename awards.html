@@ -95,51 +95,52 @@
     <h1>West Side Baseball Club End of Season Awards</h1>
     <h2>We'll be selecting one MVP and one MFP from each team. Cast your votes here!</h2>
     <div class="wrapper">
+        <div class="submitting"><h2>submitting...</h2></div>
         <div class="inputBox">
             <h3>Most Valuable Player</h3>
             <h4>Pick any two players from any teams that you think were the best all around players this season. If you don't know the person's name, describe them as best as you can!</h4>
 
-                <input type="text" name="mvpOneName" id="mvpOneName" placeholder="Please type player here">
-                <select name="mvpOneTeam" id="mvpOneTeam">
-                    <option value="Select Team" selected disabled hidden>Select Team</option>
-                    <option value="Lucille Balls">The Lucille Balls</option>
-                    <option value="Modern Glovers">The Modern Glovers</option>
-                    <option value="Northcocks">Northcocks</option>
-                    <option value="Bongs for Kitties">Bongs for Kitties</option>
-                </select>
+            <select name="mvpOneTeam" id="mvpOneTeam">
+                <option value="Select Team" selected disabled hidden>Select Team</option>
+                <option value="Lucille Balls">The Lucille Balls</option>
+                <option value="Modern Glovers">The Modern Glovers</option>
+                <option value="Northcocks">Northcocks</option>
+                <option value="Bongs for Kitties">Bongs for Kitties</option>
+            </select>
+            <input type="text" name="mvpOneName" id="mvpOneName" placeholder="Please type player name">
 
        
-                <input type="text" name="mvpTwoName" id="mvpTwoName" placeholder="Please type player here">
-                <select name="mvpTwoTeam" id="mvpTwoTeam">
-                    <option value="Select Team" selected disabled hidden>Select Team</option>
-                    <option value="Lucille Balls">The Lucille Balls</option>
-                    <option value="Modern Glovers">The Modern Glovers</option>
-                    <option value="Northcocks">Northcocks</option>
-                    <option value="Bongs for Kitties">Bongs for Kitties</option>
-                </select>
+            <select name="mvpTwoTeam" id="mvpTwoTeam">
+                <option value="Select Team" selected disabled hidden>Select Team</option>
+                <option value="Lucille Balls">The Lucille Balls</option>
+                <option value="Modern Glovers">The Modern Glovers</option>
+                <option value="Northcocks">Northcocks</option>
+                <option value="Bongs for Kitties">Bongs for Kitties</option>
+            </select>
+            <input type="text" name="mvpTwoName" id="mvpTwoName" placeholder="Please type player name">
       
         </div>
         <div class="inputBox">
             <h3>Most Fun and Friendly Player</h3>
             <h4>Pick any two players from any teams that you think were the most fun to play against this season. If you don't know the person's name, describe them as best as you can!</h4>
 
-                <input type="text" name="mfpOneName" id="mfpOneName" placeholder="Please type player here">
-                <select name="mfpOneTeam" id="mfpOneTeam">
-                    <option value="Select Team" selected disabled hidden>Select Team</option>
-                    <option value="Lucille Balls">The Lucille Balls</option>
-                    <option value="Modern Glovers">The Modern Glovers</option>
-                    <option value="Northcocks">Northcocks</option>
-                    <option value="Bongs for Kitties">Bongs for Kitties</option>
-                </select>
+            <select name="mfpOneTeam" id="mfpOneTeam">
+                <option value="Select Team" selected disabled hidden>Select Team</option>
+                <option value="Lucille Balls">The Lucille Balls</option>
+                <option value="Modern Glovers">The Modern Glovers</option>
+                <option value="Northcocks">Northcocks</option>
+                <option value="Bongs for Kitties">Bongs for Kitties</option>
+            </select>
+            <input type="text" name="mfpOneName" id="mfpOneName" placeholder="Please type player name">
 
-                <input type="text" name="mfpTwoName" id="mfpTwoName" placeholder="Please type player here">
-                <select name="mfpTwoTeam" id="mfpTwoTeam">
-                    <option value="Select Team" selected disabled hidden>Select Team</option>
-                    <option value="Lucille Balls">The Lucille Balls</option>
-                    <option value="Modern Glovers">The Modern Glovers</option>
-                    <option value="Northcocks">Northcocks</option>
-                    <option value="Bongs for Kitties">Bongs for Kitties</option>
-                </select>
+            <select name="mfpTwoTeam" id="mfpTwoTeam">
+                <option value="Select Team" selected disabled hidden>Select Team</option>
+                <option value="Lucille Balls">The Lucille Balls</option>
+                <option value="Modern Glovers">The Modern Glovers</option>
+                <option value="Northcocks">Northcocks</option>
+                <option value="Bongs for Kitties">Bongs for Kitties</option>
+            </select>
+            <input type="text" name="mfpTwoName" id="mfpTwoName" placeholder="Please type player name">
 
         </div>
         <button id="submitButton">Submit</button>
@@ -147,6 +148,8 @@
 </body>
 
 <script type="module">
+
+    document.querySelector(".submitting").style.display = "none";
 
     // Import the functions you need from the SDKs you need
   
@@ -205,9 +208,13 @@
         document.querySelector("#mfpTwoName").value = "";
         document.querySelector("#mfpTwoTeam").value = "Select Team";
 
+        const inputBoxes = document.querySelectorAll(".inputBox")
+        inputBoxes.forEach( box => box.style.display = "none")
+        document.querySelector(".submitting").style.display = "block";
+
         setTimeout( () => {
             window.location.href = "./thanks.html"
-        }, 1000);
+        }, 2000);
     });
 </script>
 </html>
