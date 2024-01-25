@@ -64,7 +64,7 @@
 
     const gameTimes = [`8:00pm`, `9:00pm`];
 
-    const weeklySchedule = ['May 5','May 12', 'May 19', 'May 26', 'June 2', 'June 9', 'June 16', 'June 23', 'June 30', 'July 7', 'July 14', 'July 21', 'July 28', 'August 4', 'August 11', 'August 18', 'August 25', 'September 1', 'playoffs'];
+    const weeklySchedule = ['May 5','May 12', 'May 19', 'May 26', 'June 2', 'June 9', 'June 16', 'June 23', 'June 30', 'July 7', 'July 14', 'July 21', 'July 28', 'August 4', 'August 11', 'August 18', 'August 25', 'September 1'];
 
     const weeklyScores = {
         1 : {
@@ -80,16 +80,16 @@
             'cocks' : ''
         },
         3 : {
-            'balls' : '',
-            'bongs' : '',
-            'glovers' : '',
-            'cocks' : ''
-        },
-        4 : {
             'balls' : '0',
             'bongs' : '0',
             'glovers' : '0',
             'cocks' : '0'
+        },
+        4 : {
+            'balls' : '',
+            'bongs' : '',
+            'glovers' : '',
+            'cocks' : ''
         },
         5 : {
             'bongs' : '',
@@ -116,16 +116,16 @@
             'bongs' : ''
         },
         9 : {
-            'bongs' : '',
-            'glovers' : '',
-            'balls' : '',
-            'cocks' : ''
-        },
-        10 : {
             'bongs' : '0',
             'glovers' : '0',
             'balls' : '0',
             'cocks' : '0'
+        },
+        10 : {
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : '',
+            'cocks' : ''
         },
         11 : {
             'balls' : '',
@@ -146,16 +146,16 @@
             'bongs' : ''
         },
         14 : {
-            'cocks' : '',
-            'glovers' : '',
-            'bongs' : '',
-            'balls' : ''
-        },
-        15 : {
             'cocks' : '0',
             'glovers' : '0',
             'bongs' : '0',
             'balls' : '0'
+        },
+        15 : {
+            'cocks' : 'sem',
+            'glovers' : 'sem',
+            'bongs' : 'sem',
+            'balls' : 'sem'
         },
         16 : {
             'cocks' : 'sem',
@@ -170,16 +170,10 @@
             'balls' : 'sem'
         },
         18 : {
-            'cocks' : 'sem',
-            'bongs' : 'sem',
-            'glovers' : 'sem',
-            'balls' : 'sem'
-        },
-        19 : {
-            'balls' : '0',
+            'cocks' : '0',
             'bongs' : '0',
             'glovers' : '0',
-            'cocks' : '0'
+            'balls' : '0'
         }
     };
 
@@ -393,6 +387,7 @@ console.log(error)
     const getCurrentWeek = () => {
         for (let i = 1; i < weeklySchedule.length; i++) {
             for (let item in dbSnapshot[i]) {
+                console.log(dbSnapshot[i])
                 if (dbSnapshot[i][item] === '') {
                     const upcomingGame = document.querySelector('.upcomingGame');
                     const week = document.createElement('div');
