@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="logo">
-        <img src="./wsbc_logo.JPG" alt="">
+        <img src="./wsbc_logo2.svg" alt="">
     </div>
     <h1>West Side Baseball Club</h1>
     <h2 class="loading">Loading...</h2>
@@ -64,7 +64,7 @@
 
     const gameTimes = [`8:00pm`, `9:00pm`];
 
-    const weeklySchedule = ['April 30','May 7', 'May 14', 'May 21', 'May 28', 'June 4', 'June 11', 'June 18', 'June 25', 'July 2', 'July 9', 'July 16', 'July 23', 'July 30', 'August 6', 'August 13', 'August 20', 'August 27', 'September 3', 'playoffs'];
+    const weeklySchedule = ['May 5','May 12', 'May 19', 'May 26', 'June 2', 'June 9', 'June 16', 'June 23', 'June 30', 'July 7', 'July 14', 'July 21', 'July 28', 'August 4', 'August 11', 'August 18', 'August 25', 'September 1', 'playoffs'];
 
     const weeklyScores = {
         1 : {
@@ -263,7 +263,7 @@ console.log(error)
 
     const addWeek = (weekDiv, week, currentWeek) => {
         const weekHeading = document.createElement('h2');
-        if (currentWeek === 16 || currentWeek === 17 || currentWeek === 18) {
+        if (currentWeek === 15 || currentWeek === 16 || currentWeek === 17) {
             weekDiv.appendChild(weekHeading).innerHTML = `Semi-Finals - ${weeklySchedule[currentWeek-1]}`;
         } else {
             weekDiv.appendChild(weekHeading).innerHTML = `Week ${currentWeek} - ${weeklySchedule[currentWeek-1]}`;
@@ -294,10 +294,10 @@ console.log(error)
             const schedule = document.querySelector('.schedule');
             const week = document.createElement('div');
             addWeek(schedule, week, i);
-            if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
+            if (weeklySchedule[i-1] === 'May 19' || weeklySchedule[i-1] === 'June 30' || weeklySchedule[i-1] === 'August 4' || weeklySchedule[i-1] === 'September 1') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
-            } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
+            } else if (weeklySchedule[i-1] === 'August 11' || weeklySchedule[i-1] === 'August 18' || weeklySchedule[i-1] === 'August 25') { 
                 week.innerText = 'Semi Finals' 
                 week.classList.add(`holiday`);
             } else {
@@ -362,20 +362,18 @@ console.log(error)
         // post standings inside div
         const standings = document.querySelector(`.standings`);
 
-
-
-        // this is repeated so try to make it more modular
         for (let team in totalStandings.wins) {
             const teamInfo = {};
             teamInfo.team = team;
-            teamInfo.winsRuns = `${totalStandings.wins[team]}0${totalStandings.runs[team]}`;
-            teamInfo.winsRuns = ~~teamInfo.winsRuns;
+            teamInfo.wins = totalStandings.wins[team].toString();
+            teamInfo.runs = totalStandings.runs[team].toString();
             teamAndWinsRuns.push(teamInfo)
         }
 
-        const compare = ( a, b ) => b - a
-        
-        teamAndWinsRuns.sort( compare );
+        // sort teams in array based on wins, and then by runs if they have equal wins
+        teamAndWinsRuns.sort((a,b)=> (a.wins.localeCompare(b.wins) || a.runs - b.runs));
+
+
 
         // standings are sorted in reverse order, so the for loop is run backwards to go through the array
         for (let i = 3; i > -1; i--) {
