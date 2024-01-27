@@ -108,6 +108,7 @@
             item.addEventListener('dragenter', handleDragEnter);
             item.addEventListener('dragleave', handleDragLeave);
             item.addEventListener('dragend', handleDragEnd);
+            item.addEventListener('touchcancel', handleDragEnd);
             item.addEventListener('drop', handleDrop);
             item.addEventListener('touchend', handleDrop);
         });
