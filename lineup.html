@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Set Lineup</title>
+</head>
+
+<body>
+    <div class="container">
+        <div draggable="true" class="box" id="gabe">gabe</div>
+        <div draggable="true" class="box" id="jake">jake</div>
+        <div draggable="true" class="box" id="julie">julie</div>
+        <div draggable="true" class="box" id="joe">joe</div>
+        <div draggable="true" class="box" id="kraemer">kraemer</div>
+        <div draggable="true" class="box" id="kristy">kristy</div>
+        <div draggable="true" class="box" id="pat">pat</div>
+        <div draggable="true" class="box" id="tyler">tyler</div>
+        <div draggable="true" class="box" id="shawna">shawna</div>
+        <div draggable="true" class="box" id="steve">steve</div>
+        <div draggable="true" class="box" id="warren">warren</div>
+        <div draggable="true" class="box" id="taylor">taylor</div>
+    </div>
+</body>
+<script>
+    const roster = {
+        'kristy': 'f',
+        'julie': 'f',
+        'shawna': 'f',
+        'taylor': 'f',
+        'pat': 'm',
+        'tyler': 'm',
+        'steve': 'm',
+        'gabe': 'm',
+        'warren': 'm',
+        'jake': 'm',
+        'kraemer': 'm',
+        'joe': 'm',
+        'gabe': 'm',
+    }
+
+
+    document.addEventListener('DOMContentLoaded', (e) => {
+
+        const handleDragStart = e => {
+            e.target.style.opacity = '0.4';
+            dragSrcEl = e.target;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+        }
+
+        const handleDragEnd = e => {
+            e.target.style.opacity = '1';
+            items.forEach(item => item.classList.remove('over'));
+        }
+
+        const handleDragOver = e => {
+            e.preventDefault();
+            return false;
+        }
+
+        const handleDragEnter = e => e.target.classList.add('over');
+
+        const handleDragLeave = e => e.target.classList.remove('over');
+
+        const handleDrop = e => {
+            e.stopPropagation();
+            if (dragSrcEl !== e.target) {
+                dragSrcEl.innerHTML = e.target.innerHTML;
+                dragSrcEl.id = e.target.id;
+                e.target.innerHTML = e.dataTransfer.getData('text/html');
+                e.target.id = e.dataTransfer.getData('text/html');
+            }
+
+            items.forEach( item => item.classList.remove('red'))
+
+            for (let item = 0; item < items.length; item++) {
+                let batterDragged = items[item];
+                let batterAhead; 
+                if (batterDragged.previousElementSibling == null) {
+                    batterAhead = items[items.length - 1];
+                } else {
+                    batterAhead = batterDragged.previousElementSibling;
+                }
+                let batterBehind;
+                if (batterDragged.nextElementSibling == null) {
+                    batterBehind = items[0];
+                } else {
+                    batterBehind = batterDragged.nextElementSibling;
+                }
+                if (roster[batterAhead.textContent] === 'm' && roster[batterDragged.textContent] === 'm' && roster[batterBehind.textContent] === 'm') {
+                    batterAhead.classList.add('red');
+                    batterDragged.classList.add('red');
+                    batterBehind.classList.add('red');
+                }
+            }
+            return false;
+        }
+
+        const items = document.querySelectorAll('.container .box');
+        items.forEach( item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragover', handleDragOver);
+            item.addEventListener('dragenter', handleDragEnter);
+            item.addEventListener('dragleave', handleDragLeave);
+            item.addEventListener('dragend', handleDragEnd);
+            item.addEventListener('drop', handleDrop);
+        });
+    });
+
+</script>
+
+</html>

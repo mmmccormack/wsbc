@@ -40,7 +40,7 @@
         flex-direction: column;
         font-family: 'Poppins', sans-serif;
         text-align: center;
-        background: black;
+        background: #050505;
         color: aliceblue;
     }
     .wrapper {
@@ -250,6 +250,27 @@
     .resetScreen {
         max-width:600px;
         margin:40px auto;
+    }
+    /* lineup screen */
+    .container {
+        display: grid;
+        grid-template-rows: repeat(5, 1fr);
+        gap: 10px;
+        width: 200px;
+        margin: 0 auto;
+    }
+    .box {
+        border: 3px solid dodgerblue;
+        border-radius: .5em;
+        padding: 10px;
+        cursor: move;
+    }
+    .red {
+        border: 3px solid tomato;
+    }
+
+    .box.over {
+        border: 3px dotted #666;
     }
 
     @media (max-width: 890px) {
