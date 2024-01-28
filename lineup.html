@@ -60,8 +60,12 @@
         const handleDragStart = e => {
             e.target.style.opacity = '0.4';
             dragSrcEl = e.target;
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', e.target.innerHTML);
+            if (e.dataTransfer == undefined) {
+
+            } else {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', e.target.innerHTML);
+            }
         }
 
         const handleDragEnd = e => {
@@ -115,18 +119,18 @@
             return false;
         }
 
+
+
+
+
         const items = document.querySelectorAll('.container .box');
         items.forEach( item => {
             item.addEventListener('dragstart', handleDragStart);
-            item.addEventListener('touchstart', handleDragStart);
             item.addEventListener('dragover', handleDragOver);
-            item.addEventListener('touchmove', handleDragOver);
             item.addEventListener('dragenter', handleDragEnter);
             item.addEventListener('dragleave', handleDragLeave);
-            item.addEventListener('touchcancel', handleDragLeave);
             item.addEventListener('dragend', handleDragEnd);
             item.addEventListener('drop', handleDrop);
-            item.addEventListener('touchend', handleDrop);
         });
     });
 
