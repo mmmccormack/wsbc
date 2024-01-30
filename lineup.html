@@ -55,7 +55,6 @@
         'gabe': 'switch',
     }
 
-
     document.addEventListener('DOMContentLoaded', (e) => {
 
         const handleDragStart = e => {
@@ -119,11 +118,7 @@
             }
             return false;
         }
-
-
-
-
-
+        
         const items = document.querySelectorAll('.container .box');
         items.forEach( item => {
             item.addEventListener('dragstart', handleDragStart);
