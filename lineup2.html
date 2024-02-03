@@ -25,7 +25,6 @@
   }
 </style>
 <body>
-<h1>Drag and Drop Lineup</h1>
 <div class="lineup-container">
     <h3>Roster</h3>
     <h3>Lineup</h3>
@@ -98,33 +97,32 @@ const roster = {
     }
     function handleDrop(ev) {
         ev.preventDefault();
-        // Get the id within the drag source element
+
         var id = ev.dataTransfer.getData("text");
-        if (dragSrcEl.parentElement.id === "lineup") {
+        if (dragSrcEl.parentElement.id === "lineup" && ev.target.id !== "roster") {
             if (dragSrcEl !== ev.target) {
                 dragSrcEl.innerHTML = ev.target.innerHTML;
                 dragSrcEl.id = ev.target.id;
                 ev.target.innerHTML = ev.dataTransfer.getData('text');
                 ev.target.id = ev.dataTransfer.getData('text');
             }
+        } else if (dragSrcEl.parentElement.id === "lineup" && ev.target.id === "roster") {
+            const rosterContainer = ev.target;
+            rosterContainer.appendChild(dragSrcEl);
         }
         // Only Move the element if the source and destination ids are both "move"
-        if (ev.target.id == "lineup") {
+        if (ev.target.id === "lineup") {
             const batterAddedToLineup = document.getElementById(id);
             ev.target.appendChild(batterAddedToLineup);
         }
-
-        
-
     }
     function handleDragEnd(ev) {
       // Restore source's border
-    //   ev.target.classList.remove('over');
-    const lineupItems = document.querySelectorAll('.lineup .box');
+      ev.target.classList.remove('over');
+        const lineupItems = document.querySelectorAll('.lineup .box');
         lineupItems.forEach( item => {
             item.classList.remove('red', 'left', 'right', 'switch', 'over');
             item.classList.add(stances[item.innerText]);
-            console.log(item.classList)
         })
         if (lineupItems.length >= 3) {
             for (let item = 0; item < lineupItems.length; item++) {
