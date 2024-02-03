@@ -3,13 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Set Lineup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet"> 
+    <title>West Side Baseball Club</title>
 </head>
-
+<style>
+  .lineup, .roster {
+    border: 5px solid blue;
+    width: 150px;
+    height: 540px;
+  }
+  .lineup-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 300px;
+    margin: 0 auto;
+  }
+</style>
 <body>
-    <div class="container">
+<div class="lineup-container">
+    <h3>Roster</h3>
+    <h3>Lineup</h3>
+    <div class="roster" id="roster">
         <div draggable="true" class="box switch" id="gabe">gabe</div>
         <div draggable="true" class="box right" id="jake">jake</div>
         <div draggable="true" class="box left" id="julie">julie</div>
@@ -23,10 +42,16 @@
         <div draggable="true" class="box right" id="warren">warren</div>
         <div draggable="true" class="box right" id="taylor">taylor</div>
     </div>
+     <div class="lineup" id="lineup">
+
+     </div>
+</div>
+
 </body>
 <script src="./DragDropTouch.js"></script>
 <script>
-    const roster = {
+
+const roster = {
         'kristy': 'f',
         'julie': 'f',
         'shawna': 'f',
@@ -55,58 +80,62 @@
         'gabe': 'switch',
     }
 
-    document.addEventListener('DOMContentLoaded', (e) => {
+    function handleDragStart(ev) {
+        dragSrcEl = ev.target;
+     // Change the source element's background color to signify drag has started
+     ev.target.classList.add('over');
+     // Add the id of the drag source element to the drag data payload so
+     // it is available when the drop event is fired
+     ev.dataTransfer.setData("text", ev.target.id);
+     // Tell the browser both copy and move are possible
+     ev.effectAllowed = "move";
+    }
+    function handleDragOver(ev) {
+     // Change the target element's border to signify a drag over event
+     // has occurred
+     ev.preventDefault();
+    }
+    function handleDrop(ev) {
+        ev.preventDefault();
 
-        const handleDragStart = e => {
-            e.target.style.opacity = '0.4';
-            dragSrcEl = e.target;
-            if (e.dataTransfer == undefined) {
-
-            } else {
-                e.dataTransfer.effectAllowed = 'move';
-                e.dataTransfer.setData('text/html', e.target.innerHTML);
+        var id = ev.dataTransfer.getData("text");
+        if (dragSrcEl.parentElement.id === "lineup" && ev.target.id !== "roster") {
+            if (dragSrcEl !== ev.target) {
+                dragSrcEl.innerHTML = ev.target.innerHTML;
+                dragSrcEl.id = ev.target.id;
+                ev.target.innerHTML = ev.dataTransfer.getData('text');
+                ev.target.id = ev.dataTransfer.getData('text');
             }
+        } else if (dragSrcEl.parentElement.id === "lineup" && ev.target.id === "roster") {
+            const rosterContainer = ev.target;
+            rosterContainer.appendChild(dragSrcEl);
         }
-
-        const handleDragEnd = e => {
-            e.target.style.opacity = '1';
-            items.forEach(item => item.classList.remove('over'));
+        // Only Move the element if the source and destination ids are both "move"
+        if (ev.target.id === "lineup") {
+            const batterAddedToLineup = document.getElementById(id);
+            ev.target.appendChild(batterAddedToLineup);
         }
-
-        const handleDragOver = e => {
-            e.preventDefault();
-            return false;
-        }
-
-        const handleDragEnter = e => e.target.classList.add('over');
-
-        const handleDragLeave = e => e.target.classList.remove('over');
-
-        const handleDrop = e => {
-            e.stopPropagation();
-            if (dragSrcEl !== e.target) {
-                dragSrcEl.innerHTML = e.target.innerHTML;
-                dragSrcEl.id = e.target.id;
-                e.target.innerHTML = e.dataTransfer.getData('text/html');
-                e.target.id = e.dataTransfer.getData('text/html');
-            }
-
-            items.forEach( item => {
-                item.classList.remove('red', 'left', 'right', 'switch', 'over');
-                item.classList.add(stances[item.innerText]);
-            })
-
-            for (let item = 0; item < items.length; item++) {
-                let batterDragged = items[item];
+    }
+    function handleDragEnd(ev) {
+      // Restore source's border
+      ev.target.classList.remove('over');
+        const lineupItems = document.querySelectorAll('.lineup .box');
+        lineupItems.forEach( item => {
+            item.classList.remove('red', 'left', 'right', 'switch', 'over');
+            item.classList.add(stances[item.innerText]);
+        })
+        if (lineupItems.length >= 3) {
+            for (let item = 0; item < lineupItems.length; item++) {
+                let batterDragged = lineupItems[item];
                 let batterAhead; 
                 if (batterDragged.previousElementSibling == null) {
-                    batterAhead = items[items.length - 1];
+                    batterAhead = lineupItems[lineupItems.length - 1];
                 } else {
                     batterAhead = batterDragged.previousElementSibling;
                 }
                 let batterBehind;
                 if (batterDragged.nextElementSibling == null) {
-                    batterBehind = items[0];
+                    batterBehind = lineupItems[0];
                 } else {
                     batterBehind = batterDragged.nextElementSibling;
                 }
@@ -116,20 +145,18 @@
                     batterBehind.classList.add('red');
                 }
             }
-            return false;
         }
-        
-        const items = document.querySelectorAll('.container .box');
+        return false;
+    }
+    
+    const items = document.querySelectorAll('.roster .box');
         items.forEach( item => {
             item.addEventListener('dragstart', handleDragStart);
-            item.addEventListener('dragover', handleDragOver);
-            item.addEventListener('dragenter', handleDragEnter);
-            item.addEventListener('dragleave', handleDragLeave);
             item.addEventListener('dragend', handleDragEnd);
-            item.addEventListener('drop', handleDrop);
         });
-    });
-
-</script>
-
+        document.querySelector('.lineup').addEventListener('dragover', handleDragOver);
+        document.querySelector('.roster').addEventListener('dragover', handleDragOver);
+        document.querySelector('.lineup').addEventListener('drop', handleDrop);
+        document.querySelector('.roster').addEventListener('drop', handleDrop);
+    </script>
 </html>
