@@ -300,7 +300,7 @@
       }
       .printout, 
       .uneven {
-        overflow-y: scroll;
+        overflow: scroll;
         -webkit-overflow-scrolling: touch;
       }
       /* .printout,
