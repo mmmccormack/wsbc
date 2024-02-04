@@ -284,6 +284,23 @@
         border-top-right-radius: 70%;
         border-bottom-right-radius: 70%;
     }
+    .printout, 
+    .uneven,
+    .lineup,
+    .roster {
+        border: 5px solid blue;
+        width: 150px;
+        height: 540px;
+      }
+      .lineup-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0 auto;
+      }
+      .printout, 
+      .uneven {
+        overflow-y: scroll;
+      }
 
     @media (max-width: 890px) {
         .week {

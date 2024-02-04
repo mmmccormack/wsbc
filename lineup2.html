@@ -11,19 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet"> 
     <title>West Side Baseball Club</title>
 </head>
-<style>
-  .printout, .uneven {
-    border: 5px solid blue;
-    width: 150px;
-    height: 540px;
-    overflow-y: scroll;
-  }
-  .lineup-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 0 auto;
-  }
-</style>
 <body>
 <div class="lineup-container">
     <h3>Add<br>Lineup</h3>
@@ -38,10 +25,9 @@
 <button class="uneven-lineup">Calculate lineup</button>
 
 </body>
-<script src="./DragDropTouch.js"></script>
 <script>
 
-const roster = {
+    const roster = {
         'kristy': 'f',
         'julie': 'f',
         'shawna': 'f',
