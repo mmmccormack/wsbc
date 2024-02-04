@@ -302,7 +302,8 @@
       .uneven {
         overflow-y: scroll;
       }
-      .prinout.box {
+      .printout,
+      .printout.box {
         touch-action: pan-y;
       }
 
