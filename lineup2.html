@@ -88,22 +88,22 @@ const roster = {
         const guys = [];
         const gals = [];
         batterList.forEach(batter => {
-            if (roster[batter.value] === "m") {
+            if (roster[batter.value.toLowerCase()] === "m") {
                 guys.push(batter.value.toLowerCase());
             } else {
                 gals.push(batter.value.toLowerCase());
             }
-        })
+        });
         for (let i = 1; i < 20; i++) {
             for (let i = 0; i < rhythm.length; i++) {
                 const currentBatter = document.createElement('div');
                 currentBatter.classList.add('box');
                 let addedBatter;
-                if (roster[batterList[i].value] === "m") {
+                if (roster[batterList[i].value.toLowerCase()] === "m") {
                     addedBatter = guys.shift();
                     guys.push(addedBatter);
                 }
-                if (roster[batterList[i].value] === "f") {
+                if (roster[batterList[i].value.toLowerCase()] === "f") {
                     addedBatter = gals.shift();
                     gals.push(addedBatter);
                 }
