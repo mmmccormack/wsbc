@@ -89,9 +89,9 @@ const roster = {
         const gals = [];
         batterList.forEach(batter => {
             if (roster[batter.value] === "m") {
-                guys.push(batter.value);
+                guys.push(batter.value.toLowerCase());
             } else {
-                gals.push(batter.value);
+                gals.push(batter.value.toLowerCase());
             }
         })
         for (let i = 1; i < 20; i++) {
