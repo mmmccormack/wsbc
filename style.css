@@ -301,11 +301,12 @@
       .printout, 
       .uneven {
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
       }
-      .printout,
+      /* .printout,
       .printout.box {
         touch-action: pan-y;
-      }
+      } */
 
     @media (max-width: 890px) {
         .week {
