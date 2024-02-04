@@ -270,6 +270,7 @@
         cursor: move;
         touch-action: none;
     }
+
     .red {
         border: 3px solid tomato;
     }
@@ -300,6 +301,9 @@
       .printout, 
       .uneven {
         overflow-y: scroll;
+      }
+      .prinout.box {
+        touch-action: pan-y;
       }
 
     @media (max-width: 890px) {
