@@ -105,6 +105,7 @@
         text-align: center;
         box-shadow: 2px 2px 2px cadetblue;
         font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
     }
     button:disabled {
         background: grey;

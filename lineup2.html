@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet"> 
+    <title>West Side Baseball Club</title>
+</head>
+<style>
+  .printout, .uneven {
+    border: 5px solid blue;
+    width: 150px;
+    height: 540px;
+    overflow-y: scroll;
+  }
+  .lineup-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
+  }
+</style>
+<body>
+<div class="lineup-container">
+    <h3>Add<br>Lineup</h3>
+    <h3>Print<br>Lineup</h3>
+    <div class="uneven" id="uneven">
+       <button class="add-batter">add</button>
+    </div>
+    <div class="printout" id="printout">
+      
+    </div>
+</div>
+<button class="uneven-lineup">Calculate lineup</button>
+
+</body>
+<script src="./DragDropTouch.js"></script>
+<script>
+
+const roster = {
+        'kristy': 'f',
+        'julie': 'f',
+        'shawna': 'f',
+        'taylor': 'f',
+        'pat': 'm',
+        'tyler': 'm',
+        'steve': 'm',
+        'gabe': 'm',
+        'warren': 'm',
+        'jake': 'm',
+        'kraemer': 'm',
+        'joe': 'm'
+    }
+    const stances = {
+        'kristy': 'right',
+        'julie': 'left',
+        'shawna': 'right',
+        'taylor': 'right',
+        'pat': 'right',
+        'tyler': 'right',
+        'steve': 'right',
+        'warren': 'right',
+        'jake': 'right',
+        'kraemer': 'switch',
+        'joe': 'right',
+        'gabe': 'switch',
+    }
+
+    const addBatter = document.querySelector('.add-batter');
+    const unevenButton = document.querySelector('.uneven-lineup');
+    const unevenBox = document.querySelector('.uneven');
+    const printoutContainer = document.querySelector('.printout');
+    addBatter.addEventListener('click', () => {
+        const batterBox = document.createElement('input');
+        unevenBox.appendChild(batterBox);
+    })
+    unevenButton.addEventListener('click', () => {
+        unevenBox.style.opacity = 0.5;
+        const batterList = document.querySelectorAll('.uneven input');
+        const rhythm = [];
+        for (let i = 0; i < 3; i++) {
+            rhythm.push(roster[batterList[i].value]);
+        }
+        const guys = [];
+        const gals = [];
+        batterList.forEach(batter => {
+            if (roster[batter.value] === "m") {
+                guys.push(batter.value);
+            } else {
+                gals.push(batter.value);
+            }
+        })
+        for (let i = 1; i < 20; i++) {
+            for (let i = 0; i < rhythm.length; i++) {
+                const currentBatter = document.createElement('div');
+                currentBatter.classList.add('box');
+                let addedBatter;
+                if (roster[batterList[i].value] === "m") {
+                    addedBatter = guys.shift();
+                    guys.push(addedBatter);
+                }
+                if (roster[batterList[i].value] === "f") {
+                    addedBatter = gals.shift();
+                    gals.push(addedBatter);
+                }
+                currentBatter.innerText = addedBatter;
+                currentBatter.classList.add(stances[addedBatter]);
+                currentBatter.addEventListener('click', (e) => e.target.classList.toggle('red'));
+                printoutContainer.appendChild(currentBatter);
+            }
+        }
+    });
+    </script>
+</html>
