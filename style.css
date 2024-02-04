@@ -285,13 +285,18 @@
         border-top-right-radius: 70%;
         border-bottom-right-radius: 70%;
     }
-    .printout, 
     .uneven,
     .lineup,
     .roster {
         border: 5px solid blue;
         width: 150px;
         height: 540px;
+      }
+      .printout {
+        width: 200px;
+      }
+      .uneven {
+        overflow-y: scroll;
       }
       .lineup-container {
         display: grid;
@@ -300,13 +305,9 @@
       }
       .printout, 
       .uneven {
-        overflow: scroll;
-        -webkit-overflow-scrolling: touch;
+        margin: 0 auto;
       }
-      /* .printout,
-      .printout.box {
-        touch-action: pan-y;
-      } */
+
 
     @media (max-width: 890px) {
         .week {
