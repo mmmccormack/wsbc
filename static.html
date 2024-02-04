@@ -38,20 +38,20 @@
 <script src="./DragDropTouch.js"></script>
 <script>
 
-const roster = {
-        'kristy': 'f',
-        'julie': 'f',
-        'shawna': 'f',
-        'taylor': 'f',
-        'pat': 'm',
-        'tyler': 'm',
-        'steve': 'm',
-        'gabe': 'm',
-        'warren': 'm',
-        'jake': 'm',
-        'kraemer': 'm',
-        'joe': 'm'
-    }
+    const roster = {
+            'kristy': 'f',
+            'julie': 'f',
+            'shawna': 'f',
+            'taylor': 'f',
+            'pat': 'm',
+            'tyler': 'm',
+            'steve': 'm',
+            'gabe': 'm',
+            'warren': 'm',
+            'jake': 'm',
+            'kraemer': 'm',
+            'joe': 'm'
+        }
     const stances = {
         'kristy': 'right',
         'julie': 'left',
@@ -67,24 +67,19 @@ const roster = {
         'gabe': 'switch',
     }
 
-    function handleDragStart(ev) {
+    const handleDragStart = ev => {
         dragSrcEl = ev.target;
-     // Change the source element's background color to signify drag has started
-     ev.target.classList.add('over');
-     // Add the id of the drag source element to the drag data payload so
-     // it is available when the drop event is fired
-     ev.dataTransfer.setData("text", ev.target.id);
-     // Tell the browser both copy and move are possible
-     ev.effectAllowed = "move";
+        ev.target.classList.add('over');
+        ev.dataTransfer.setData("text", ev.target.id);
+        ev.effectAllowed = "move";
     }
-    function handleDragOver(ev) {
-     // Change the target element's border to signify a drag over event
-     // has occurred
-     ev.preventDefault();
-    }
-    function handleDrop(ev) {
-        ev.preventDefault();
 
+    const handleDragOver = ev => {
+        ev.preventDefault();
+    }
+
+    const handleDrop = ev => {
+        ev.preventDefault();
         var id = ev.dataTransfer.getData("text");
         if (dragSrcEl.parentElement.id === "lineup" && ev.target.id !== "roster") {
             if (dragSrcEl !== ev.target) {
@@ -97,15 +92,14 @@ const roster = {
             const rosterContainer = ev.target;
             rosterContainer.appendChild(dragSrcEl);
         }
-        // Only Move the element if the source and destination ids are both "move"
         if (ev.target.id === "lineup") {
             const batterAddedToLineup = document.getElementById(id);
             ev.target.appendChild(batterAddedToLineup);
         }
     }
-    function handleDragEnd(ev) {
-      // Restore source's border
-      ev.target.classList.remove('over');
+
+    const handleDragEnd = ev => {
+        ev.target.classList.remove('over');
         const lineupItems = document.querySelectorAll('.lineup .box');
         lineupItems.forEach( item => {
             item.classList.remove('red', 'left', 'right', 'switch', 'over');
@@ -141,9 +135,11 @@ const roster = {
             item.addEventListener('dragstart', handleDragStart);
             item.addEventListener('dragend', handleDragEnd);
         });
+
         document.querySelector('.lineup').addEventListener('dragover', handleDragOver);
         document.querySelector('.roster').addEventListener('dragover', handleDragOver);
         document.querySelector('.lineup').addEventListener('drop', handleDrop);
         document.querySelector('.roster').addEventListener('drop', handleDrop);
+        
     </script>
 </html>

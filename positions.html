@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet"> 
+    <title>West Side Baseball Club</title>
+</head>
+<style>
+    .position-container,
+    .roster-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin: 20px;
+        touch-action: none;
+        justify-items: center;
+    }
+    .pos-sub-container .box {
+        height: 45px;
+    }
+    .pos-sub-container,
+    .roster-grid .box {
+        width: 100px;
+        justify-items: center;
+    }
+</style>
+<body>
+    <h2>Positions</h2>
+    <div class="position-container">
+        <div class="pos-sub-container"><h3>1B</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>2B</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>3B</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>LF</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>CF</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>RF</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>SS</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>C</h3><div class="box"></div></div>
+        <div class="pos-sub-container"><h3>RV</h3><div class="box"></div></div>
+    </div>
+    <button class="clear-positions">Clear Positions</button>
+    <div class="roster-grid" id="roster">
+        <div draggable="true" class="box switch" id="gabe">gabe</div>
+        <div draggable="true" class="box right" id="jake">jake</div>
+        <div draggable="true" class="box left" id="julie">julie</div>
+        <div draggable="true" class="box right" id="joe">joe</div>
+        <div draggable="true" class="box switch" id="kraemer">kraemer</div>
+        <div draggable="true" class="box right" id="kristy">kristy</div>
+        <div draggable="true" class="box right" id="pat">pat</div>
+        <div draggable="true" class="box right" id="tyler">tyler</div>
+        <div draggable="true" class="box right" id="shawna">shawna</div>
+        <div draggable="true" class="box right" id="steve">steve</div>
+        <div draggable="true" class="box right" id="warren">warren</div>
+        <div draggable="true" class="box right" id="taylor">taylor</div>
+    </div>
+</body>
+<script src="./DragDropTouch.js"></script>
+<script>
+    const handleDragStart = ev => {
+        dragSrcEl = ev.target;
+        ev.target.classList.add('over');
+        ev.dataTransfer.setData("text", ev.target.id);
+        ev.effectAllowed = "copy";
+    }
+    const handleDragOver = ev => {
+            ev.preventDefault();
+    }
+    const handleDrop = ev => {
+        ev.preventDefault();
+        var id = ev.dataTransfer.getData("text");
+        if (dragSrcEl !== ev.target) {
+            ev.target.innerHTML = ev.dataTransfer.getData('text');
+            ev.target.id = ev.dataTransfer.getData('text');
+            dragSrcEl.classList.remove('over');
+        }
+    }
+    const handleDragEnd = ev => {
+      ev.target.classList.remove('over');
+        return false;
+    }
+    const clearPositions = () => {
+        dropZones.forEach(position => {
+            position.removeAttribute('id');
+            position.innerText = '';
+        })
+    }
+    const items = document.querySelectorAll('.roster-grid .box');
+        items.forEach( item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
+        });
+    const dropZones = document.querySelectorAll('.pos-sub-container .box');
+        dropZones.forEach(position => {
+            position.addEventListener('dragover', handleDragOver);
+            position.addEventListener('drop', handleDrop);
+        })
+    document.querySelector('.clear-positions').addEventListener('click', () => clearPositions());
+</script>
+</html>
