@@ -23,10 +23,10 @@
         justify-items: center;
     }
     .position-container {
-        grid-template-columns: repeat(10, 70px);
+        grid-template-columns: repeat(10, 60px);
     }
     .roster-grid {
-        grid-template-columns: repeat(5, 70px);
+        grid-template-columns: repeat(5, 60px);
     }
     .select-positions {
         display: flex;
@@ -37,7 +37,7 @@
     }
     .pos-sub-container,
     .roster-grid .box {
-        width: 70px;
+        width: 60px;
         justify-items: center;
     }
 </style>
@@ -51,7 +51,7 @@
                 <div draggable="true" class="box right" id="jakeline">jake</div>
                 <div draggable="true" class="box right" id="joeline">joe</div>
                 <div draggable="true" class="box left" id="julie">julie</div>
-                <div draggable="true" class="box switch" id="kraemer">kraemer</div>
+                <div draggable="true" class="box switch" id="krae">krae</div>
                 <div draggable="true" class="box right" id="kristy">kristy</div>
                 <div draggable="true" class="box right" id="layla">layla</div>
                 <div draggable="true" class="box right" id="pat">pat</div>
@@ -67,7 +67,6 @@
              </div>
         </div>
         <div class="select-positions">
-            <h2>Positions</h2>
             <div class="position-container">
                 <div class="empty"></div>
                 <h3>1b</h3>
@@ -150,22 +149,24 @@
                 <div class="pos-sub-container box i7"></div>
                 <div class="pos-sub-container box i7"></div>
             </div>
-            <button class="clear-positions">Clear Positions</button>
-            <div class="roster-grid" id="rosterPos">
-                <div draggable="true" class="box switch" id="gabepos">gabe</div>
-                <div draggable="true" class="box right" id="jakepos">jake</div>
-                <div draggable="true" class="box right" id="joepos">joe</div>
-                <div draggable="true" class="box left" id="juliepos">julie</div>
-                <div draggable="true" class="box switch" id="kraemerpos">kraemer</div>
-                <div draggable="true" class="box right" id="kristypos">kristy</div>
-                <div draggable="true" class="box right" id="laylapos">layla</div>
-                <div draggable="true" class="box right" id="patpos">pat</div>
-                <div draggable="true" class="box right" id="shawnapos">shawna</div>
-                <div draggable="true" class="box right" id="stevepos">steve</div>
-                <div draggable="true" class="box right" id="tylerpos">tyler</div>
-                <div draggable="true" class="box right" id="warrenpos">warren</div>
-                <div draggable="true" class="box switch" id="subpos1">sub 1</div>
-                <div draggable="true" class="box switch" id="subpos2">sub 2</div>
+            <div class="roster-and-clear">
+                <button class="clear-positions">Clear Positions</button>
+                <div class="roster-grid" id="rosterPos">
+                    <div draggable="true" class="box switch" id="gabepos">gabe</div>
+                    <div draggable="true" class="box right" id="jakepos">jake</div>
+                    <div draggable="true" class="box right" id="joepos">joe</div>
+                    <div draggable="true" class="box left" id="juliepos">julie</div>
+                    <div draggable="true" class="box switch" id="kraepos">krae</div>
+                    <div draggable="true" class="box right" id="kristypos">kristy</div>
+                    <div draggable="true" class="box right" id="laylapos">layla</div>
+                    <div draggable="true" class="box right" id="patpos">pat</div>
+                    <div draggable="true" class="box right" id="shawnapos">shawna</div>
+                    <div draggable="true" class="box right" id="stevepos">steve</div>
+                    <div draggable="true" class="box right" id="tylerpos">tyler</div>
+                    <div draggable="true" class="box right" id="warrenpos">warren</div>
+                    <div draggable="true" class="box switch" id="subpos1">sub 1</div>
+                    <div draggable="true" class="box switch" id="subpos2">sub 2</div>
+                </div>
             </div>
         </div>
     </div>

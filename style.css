@@ -266,7 +266,7 @@
     .box {
         border: 3px solid dodgerblue;
         border-radius: .5em;
-        padding: 8px;
+        padding: 5px;
         cursor: move;
         touch-action: none;
     }
@@ -292,23 +292,26 @@
     .lineup,
     .rosterLine {
         border: 5px solid blue;
-        width: 80px;
-        height: 500px;
-      }
-      .printout {
-        width: 200px;
-      }
-      .uneven {
-        overflow-y: scroll;
-      }
-      .lineup-container {
-        display: grid;
-        grid-template-columns: repeat(2, 80px);
-      }
-      .printout, 
-      .uneven {
-        margin: 0 auto;
-      }
+        width: 70px;
+        height: 415px;
+    }
+    .roster-and-clear {
+        display: flex;
+    }
+    .printout {
+    width: 200px;
+    }
+    .uneven {
+    overflow-y: scroll;
+    }
+    .lineup-container {
+    display: grid;
+    grid-template-columns: repeat(2, 70px);
+    }
+    .printout, 
+    .uneven {
+    margin: 0 auto;
+    }
 
 
     @media (max-width: 890px) {
