@@ -285,12 +285,15 @@
         border-top-right-radius: 70%;
         border-bottom-right-radius: 70%;
     }
+    .manage {
+        display: flex;
+    }
     .uneven,
     .lineup,
-    .roster {
+    .rosterLine {
         border: 5px solid blue;
-        width: 150px;
-        height: 540px;
+        width: 80px;
+        height: 500px;
       }
       .printout {
         width: 200px;
@@ -300,8 +303,7 @@
       }
       .lineup-container {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        margin: 0 auto;
+        grid-template-columns: repeat(2, 80px);
       }
       .printout, 
       .uneven {

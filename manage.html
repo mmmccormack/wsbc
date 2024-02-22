@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet"> 
+    <title>West Side Baseball Club</title>
+</head>
+<style>
+    body {
+        font-size: 70%;
+    }
+    .position-container,
+    .roster-grid {
+        display: grid;
+        margin: 20px auto;
+        touch-action: none;
+        justify-items: center;
+    }
+    .position-container {
+        grid-template-columns: repeat(10, 70px);
+    }
+    .roster-grid {
+        grid-template-columns: repeat(5, 70px);
+    }
+    .select-positions {
+        display: flex;
+        flex-direction: column;
+    }
+    .pos-sub-container.box {
+        height: 35px;
+    }
+    .pos-sub-container,
+    .roster-grid .box {
+        width: 70px;
+        justify-items: center;
+    }
+</style>
+<body>
+    <div class="manage">
+        <div class="lineup-container">
+            <h3>Roster</h3>
+            <h3>Lineup</h3>
+            <div class="rosterLine" id="rosterLine">
+                <div draggable="true" class="box switch" id="gabeline">gabe</div>
+                <div draggable="true" class="box right" id="jakeline">jake</div>
+                <div draggable="true" class="box right" id="joeline">joe</div>
+                <div draggable="true" class="box left" id="julie">julie</div>
+                <div draggable="true" class="box switch" id="kraemer">kraemer</div>
+                <div draggable="true" class="box right" id="kristy">kristy</div>
+                <div draggable="true" class="box right" id="layla">layla</div>
+                <div draggable="true" class="box right" id="pat">pat</div>
+                <div draggable="true" class="box right" id="shawna">shawna</div>
+                <div draggable="true" class="box right" id="steve">steve</div>
+                <div draggable="true" class="box right" id="tyler">tyler</div>
+                <div draggable="true" class="box right" id="warren">warren</div>
+                <div draggable="true" class="box switch" id="sub1">sub 1</div>
+                <div draggable="true" class="box switch" id="sub2">sub 2</div>
+            </div>
+             <div class="lineup" id="lineup">
+        
+             </div>
+        </div>
+        <div class="select-positions">
+            <h2>Positions</h2>
+            <div class="position-container">
+                <div class="empty"></div>
+                <h3>1b</h3>
+                <h3>2b</h3>
+                <h3>3b</h3>
+                <h3>ss</h3>
+                <h3>rf</h3>
+                <h3>cf</h3>
+                <h3>lf</h3>
+                <h3>rv</h3>
+                <h3>c</h3>
+                <h3>1</h3>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <div class="pos-sub-container box i1"></div>
+                <h3>2</h3>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <div class="pos-sub-container box i2"></div>
+                <h3>3</h3>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <div class="pos-sub-container box i3"></div>
+                <h3>4</h3>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <div class="pos-sub-container box i4"></div>
+                <h3>5</h3>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <div class="pos-sub-container box i5"></div>
+                <h3>6</h3>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <div class="pos-sub-container box i6"></div>
+                <h3>7</h3>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+                <div class="pos-sub-container box i7"></div>
+            </div>
+            <button class="clear-positions">Clear Positions</button>
+            <div class="roster-grid" id="rosterPos">
+                <div draggable="true" class="box switch" id="gabepos">gabe</div>
+                <div draggable="true" class="box right" id="jakepos">jake</div>
+                <div draggable="true" class="box right" id="joepos">joe</div>
+                <div draggable="true" class="box left" id="juliepos">julie</div>
+                <div draggable="true" class="box switch" id="kraemerpos">kraemer</div>
+                <div draggable="true" class="box right" id="kristypos">kristy</div>
+                <div draggable="true" class="box right" id="laylapos">layla</div>
+                <div draggable="true" class="box right" id="patpos">pat</div>
+                <div draggable="true" class="box right" id="shawnapos">shawna</div>
+                <div draggable="true" class="box right" id="stevepos">steve</div>
+                <div draggable="true" class="box right" id="tylerpos">tyler</div>
+                <div draggable="true" class="box right" id="warrenpos">warren</div>
+                <div draggable="true" class="box switch" id="subpos1">sub 1</div>
+                <div draggable="true" class="box switch" id="subpos2">sub 2</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./DragDropTouch.js"></script>
+<script src="./scripts.js"></script>
+
+</html>
