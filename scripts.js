@@ -101,7 +101,6 @@ const handleDragStartPos = ev => {
 const handleDragOverPos = ev => {
         ev.preventDefault();
 }
-
 const handleDropPos = ev => {
     ev.preventDefault();
     if (dragSrcElPos !== ev.target) {
@@ -115,22 +114,34 @@ const handleDragEndPos = ev => {
   ev.target.classList.remove('over');
     return false;
 }
+// additional functions
 const clearPositions = () => {
     dropZones.forEach(position => {
         position.removeAttribute('id');
         position.innerText = '';
     })
 }
+let inningCount = 1;
+const addInning = () => {
+    inningCount++;
+    const positionContainer = document.querySelector('.position-container');
+    const inningHeading = document.createElement('h3');
+    inningHeading.innerHTML = inningCount;
+    positionContainer.appendChild(inningHeading);
+    for (let i = 1; i < 10; i++) {
+        const positionSlot = document.createElement('div');
+        positionSlot.classList.add(`pos-sub-container`, `box`, `i${inningCount}`)
+        positionContainer.appendChild(positionSlot);
+    }
+    updateDropZones();
+}
 const toggleInning = inning => {
     const inningRow = document.querySelectorAll(`.${inning}`);
     inningRow.forEach(container => container.classList.toggle('red'))
 }
-const positionItems = document.querySelectorAll('.roster-grid .box');
-    positionItems.forEach( item => {
-        item.addEventListener('dragstart', handleDragStartPos);
-        item.addEventListener('dragend', handleDragEndPos);
-    });
-const dropZones = document.querySelectorAll('.pos-sub-container.box');
+
+const updateDropZones = () => {
+    const dropZones = document.querySelectorAll('.pos-sub-container.box');
     dropZones.forEach(position => {
         position.addEventListener('dragover', handleDragOverPos);
         position.addEventListener('drop', handleDropPos);
@@ -138,17 +149,27 @@ const dropZones = document.querySelectorAll('.pos-sub-container.box');
             toggleInning(position.classList[2])
         });
     })
+}
+// event listeners
+const positionItems = document.querySelectorAll('.roster-grid .box');
+positionItems.forEach( item => {
+    item.addEventListener('dragstart', handleDragStartPos);
+    item.addEventListener('dragend', handleDragEndPos);
+});
 const lineupItems = document.querySelectorAll('.rosterLine .box');
-    lineupItems.forEach( item => {
-        item.addEventListener('dragstart', handleDragStartLineup);
-        item.addEventListener('dragend', handleDragEndLineup);
-    });
+lineupItems.forEach( item => {
+    item.addEventListener('dragstart', handleDragStartLineup);
+    item.addEventListener('dragend', handleDragEndLineup);
+});
 
 document.querySelector('.lineup').addEventListener('dragover', handleDragOverLineup);
 document.querySelector('.rosterLine').addEventListener('dragover', handleDragOverLineup);
 document.querySelector('.lineup').addEventListener('drop', handleDropLineup);
 document.querySelector('.rosterLine').addEventListener('drop', handleDropLineup);
 
+updateDropZones();
+
+document.querySelector('.add-inning').addEventListener('click', () => addInning());
 document.querySelector('.clear-positions').addEventListener('click', () => clearPositions());
 
 // static lineup functions
