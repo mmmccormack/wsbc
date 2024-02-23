@@ -43,14 +43,33 @@
         justify-items: center;
     }
     .clear-positions,
-    .add-inning {
+    .add-inning,
+    .uneven-lineup,
+    .lineup-type {
         height: auto;
         padding: 10px;
         font-size: 0.8rem;
     }
+    .non-static-lineup,
+    .lineup-container {
+        display: none;
+    }
 </style>
 <body>
     <div class="manage">
+        <div class="lineup-decision">
+            <button id="static" class="lineup-type">static</button>
+            <button id="dynamic" class="lineup-type">non-static</button>
+        </div>
+        <div class="non-static-lineup">
+            <h3>Add batter names as <br>they appear to the right.</h3>
+            <div class="uneven" id="uneven">
+            <button class="add-batter">add</button>
+            </div>
+            <button class="uneven-lineup">Calculate lineup</button>
+            <div class="printout" id="printout">
+            </div>
+        </div>
         <div class="lineup-container">
             <h3>Roster</h3>
             <h3>Lineup</h3>

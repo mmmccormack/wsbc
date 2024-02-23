@@ -295,6 +295,9 @@
         width: 70px;
         height: 415px;
     }
+    .uneven {
+        width: 140px;
+    }
     .roster-and-clear {
         display: flex;
     }

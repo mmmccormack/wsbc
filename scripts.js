@@ -30,7 +30,54 @@ const stances = {
     'sub1': 'switch',
     'sub2': 'switch'
 }
+// non-static lineup functions
+const addBatter = document.querySelector('.add-batter');
+const calculateLineup = document.querySelector('.uneven-lineup');
+const unevenBox = document.querySelector('.uneven');
+const printoutContainer = document.querySelector('.printout');
+addBatter.addEventListener('click', () => {
+    const batterBox = document.createElement('input');
+    unevenBox.appendChild(batterBox);
+})
+calculateLineup.addEventListener('click', () => {
+    calculateLineup.style.display = 'none';
+    unevenBox.style.display = 'none';
+    const batterList = document.querySelectorAll('.uneven input');
+    const rhythm = [];
+    for (let i = 0; i < 3; i++) {
+        rhythm.push(roster[batterList[i].value]);
+    }
+    const guys = [];
+    const gals = [];
+    batterList.forEach(batter => {
+        if (roster[batter.value.toLowerCase()] === "m") {
+            guys.push(batter.value.toLowerCase());
+        } else {
+            gals.push(batter.value.toLowerCase());
+        }
+    });
+    for (let i = 1; i < 20; i++) {
+        for (let i = 0; i < rhythm.length; i++) {
+            const currentBatter = document.createElement('div');
+            currentBatter.classList.add('box');
+            let addedBatter;
+            if (roster[batterList[i].value.toLowerCase()] === "m") {
+                addedBatter = guys.shift();
+                guys.push(addedBatter);
+            }
+            if (roster[batterList[i].value.toLowerCase()] === "f") {
+                addedBatter = gals.shift();
+                gals.push(addedBatter);
+            }
+            currentBatter.innerText = addedBatter;
+            currentBatter.classList.add(stances[addedBatter]);
+            currentBatter.addEventListener('click', (e) => e.target.classList.toggle('red'));
+            printoutContainer.appendChild(currentBatter);
+        }
+    }
+});
 
+// static lineup functions
 const handleDragStartLineup = ev => {
     dragSrcEl = ev.target;
     ev.target.classList.add('over');
@@ -173,4 +220,11 @@ updateDropZones(inningCount);
 document.querySelector('.add-inning').addEventListener('click', () => addInning());
 document.querySelector('.clear-positions').addEventListener('click', () => clearPositions());
 
-// static lineup functions
+document.getElementById('static').addEventListener('click', () => {
+    document.querySelector('.lineup-container').style.display = 'grid';
+    document.querySelector('.lineup-decision').style.display = 'none';
+});
+document.getElementById('dynamic').addEventListener('click', () => {
+    document.querySelector('.non-static-lineup').style.display = 'grid';
+    document.querySelector('.lineup-decision').style.display = 'none';
+});
