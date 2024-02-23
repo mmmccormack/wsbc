@@ -116,12 +116,13 @@ const handleDragEndPos = ev => {
 }
 // additional functions
 const clearPositions = () => {
+    const dropZones = document.querySelectorAll('.pos-sub-container.box');
     dropZones.forEach(position => {
         position.removeAttribute('id');
         position.innerText = '';
     })
 }
-let inningCount = 1;
+let inningCount = 0;
 const addInning = () => {
     inningCount++;
     const positionContainer = document.querySelector('.position-container');
@@ -130,25 +131,23 @@ const addInning = () => {
     positionContainer.appendChild(inningHeading);
     for (let i = 1; i < 10; i++) {
         const positionSlot = document.createElement('div');
-        positionSlot.classList.add(`pos-sub-container`, `box`, `i${inningCount}`)
+        positionSlot.classList.add(`pos-sub-container`, `box`, `i${inningCount}`);
+        positionSlot.addEventListener('click', () => toggleInning(positionSlot.classList[2]));
         positionContainer.appendChild(positionSlot);
     }
-    updateDropZones();
+    updateDropZones(inningCount);
 }
 const toggleInning = inning => {
     const inningRow = document.querySelectorAll(`.${inning}`);
     inningRow.forEach(container => container.classList.toggle('red'))
 }
 
-const updateDropZones = () => {
+const updateDropZones = (inning) => {
     const dropZones = document.querySelectorAll('.pos-sub-container.box');
     dropZones.forEach(position => {
         position.addEventListener('dragover', handleDragOverPos);
         position.addEventListener('drop', handleDropPos);
-        position.addEventListener('click', () => {
-            toggleInning(position.classList[2])
-        });
-    })
+    });
 }
 // event listeners
 const positionItems = document.querySelectorAll('.roster-grid .box');
@@ -167,7 +166,9 @@ document.querySelector('.rosterLine').addEventListener('dragover', handleDragOve
 document.querySelector('.lineup').addEventListener('drop', handleDropLineup);
 document.querySelector('.rosterLine').addEventListener('drop', handleDropLineup);
 
-updateDropZones();
+addInning();
+updateDropZones(inningCount);
+
 
 document.querySelector('.add-inning').addEventListener('click', () => addInning());
 document.querySelector('.clear-positions').addEventListener('click', () => clearPositions());
