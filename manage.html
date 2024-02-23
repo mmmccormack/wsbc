@@ -42,7 +42,10 @@
         align-content: center;
         justify-items: center;
     }
-    .clear-positions {
+    .clear-positions,
+    .add-inning {
+        height: auto;
+        padding: 10px;
         font-size: 0.8rem;
     }
 </style>
@@ -88,7 +91,7 @@
             <div class="roster-and-clear">
                 <div class="buttons">
                     <button class="add-inning">Add Inning</button>
-                    <button class="clear-positions">Clear Positions</button>
+                    <button class="clear-positions">Clear All</button>
 
                 </div>
                 <div class="roster-grid" id="rosterPos">
