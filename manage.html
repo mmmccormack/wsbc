@@ -15,45 +15,6 @@
     body {
         font-size: 70%;
     }
-    .position-container,
-    .roster-grid {
-        display: grid;
-        margin: 20px auto;
-        touch-action: none;
-        justify-items: center;
-    }
-    .position-container {
-        grid-template-columns: repeat(10, 60px);
-    }
-    .roster-grid {
-        grid-template-columns: repeat(5, 60px);
-    }
-    .select-positions {
-        display: flex;
-        flex-direction: column;
-    }
-    .pos-sub-container.box {
-        height: 35px;
-    }
-    .pos-sub-container,
-    .roster-grid .box {
-        width: 60px;
-        display: grid;
-        align-content: center;
-        justify-items: center;
-    }
-    .clear-positions,
-    .add-inning,
-    .uneven-lineup,
-    .lineup-type {
-        height: auto;
-        padding: 10px;
-        font-size: 0.8rem;
-    }
-    .non-static-lineup,
-    .lineup-container {
-        display: none;
-    }
 </style>
 <body>
     <div class="manage">
@@ -105,13 +66,11 @@
                 <h3>lf</h3>
                 <h3>rv</h3>
                 <h3>c</h3>
-                
             </div>
             <div class="roster-and-clear">
                 <div class="buttons">
                     <button class="add-inning">Add Inning</button>
                     <button class="clear-positions">Clear Positions</button>
-
                 </div>
                 <div class="roster-grid" id="rosterPos">
                     <div draggable="true" class="box switch" id="gabepos">gabe</div>

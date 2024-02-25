@@ -315,7 +315,52 @@
     .uneven {
     margin: 0 auto;
     }
-
+    .position-container,
+    .roster-grid {
+        display: grid;
+        margin: 20px auto;
+        touch-action: none;
+        justify-items: center;
+    }
+    .position-container {
+        grid-template-columns: repeat(10, 60px);
+    }
+    .roster-grid {
+        grid-template-columns: repeat(5, 60px);
+    }
+    .select-positions {
+        display: flex;
+        flex-direction: column;
+    }
+    .pos-sub-container.box {
+        height: 35px;
+    }
+    .pos-sub-container,
+    .roster-grid .box {
+        width: 60px;
+        display: grid;
+        align-content: center;
+        justify-items: center;
+    }
+    .clear-positions,
+    .add-inning,
+    .uneven-lineup,
+    .lineup-type {
+        height: auto;
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+    .non-static-lineup,
+    .lineup-container {
+        display: none;
+        width: 150px;
+    }
+    .lineup-decision {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 150px;
+    }
 
     @media (max-width: 890px) {
         .week {
