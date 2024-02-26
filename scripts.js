@@ -5,6 +5,7 @@ const roster = {
     'pat': 'm',
     'tyler': 'm',
     'steve': 'm',
+    'calvin': 'm',
     'gabe': 'm',
     'warren': 'm',
     'jake': 'm',
@@ -24,6 +25,7 @@ const stances = {
     'warren': 'right',
     'jake': 'right',
     'krae': 'switch',
+    'calvin': 'right',
     'joe': 'right',
     'gabe': 'switch',
     'layla': 'right',
@@ -97,7 +99,7 @@ const handleDropLineup = ev => {
             ev.target.innerHTML = ev.dataTransfer.getData('text');
             ev.target.id = ev.dataTransfer.getData('text');
         }
-    } else if (dragSrcEl.parentElement.id === "lineup" && ev.target.id === "roster") {
+    } else if (dragSrcEl.parentElement.id === "lineup" && ev.target.id === "rosterLine") {
         const rosterContainer = ev.target;
         rosterContainer.appendChild(dragSrcEl);
     }

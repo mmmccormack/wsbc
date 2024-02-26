@@ -293,7 +293,12 @@
     .rosterLine {
         border: 5px solid blue;
         width: 70px;
-        height: 415px;
+        height: max-content;
+        min-height: 200px;
+        padding-bottom: 20px;
+    }
+    .lineup {
+
     }
     .uneven {
         width: 140px;
