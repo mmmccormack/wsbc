@@ -171,11 +171,16 @@ const clearPositions = () => {
         position.innerText = '';
     })
 }
+
 let inningCount = 0;
 const addInning = () => {
+    const h3List = document.querySelectorAll('.position-container h3');
+    const lastInning = h3List[h3List.length - 1].innerHTML;
+    inningCount = ~~lastInning; 
     inningCount++;
     const positionContainer = document.querySelector('.position-container');
     const inningHeading = document.createElement('h3');
+    inningHeading.classList.add(`inning${inningCount}`);
     inningHeading.innerHTML = inningCount;
     positionContainer.appendChild(inningHeading);
     for (let i = 1; i < 10; i++) {
@@ -184,14 +189,14 @@ const addInning = () => {
         positionSlot.addEventListener('click', () => toggleInning(positionSlot.classList[2]));
         positionContainer.appendChild(positionSlot);
     }
-    updateDropZones(inningCount);
+    updateDropZones();
 }
 const toggleInning = inning => {
     const inningRow = document.querySelectorAll(`.${inning}`);
     inningRow.forEach(container => container.classList.toggle('red'))
 }
 
-const updateDropZones = (inning) => {
+const updateDropZones = () => {
     const dropZones = document.querySelectorAll('.pos-sub-container.box');
     dropZones.forEach(position => {
         position.addEventListener('dragover', handleDragOverPos);
@@ -215,12 +220,12 @@ document.querySelector('.rosterLine').addEventListener('dragover', handleDragOve
 document.querySelector('.lineup').addEventListener('drop', handleDropLineup);
 document.querySelector('.rosterLine').addEventListener('drop', handleDropLineup);
 
-addInning();
+// addInning();
 updateDropZones(inningCount);
 
 
 document.querySelector('.add-inning').addEventListener('click', () => addInning());
-document.querySelector('.clear-positions').addEventListener('click', () => clearPositions());
+
 
 document.getElementById('static').addEventListener('click', () => {
     document.querySelector('.lineup-container').style.display = 'grid';

@@ -15,6 +15,9 @@
     body {
         font-size: 70%;
     }
+    button {
+        margin: 4px auto;
+    }
 </style>
 <body>
     <div class="manage">
@@ -28,8 +31,7 @@
             <button class="add-batter">add</button>
             </div>
             <button class="uneven-lineup">Calculate lineup</button>
-            <div class="printout" id="printout">
-            </div>
+            <div class="printout" id="printout"></div>
         </div>
         <div class="lineup-container">
             <h3>Roster</h3>
@@ -51,27 +53,27 @@
                 <div draggable="true" class="box switch" id="sub1">sub 1</div>
                 <div draggable="true" class="box switch" id="sub2">sub 2</div>
             </div>
-             <div class="lineup" id="lineup">
-        
-             </div>
+             <div class="lineup" id="lineup"></div>
         </div>
         <div class="select-positions">
             <div class="position-container">
                 <div class="empty"></div>
-                <h3>1b</h3>
-                <h3>2b</h3>
-                <h3>3b</h3>
-                <h3>ss</h3>
-                <h3>rf</h3>
-                <h3>cf</h3>
-                <h3>lf</h3>
-                <h3>rv</h3>
-                <h3>c</h3>
+                <h3>1B</h3>
+                <h3>2B</h3>
+                <h3>3B</h3>
+                <h3>SS</h3>
+                <h3>RF</h3>
+                <h3>CF</h3>
+                <h3>LF</h3>
+                <h3>RV</h3>
+                <h3>C</h3>
             </div>
             <div class="roster-and-clear">
                 <div class="buttons">
                     <button class="add-inning">Add Inning</button>
                     <button class="clear-positions">Clear Positions</button>
+                    <button class="clear-lineup">Clear Lineup</button>
+                    <button class="save-progress">Save</button>
                 </div>
                 <div class="roster-grid" id="rosterPos">
                     <div draggable="true" class="box right" id="calvinpos">calvin</div>
@@ -96,5 +98,208 @@
 </body>
 <script src="./DragDropTouch.js"></script>
 <script src="./scripts.js"></script>
+<script type="module">
+       // Import the functions you need from the SDKs you need
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+  import { push, getDatabase, ref, get, set} from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+  
+    // TODO: Add SDKs for Firebase products that you want to use
+  
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+  
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyDNcFkWrrtqoT-hpIGzx6IVn2NC1UtyQzg",
+        authDomain: "wsbc-dev-ebc9c.firebaseapp.com",
+        databaseURL: "https://wsbc-dev-ebc9c-default-rtdb.firebaseio.com",
+        projectId: "wsbc-dev-ebc9c",
+        storageBucket: "wsbc-dev-ebc9c.appspot.com",
+        messagingSenderId: "263028744886",
+        appId: "1:263028744886:web:27f374b1d916f35e07bc17"
+
+    };
+
+    const addInning = () => {
+        const currentInning = document.querySelectorAll('.position-container h3');
+        const lastInning = currentInning[currentInning.length -1];
+        console.log(lastInning)
+        inningCount++;
+        const positionContainer = document.querySelector('.position-container');
+        const inningHeading = document.createElement('h3');
+        inningHeading.classList.add(`inning${inningCount}`);
+        inningHeading.innerHTML = inningCount;
+        positionContainer.appendChild(inningHeading);
+        for (let i = 1; i < 10; i++) {
+            const positionSlot = document.createElement('div');
+            positionSlot.classList.add(`pos-sub-container`, `box`, `i${inningCount}`);
+            positionSlot.addEventListener('click', () => toggleInning(positionSlot.classList[2]));
+            positionContainer.appendChild(positionSlot);
+        }
+        updateDropZones();
+    }
+
+    const updateDropZones = () => {
+    const dropZones = document.querySelectorAll('.pos-sub-container.box');
+    dropZones.forEach(position => {
+        position.addEventListener('dragover', handleDragOverPos);
+        position.addEventListener('drop', handleDropPos);
+    });
+}
+  
+    // Initialize Firebase
+  
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const dbRef = ref(database);
+    let dbSnapshotPos;
+    let dbSnapshotLine;
+    get(dbRef).then((snapshot) => {
+
+        if(snapshot.exists()){
+            dbSnapshotPos = snapshot.val()['-Nrgdz1KhyRMmouNlwOQ'];
+
+            if (dbSnapshotPos !== 'positions') {
+                const savedPositionData = [];
+                for (let entry in dbSnapshotPos) {
+                    const cellData = dbSnapshotPos[entry];
+                    savedPositionData.push(cellData);
+                }
+                let inningCounter = 0;
+                savedPositionData.forEach((entry, index) => {
+                    const positionContainer = document.querySelector('.position-container');
+                    if (index % 9 == 0) {
+                        inningCounter++;
+                        const inningHeading = document.createElement('h3');
+                        inningHeading.innerHTML = inningCounter;
+                        inningHeading.classList.add(`inning${inningCounter + 1}`);
+                        positionContainer.appendChild(inningHeading);
+                    }
+                    const positionSlot = document.createElement('div');
+                    positionSlot.classList.add(`pos-sub-container`, `box`, `i${inningCounter}`);
+                    positionSlot.innerHTML = entry;
+                    positionSlot.addEventListener('click', () => toggleInning(positionSlot.classList[2]));
+                    positionContainer.appendChild(positionSlot);
+                });
+            }
+            dbSnapshotLine = snapshot.val()['-Nrlj83_NJezVu0LOtKU'];
+            if (dbSnapshotLine[dbSnapshotLine.length - 1] === 'static') {
+                document.querySelector('.lineup-decision').style.display = 'none';
+                document.querySelector('.lineup-container').style.display = 'grid';
+                // rip people in lineup out of roster and add to lineup
+                const rosterLine = document.querySelectorAll('.rosterLine .box');
+                for (let batter of rosterLine) {
+                    if (dbSnapshotLine.includes(batter.innerHTML)) {
+                        document.querySelector('.rosterLine').removeChild(batter);
+                        document.querySelector('.lineup').appendChild(batter);
+                    }
+                }
+            } else if (dbSnapshotLine[dbSnapshotLine.length - 1] === 'nonStatic') {
+                document.querySelector('.lineup-decision').style.display = 'none';
+                document.querySelector('.non-static-lineup').innerHTML = `<div class="printout" id="printout"></div>`;
+                document.querySelector('.non-static-lineup').style.display = 'flex';
+                const printout = document.querySelector('.printout');
+                dbSnapshotLine.forEach(batter => {
+                    const currentBatter = document.createElement('div');
+                    currentBatter.classList.add('box');
+                    currentBatter.innerText = batter;
+                    currentBatter.classList.add(stances[batter]);
+                    currentBatter.addEventListener('click', (e) => e.target.classList.toggle('red'));
+                    printout.appendChild(currentBatter);
+                })
+            } else {
+                document.querySelector('.lineup-decision').style.display = 'flex';
+            }
+        };
+        updateDropZones();
+    });
+
+    const saveNonStaticLineup = () => {
+        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const nonStaticLineupData = document.getElementById('printout');
+        const lineup = document.querySelectorAll('.printout .box');
+        const lineupData = Array.from(lineup);
+        const firebaseArrayLineup = [];
+        lineupData.forEach((box, index) => {
+            firebaseArrayLineup.push(box.innerHTML)
+        });
+        firebaseArrayLineup.push('nonStatic')
+        return set(childRefLine, firebaseArrayLineup);
+    }
+
+    const saveStaticLineup = () => {
+        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const nonStaticLineupData = document.getElementById('printout');
+        const lineup = document.querySelectorAll('.lineup .box');
+        const lineupData = Array.from(lineup);
+        const firebaseArrayLineup = [];
+        lineupData.forEach((box, index) => {
+            firebaseArrayLineup.push(box.innerHTML)
+        });
+        firebaseArrayLineup.push('static')
+        return set(childRefLine, firebaseArrayLineup);
+    }
+
+    const saveEverything = () => {
+        // record position data
+        const childRefPos = ref(database, '-Nrgdz1KhyRMmouNlwOQ');
+        const positions = document.querySelectorAll('.pos-sub-container');
+        const positionData = Array.from(positions);
+        const firebaseArrayPositions = [];
+        positionData.forEach((box, index) => {
+            firebaseArrayPositions.push(box.innerHTML)
+        });
+        // record lineup data
+        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const nonStaticLineupData = document.getElementById('printout');
+        const staticLineupData = document.getElementById('lineup');
+
+        if (nonStaticLineupData.innerHTML !== "" && staticLineupData.innerHTML === "") {
+            saveNonStaticLineup();
+        }
+        if (nonStaticLineupData.innerHTML === "" && staticLineupData.innerHTML !== "") {
+            saveStaticLineup();
+        }
+        return set(childRefPos, firebaseArrayPositions);
+
+    }
+    const clearPositions = () => {
+        const dropZones = document.querySelectorAll('.pos-sub-container.box');
+        dropZones.forEach(position => {
+            position.removeAttribute('id');
+            position.innerText = '';
+        });
+        const positionContainer = document.querySelector('.position-container');
+        positionContainer.innerHTML = `<div class="empty"></div>
+                <h3>1B</h3>
+                <h3>2B</h3>
+                <h3>3B</h3>
+                <h3>SS</h3>
+                <h3>RF</h3>
+                <h3>CF</h3>
+                <h3>LF</h3>
+                <h3>RV</h3>
+                <h3>C</h3>`;
+        const childRefPos = ref(database, '-Nrgdz1KhyRMmouNlwOQ');
+        return set(childRefPos, 'positions');
+    }
+
+    const clearLineup = () => {
+        document.querySelector('.non-static-lineup').style.display = 'none';
+        document.querySelector('.lineup-container').style.display = 'none';
+        document.querySelector('.lineup-decision').style.display = 'flex';
+
+        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        return set(childRefLine, 'lineup');
+    }
+
+    document.querySelector('.save-progress').addEventListener('click', () => saveEverything());
+    document.querySelector('.clear-positions').addEventListener('click', () => clearPositions());
+    document.querySelector('.clear-lineup').addEventListener('click', () => clearLineup());
+    
+    // const firebaseObj = push(dbRef, 'lineup');
+</script>
 
 </html>

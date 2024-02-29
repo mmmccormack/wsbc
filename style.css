@@ -297,9 +297,6 @@
         min-height: 200px;
         padding-bottom: 20px;
     }
-    .lineup {
-
-    }
     .uneven {
         width: 140px;
     }
@@ -307,7 +304,7 @@
         display: flex;
     }
     .printout {
-    width: 200px;
+        width: 170px;
     }
     .uneven {
     overflow-y: scroll;
@@ -348,23 +345,30 @@
         justify-items: center;
     }
     .clear-positions,
+    .clear-lineup,
     .add-inning,
     .uneven-lineup,
+    .save-progress,
     .lineup-type {
         height: auto;
         padding: 10px;
         font-size: 0.8rem;
     }
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        width: 260px;
+    }
     .non-static-lineup,
     .lineup-container {
         display: none;
-        width: 150px;
+        width: 170px;
     }
     .lineup-decision {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        width: 150px;
+        width: 170px;
     }
 
     @media (max-width: 890px) {
