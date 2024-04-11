@@ -64,8 +64,7 @@
 
     const gameTimes = [`8:00pm`, `9:00pm`];
 
-    const weeklySchedule = ['May 5','May 12', 'May 19', 'May 26', 'June 2', 'June 9', 'June 16', 'June 23', 'June 30', 'July 7', 'July 14', 'July 21', 'July 28', 'August 4', 'August 11', 'August 18', 'August 25', 'September 1'];
-
+    const weeklySchedule = ['May 5','May 12', 'May 19', 'May 26', 'June 2', 'June 9', 'June 16', 'June 23', 'June 30', 'July 7', 'July 14', 'July 21', 'July 28', 'August 4', 'August 11', 'August 18', 'August 25', 'September 1', 'September 8', 'playoffs'];
     const weeklyScores = {
         1 : {
             'glovers' : '',
@@ -152,10 +151,10 @@
             'balls' : '0'
         },
         15 : {
-            'cocks' : 'sem',
-            'glovers' : 'sem',
-            'bongs' : 'sem',
-            'balls' : 'sem'
+            'cocks' : '',
+            'glovers' : '',
+            'bongs' : '',
+            'balls' : ''
         },
         16 : {
             'cocks' : 'sem',
@@ -174,6 +173,12 @@
             'bongs' : '0',
             'glovers' : '0',
             'balls' : '0'
+        },
+        19 : {
+            'cocks' : 'sem',
+            'bongs' : 'sem',
+            'glovers' : 'sem',
+            'balls' : 'sem'
         }
     };
 
@@ -222,7 +227,7 @@ console.log(error)
 
     }
 
-    const teamAndWinsRuns =[];
+    const teamAndWinsRuns = [];
 
     const addTeamInfo = team => {
         if (team === 'bongs') {
@@ -257,7 +262,7 @@ console.log(error)
 
     const addWeek = (weekDiv, week, currentWeek) => {
         const weekHeading = document.createElement('h2');
-        if (currentWeek === 15 || currentWeek === 16 || currentWeek === 17) {
+        if (currentWeek === 16 || currentWeek === 17 || currentWeek === 19) {
             weekDiv.appendChild(weekHeading).innerHTML = `Semi-Finals - ${weeklySchedule[currentWeek-1]}`;
         } else {
             weekDiv.appendChild(weekHeading).innerHTML = `Week ${currentWeek} - ${weeklySchedule[currentWeek-1]}`;
@@ -291,7 +296,7 @@ console.log(error)
             if (weeklySchedule[i-1] === 'May 19' || weeklySchedule[i-1] === 'June 30' || weeklySchedule[i-1] === 'August 4' || weeklySchedule[i-1] === 'September 1') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
-            } else if (weeklySchedule[i-1] === 'August 11' || weeklySchedule[i-1] === 'August 18' || weeklySchedule[i-1] === 'August 25') { 
+            } else if (weeklySchedule[i-1] === 'August 18' || weeklySchedule[i-1] === 'August 25' || weeklySchedule[i-1] === 'September 8') { 
                 week.innerText = 'Semi Finals' 
                 week.classList.add(`holiday`);
             } else {
@@ -387,7 +392,6 @@ console.log(error)
     const getCurrentWeek = () => {
         for (let i = 1; i < weeklySchedule.length; i++) {
             for (let item in dbSnapshot[i]) {
-                console.log(dbSnapshot[i])
                 if (dbSnapshot[i][item] === '') {
                     const upcomingGame = document.querySelector('.upcomingGame');
                     const week = document.createElement('div');
