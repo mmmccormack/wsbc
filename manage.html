@@ -190,10 +190,11 @@
                 document.querySelector('.lineup-container').style.display = 'grid';
                 // rip people in lineup out of roster and add to lineup
                 const rosterLine = document.querySelectorAll('.rosterLine .box');
-                for (let batter of rosterLine) {
-                    if (dbSnapshotLine.includes(batter.innerHTML)) {
-                        document.querySelector('.rosterLine').removeChild(batter);
-                        document.querySelector('.lineup').appendChild(batter);
+                for (let batter of dbSnapshotLine) {
+                    if (batter !== 'static') {
+                        const batterInQuestion = document.getElementById(batter);
+                        document.querySelector('.rosterLine').removeChild(batterInQuestion);
+                        document.querySelector('.lineup').appendChild(batterInQuestion);
                     }
                 }
             } else if (dbSnapshotLine[dbSnapshotLine.length - 1] === 'nonStatic') {
