@@ -307,15 +307,16 @@
         width: 170px;
     }
     .uneven {
-    overflow-y: scroll;
+        overflow-y: scroll;
     }
     .lineup-container {
-    display: grid;
-    grid-template-columns: repeat(2, 70px);
+        display: grid;
+        grid-template-columns: repeat(2, 70px);
+        grid-template-rows: 45px auto;
     }
     .printout, 
     .uneven {
-    margin: 0 auto;
+        margin: 0 auto;
     }
     .position-container,
     .roster-grid {
