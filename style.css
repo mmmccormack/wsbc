@@ -307,6 +307,9 @@
         width: 170px;
         height: 400px;
     }
+    .printout .box {
+        width: 100px;
+    }
     .uneven,
     .printout {
         overflow-y: scroll;
