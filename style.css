@@ -367,6 +367,9 @@
         display: none;
         width: 170px;
     }
+    .non-static-lineup {
+        touch-action: pan-y;
+    }
     .lineup-decision {
         display: flex;
         flex-direction: column;
