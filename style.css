@@ -310,7 +310,6 @@
     .uneven,
     .printout {
         overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
     }
     .lineup-container {
