@@ -305,8 +305,10 @@
     }
     .printout {
         width: 170px;
+        height: 400px;
     }
-    .uneven {
+    .uneven,
+    .printout {
         overflow-y: scroll;
     }
     .lineup-container {
