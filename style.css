@@ -369,6 +369,7 @@
     }
     .non-static-lineup {
         touch-action: pan-y;
+        overflow-y: scroll;
     }
     .lineup-decision {
         display: flex;
