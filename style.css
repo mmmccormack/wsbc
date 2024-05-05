@@ -310,6 +310,7 @@
     .uneven,
     .printout {
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
     .lineup-container {
         display: grid;
@@ -368,8 +369,9 @@
         width: 170px;
     }
     .non-static-lineup {
-        touch-action: pan-y;
+        touch-action: none;
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
     .lineup-decision {
         display: flex;
