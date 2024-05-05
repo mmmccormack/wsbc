@@ -368,11 +368,6 @@
         display: none;
         width: 170px;
     }
-    .non-static-lineup {
-        touch-action: none;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-    }
     .lineup-decision {
         display: flex;
         flex-direction: column;
