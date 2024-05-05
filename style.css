@@ -309,6 +309,7 @@
     }
     .printout .box {
         width: 100px;
+        margin-left: 20px;
     }
     .uneven,
     .printout {
