@@ -21,6 +21,40 @@
 </style>
 <body>
     <div class="manage">
+        <div class="lineup-decision">
+            <button id="static" class="lineup-type">static</button>
+            <button id="dynamic" class="lineup-type">non-static</button>
+        </div>
+        <div class="non-static-lineup">
+            <h3>Add batter names as <br>they appear to the right.</h3>
+            <div class="uneven" id="uneven">
+            <button class="add-batter">add</button>
+            </div>
+            <button class="uneven-lineup">Calculate lineup</button>
+            <div class="printout" id="printout"></div>
+        </div>
+        <div class="lineup-container">
+            <h3>Roster</h3>
+            <h3>Lineup</h3>
+            <div class="rosterLine" id="rosterLine">
+                <div draggable="true" class="box right" id="calvin">calvin</div>
+                <div draggable="true" class="box switch" id="gabe">gabe</div>
+                <div draggable="true" class="box right" id="jake">jake</div>
+                <div draggable="true" class="box right" id="joe">joe</div>
+                <div draggable="true" class="box left" id="julie">julie</div>
+                <div draggable="true" class="box switch" id="krae">krae</div>
+                <div draggable="true" class="box right" id="kristy">kristy</div>
+                <div draggable="true" class="box right" id="layla">layla</div>
+                <div draggable="true" class="box right" id="pat">pat</div>
+                <div draggable="true" class="box right" id="shawna">shawna</div>
+                <div draggable="true" class="box right" id="steve">steve</div>
+                <div draggable="true" class="box right" id="tyler">tyler</div>
+                <div draggable="true" class="box right" id="warren">warren</div>
+                <div draggable="true" class="box switch" id="sub1">sub 1</div>
+                <div draggable="true" class="box switch" id="sub2">sub 2</div>
+            </div>
+             <div class="lineup" id="lineup"></div>
+        </div>
         <div class="select-positions">
             <div class="position-container">
                 <div class="empty"></div>
@@ -59,30 +93,6 @@
                     <div draggable="true" class="box switch" id="subpos2">sub 2</div>
                 </div>
             </div>
-        </div>
-        <div class="printout" id="printout"></div>
-        <div class="lineup-container">
-            <h3>Roster</h3>
-            <h3>Lineup</h3>
-            <div class="rosterLine" id="rosterLine">
-                <div draggable="true" class="box right" id="calvin">calvin</div>
-                <div draggable="true" class="box switch" id="gabe">gabe</div>
-                <div draggable="true" class="box right" id="jake">jake</div>
-                <div draggable="true" class="box right" id="joe">joe</div>
-                <div draggable="true" class="box left" id="julie">julie</div>
-                <div draggable="true" class="box switch" id="krae">krae</div>
-                <div draggable="true" class="box right" id="kristy">kristy</div>
-                <div draggable="true" class="box right" id="layla">layla</div>
-                <div draggable="true" class="box right" id="pat">pat</div>
-                <div draggable="true" class="box right" id="shawna">shawna</div>
-                <div draggable="true" class="box right" id="steve">steve</div>
-                <div draggable="true" class="box right" id="tyler">tyler</div>
-                <div draggable="true" class="box right" id="warren">warren</div>
-                <div draggable="true" class="box switch" id="sub1">sub 1</div>
-                <div draggable="true" class="box switch" id="sub2">sub 2</div>
-            </div>
-             <div class="lineup" id="lineup"></div>
-             <button id="dynamic" class="lineup-type">non-static</button>
         </div>
     </div>
 </body>
@@ -176,7 +186,9 @@
             }
             dbSnapshotLine = snapshot.val()['-Nrlj83_NJezVu0LOtKU'];
             if (dbSnapshotLine[dbSnapshotLine.length - 1] === 'static') {
-                document.querySelector('.printout').style.display = 'none';
+                document.querySelector('.lineup-decision').style.display = 'none';
+                document.querySelector('.lineup-container').style.display = 'grid';
+                // rip people in lineup out of roster and add to lineup
                 const rosterLine = document.querySelectorAll('.rosterLine .box');
                 for (let batter of dbSnapshotLine) {
                     if (batter !== 'static') {
@@ -186,41 +198,52 @@
                     }
                 }
             } else if (dbSnapshotLine[dbSnapshotLine.length - 1] === 'nonStatic') {
-                document.querySelector('.lineup-container').style.display = 'none';
+                document.querySelector('.lineup-decision').style.display = 'none';
+                document.querySelector('.non-static-lineup').innerHTML = `<div class="printout" id="printout"></div>`;
+                document.querySelector('.non-static-lineup').style.display = 'flex';
                 const printout = document.querySelector('.printout');
-                printout.style.display = 'block';
-                const lineup = document.querySelector('.lineup');
-                dbSnapshotLine.pop()
                 dbSnapshotLine.forEach(batter => {
                     const currentBatter = document.createElement('div');
                     currentBatter.classList.add('box');
                     currentBatter.innerText = batter;
                     currentBatter.classList.add(stances[batter]);
                     currentBatter.addEventListener('click', (e) => e.target.classList.toggle('red'));
-                    lineup.appendChild(currentBatter);
+                    printout.appendChild(currentBatter);
                 })
-                calcLineup();
             } else {
-                
+                document.querySelector('.lineup-decision').style.display = 'flex';
             }
         };
         updateDropZones();
     });
 
-    const saveLineup = (lineupType) => {
+    const saveNonStaticLineup = () => {
         const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const nonStaticLineupData = document.getElementById('printout');
+        const lineup = document.querySelectorAll('.printout .box');
+        const lineupData = Array.from(lineup);
+        const firebaseArrayLineup = [];
+        lineupData.forEach((box, index) => {
+            firebaseArrayLineup.push(box.innerHTML)
+        });
+        firebaseArrayLineup.push('nonStatic')
+        return set(childRefLine, firebaseArrayLineup);
+    }
+
+    const saveStaticLineup = () => {
+        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const nonStaticLineupData = document.getElementById('printout');
         const lineup = document.querySelectorAll('.lineup .box');
         const lineupData = Array.from(lineup);
         const firebaseArrayLineup = [];
         lineupData.forEach((box, index) => {
             firebaseArrayLineup.push(box.innerHTML)
         });
-        firebaseArrayLineup.push(lineupType)
+        firebaseArrayLineup.push('static')
         return set(childRefLine, firebaseArrayLineup);
     }
 
     const saveEverything = () => {
-        console.log(staticSwitch)
         // record position data
         const childRefPos = ref(database, '-Nrgdz1KhyRMmouNlwOQ');
         const positions = document.querySelectorAll('.pos-sub-container');
@@ -234,12 +257,12 @@
         const nonStaticLineupData = document.getElementById('printout');
         const staticLineupData = document.getElementById('lineup');
 
-        if (staticSwitch) {
-            saveLineup('static');
-        } else {
-            saveLineup('nonStatic');
+        if (nonStaticLineupData.innerHTML !== "" && staticLineupData.innerHTML === "") {
+            saveNonStaticLineup();
         }
-
+        if (nonStaticLineupData.innerHTML === "" && staticLineupData.innerHTML !== "") {
+            saveStaticLineup();
+        }
         return set(childRefPos, firebaseArrayPositions);
 
     }
@@ -265,9 +288,9 @@
     }
 
     const clearLineup = () => {
-        document.querySelector('.printout').style.display = 'none';
-        document.querySelector('.lineup-container').style.display = 'grid';
-        document.querySelector('.lineup').innerHTML = '';
+        document.querySelector('.non-static-lineup').style.display = 'none';
+        document.querySelector('.lineup-container').style.display = 'none';
+        document.querySelector('.lineup-decision').style.display = 'flex';
 
         const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
         return set(childRefLine, 'lineup');

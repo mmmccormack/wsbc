@@ -33,29 +33,24 @@ const stances = {
     'sub2': 'switch'
 }
 // non-static lineup functions
-const addBatter = document.querySelector('.add-batter');
-const calculateLineup = document.querySelector('.uneven-lineup');
-const unevenBox = document.querySelector('.uneven');
 const printoutContainer = document.querySelector('.printout');
-addBatter.addEventListener('click', () => {
-    const batterBox = document.createElement('input');
-    unevenBox.appendChild(batterBox);
-})
-calculateLineup.addEventListener('click', () => {
-    calculateLineup.style.display = 'none';
-    unevenBox.style.display = 'none';
-    const batterList = document.querySelectorAll('.uneven input');
+
+let staticSwitch = true;
+
+    const calcLineup = () => {
+        staticSwitch = false;
+    const batterList = document.querySelectorAll('.lineup .box');
     const rhythm = [];
     for (let i = 0; i < 3; i++) {
-        rhythm.push(roster[batterList[i].value]);
+        rhythm.push(roster[batterList[i].innerHTML]);
     }
     const guys = [];
     const gals = [];
     batterList.forEach(batter => {
-        if (roster[batter.value.toLowerCase()] === "m") {
-            guys.push(batter.value.toLowerCase());
+        if (roster[batter.innerHTML.toLowerCase()] === "m") {
+            guys.push(batter.innerHTML.toLowerCase());
         } else {
-            gals.push(batter.value.toLowerCase());
+            gals.push(batter.innerHTML.toLowerCase());
         }
     });
     for (let i = 1; i < 20; i++) {
@@ -63,11 +58,11 @@ calculateLineup.addEventListener('click', () => {
             const currentBatter = document.createElement('div');
             currentBatter.classList.add('box');
             let addedBatter;
-            if (roster[batterList[i].value.toLowerCase()] === "m") {
+            if (roster[batterList[i].innerHTML.toLowerCase()] === "m") {
                 addedBatter = guys.shift();
                 guys.push(addedBatter);
             }
-            if (roster[batterList[i].value.toLowerCase()] === "f") {
+            if (roster[batterList[i].innerHTML.toLowerCase()] === "f") {
                 addedBatter = gals.shift();
                 gals.push(addedBatter);
             }
@@ -75,9 +70,11 @@ calculateLineup.addEventListener('click', () => {
             currentBatter.classList.add(stances[addedBatter]);
             currentBatter.addEventListener('click', (e) => e.target.classList.toggle('red'));
             printoutContainer.appendChild(currentBatter);
+            printoutContainer.style.display = 'block'
+            document.querySelector('.lineup-container').style.display = 'none';
         }
     }
-});
+};
 
 // static lineup functions
 const handleDragStartLineup = ev => {
@@ -191,9 +188,28 @@ const addInning = () => {
     }
     updateDropZones();
 }
+
+const displayReservePlayers = (activePlayers) => {
+    const availablePlayers = document.querySelectorAll(`.roster-grid .box`);
+    availablePlayers.forEach(box => box.classList.remove('red'))
+    availablePlayers.forEach(player => {
+        if (!activePlayers.includes(player.innerHTML)) {
+            player.classList.toggle('red');
+        }
+    })
+}
+
+
 const toggleInning = inning => {
+    const positionContainer = document.querySelectorAll(`.position-container .box`);
+    positionContainer.forEach(box => box.classList.remove('red'))
     const inningRow = document.querySelectorAll(`.${inning}`);
-    inningRow.forEach(container => container.classList.toggle('red'))
+    const activePlayers = [];
+    inningRow.forEach(container => {
+        container.classList.toggle('red');
+        activePlayers.push(container.innerHTML)
+    });
+    displayReservePlayers(activePlayers);
 }
 
 const updateDropZones = () => {
@@ -226,12 +242,6 @@ updateDropZones(inningCount);
 
 document.querySelector('.add-inning').addEventListener('click', () => addInning());
 
-
-document.getElementById('static').addEventListener('click', () => {
-    document.querySelector('.lineup-container').style.display = 'grid';
-    document.querySelector('.lineup-decision').style.display = 'none';
-});
 document.getElementById('dynamic').addEventListener('click', () => {
-    document.querySelector('.non-static-lineup').style.display = 'grid';
-    document.querySelector('.lineup-decision').style.display = 'none';
+    calcLineup()
 });
