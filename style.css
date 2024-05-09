@@ -317,12 +317,8 @@
     .lineup-container {
         display: grid;
         grid-template-columns: repeat(2, 70px);
-        grid-template-rows: 25px 45px auto;
+        grid-template-rows: 45px 25px auto;
         border-left: 6px solid purple;
-    }
-    .lineup-type {
-        grid-area: 2 / 1 / 3 / 3;
-        width: 100%;
     }
     .position-container,
     .roster-grid {
@@ -362,6 +358,9 @@
         font-size: 0.8rem;
     }
     .lineup-type {
+        grid-area: 1 / 1 / 2 / 3; 
+        width: 100%;
+        padding: 2px;
         height: 40px;
     }
     .buttons {
