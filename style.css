@@ -296,6 +296,9 @@
         min-height: 200px;
         padding-bottom: 20px;
     }
+    .rosterLine {
+        opacity: 0.5;
+    }
     .roster-and-clear {
         display: flex;
     }
