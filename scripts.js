@@ -167,6 +167,8 @@ const clearPositions = () => {
         position.removeAttribute('id');
         position.innerText = '';
     })
+    const availablePlayers = document.querySelectorAll(`.roster-grid .box`);
+    availablePlayers.forEach(box => box.classList.remove('red'))
 }
 
 let inningCount = 0;
@@ -199,7 +201,6 @@ const displayReservePlayers = (activePlayers) => {
     })
 }
 
-
 const toggleInning = inning => {
     const positionContainer = document.querySelectorAll(`.position-container .box`);
     positionContainer.forEach(box => box.classList.remove('red'))
@@ -219,6 +220,31 @@ const updateDropZones = () => {
         position.addEventListener('drop', handleDropPos);
     });
 }
+
+// scoring functions
+const addInningScore = target => {
+    const gloversOrOthers = document.querySelector(`.${target.classList[1][0]}`);
+    target.innerHTML = ~~target.innerHTML + 1;
+    gloversOrOthers.innerHTML = ~~gloversOrOthers.innerHTML + 1;
+}
+
+const updateInningScore = target => {
+    let inningScore = prompt('Enter the score for this inning');
+    if (!~~inningScore && inningScore != 0) {
+        inningScore = prompt('Enter the score for this inning, and make it a number');
+    } else {
+        target.innerHTML = ~~inningScore;
+        const totalBox = document.querySelector(`.${target.classList[1][0]}`);
+        let scoreTotal;
+        for (let inning = 1; inning < 8; inning++) {
+            scoreTotal = ~~scoreTotal + ~~document.querySelector(`.${target.classList[1][0]}${inning}`).innerHTML;
+        }
+        totalBox.innerHTML = scoreTotal;
+    }
+
+}
+
+
 // event listeners
 const positionItems = document.querySelectorAll('.roster-grid .box');
 positionItems.forEach( item => {
@@ -230,6 +256,11 @@ lineupItems.forEach( item => {
     item.addEventListener('dragstart', handleDragStartLineup);
     item.addEventListener('dragend', handleDragEndLineup);
 });
+const inningScores = document.querySelectorAll('.inning-score');
+inningScores.forEach( inningScore => {
+    inningScore.addEventListener('click', () => addInningScore(inningScore));
+    inningScore.addEventListener('dblclick', () => updateInningScore(inningScore));
+})
 
 document.querySelector('.lineup').addEventListener('dragover', handleDragOverLineup);
 document.querySelector('.rosterLine').addEventListener('dragover', handleDragOverLineup);
