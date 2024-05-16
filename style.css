@@ -310,13 +310,12 @@
     }
     .printout .box {
         width: 100px;
-        margin-left: 10px;
     }
     .printout {
         overflow-y: scroll;
         touch-action: pan-y;
         margin: 40px 0 0 0;
-        background: darkblue;
+        background: rgb(0, 0, 50);
     }
     .lineup-container {
         display: grid;
