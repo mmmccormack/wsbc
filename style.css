@@ -388,8 +388,13 @@
     }
     .score-container {
     display: grid;
-      grid-template-columns: repeat(2, 70px);
+      grid-template-columns: repeat(3, 70px);
       grid-template-rows: 25px repeat(8, 50px);
+    }
+    .inning {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .inning-score,
     .inning-score-total {
