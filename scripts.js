@@ -261,7 +261,7 @@ inningScores.forEach( inningScore => {
     inningScore.addEventListener('click', () => addInningScore(inningScore));
     // inningScore.addEventListener('dblclick', () => updateInningScore(inningScore));
     inningScore.addEventListener('touchstart', () => {
-        setTimeout(() => { updateInningScore(inningScore)} , 2000);
+        setTimeout(() => { updateInningScore(inningScore)} , 1500);
     })
     inningScore.addEventListener('touchend', () => {
         let highestTimeoutId = setTimeout(";");
