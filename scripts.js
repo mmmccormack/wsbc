@@ -260,10 +260,10 @@ const inningScores = document.querySelectorAll('.inning-score');
 inningScores.forEach( inningScore => {
     inningScore.addEventListener('click', () => addInningScore(inningScore));
     // inningScore.addEventListener('dblclick', () => updateInningScore(inningScore));
-    inningScore.addEventListener('pointerdown', () => {
+    inningScore.addEventListener('touchstart', () => {
         setTimeout(() => { updateInningScore(inningScore)} , 2000);
     })
-    inningScore.addEventListener('pointerup', () => {
+    inningScore.addEventListener('touchend', () => {
         let highestTimeoutId = setTimeout(";");
         for (let i = 0 ; i < highestTimeoutId ; i++) {
             clearTimeout(i); 
