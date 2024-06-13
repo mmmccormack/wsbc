@@ -233,7 +233,7 @@ const updateInningScore = target => {
     if (!~~inningScore && inningScore != 0) {
         inningScore = prompt('Enter the score for this inning, and make it a number');
     } else {
-        target.innerHTML = ~~inningScore;
+        target.innerHTML = ~~inningScore-1;
         const totalBox = document.querySelector(`.${target.classList[1][0]}`);
         let scoreTotal;
         for (let inning = 1; inning < 8; inning++) {
@@ -259,7 +259,16 @@ lineupItems.forEach( item => {
 const inningScores = document.querySelectorAll('.inning-score');
 inningScores.forEach( inningScore => {
     inningScore.addEventListener('click', () => addInningScore(inningScore));
-    inningScore.addEventListener('dblclick', () => updateInningScore(inningScore));
+    // inningScore.addEventListener('dblclick', () => updateInningScore(inningScore));
+    inningScore.addEventListener('pointerdown', () => {
+        setTimeout(() => { updateInningScore(inningScore)} , 2000);
+    })
+    inningScore.addEventListener('pointerup', () => {
+        let highestTimeoutId = setTimeout(";");
+        for (let i = 0 ; i < highestTimeoutId ; i++) {
+            clearTimeout(i); 
+        }
+    })
 })
 
 document.querySelector('.lineup').addEventListener('dragover', handleDragOverLineup);
