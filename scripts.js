@@ -233,7 +233,7 @@ const updateInningScore = target => {
     if (!~~inningScore && inningScore != 0) {
         inningScore = prompt('Enter the score for this inning, and make it a number');
     } else {
-        target.innerHTML = ~~inningScore+1;
+        target.innerHTML = ~~inningScore;
         const totalBox = document.querySelector(`.${target.classList[1][0]}`);
         let scoreTotal;
         for (let inning = 1; inning < 8; inning++) {
