@@ -324,6 +324,15 @@ console.log(error)
         object[losingTeam] = '';
     }
 
+    const tie = (object, value) => {
+        const winningTeam = Object .keys(object).find(key => object[key] === value);
+        const totalWins = totalStandings.wins[winningTeam];
+        const totalRuns = totalStandings.runs[winningTeam];
+        totalStandings.wins[winningTeam] = totalWins + 0.5;
+        totalStandings.runs[winningTeam] = totalRuns + value;
+        object[winningTeam] = '';
+    }
+
     const findWinner = (scores, week) => {
         const homeScore = scores[0];
         const visScore = scores[1];
@@ -335,6 +344,11 @@ console.log(error)
         } else if (homeScore < visScore) {
             getWinningTeam(weeklyScores[week], visScore);
             getLosingTeam(weeklyScores[week], homeScore);
+            scores.shift();
+            scores.shift();
+        } else if (homeScore === visScore || visScore === homeScore) {
+            tie(weeklyScores[week], visScore);
+            tie(weeklyScores[week], homeScore);
             scores.shift();
             scores.shift();
         } else {
