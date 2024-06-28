@@ -224,8 +224,14 @@ const updateDropZones = () => {
 // scoring functions
 const addInningScore = target => {
     const gloversOrOthers = document.querySelector(`.${target.classList[1][0]}`);
+    const oldEditScore = target.firstChild;
+    oldEditScore.remove();
     target.innerHTML = ~~target.innerHTML + 1;
+    const editScore = document.createElement('span');
+    editScore.classList.add('edit-score');
+    target.prepend(editScore);
     gloversOrOthers.innerHTML = ~~gloversOrOthers.innerHTML + 1;
+    activateEditButtons();
 }
 
 const updateInningScore = target => {
@@ -233,6 +239,8 @@ const updateInningScore = target => {
     if (!~~inningScore && inningScore != 0) {
         inningScore = prompt('Enter the score for this inning, and make it a number');
     } else {
+        const oldEditScore = target.firstChild;
+        oldEditScore.remove();
         target.innerHTML = ~~inningScore;
         const totalBox = document.querySelector(`.${target.classList[1][0]}`);
         let scoreTotal;
@@ -240,8 +248,10 @@ const updateInningScore = target => {
             scoreTotal = ~~scoreTotal + ~~document.querySelector(`.${target.classList[1][0]}${inning}`).innerHTML;
         }
         totalBox.innerHTML = scoreTotal;
+        const editScore = document.createElement('span');
+        editScore.classList.add('edit-score');
+        target.prepend(editScore);
     }
-
 }
 
 
@@ -259,17 +269,18 @@ lineupItems.forEach( item => {
 const inningScores = document.querySelectorAll('.inning-score');
 inningScores.forEach( inningScore => {
     inningScore.addEventListener('click', () => addInningScore(inningScore));
-    // inningScore.addEventListener('dblclick', () => updateInningScore(inningScore));
-    inningScore.addEventListener('touchstart', () => {
-        setTimeout(() => { updateInningScore(inningScore)} , 1500);
-    })
-    inningScore.addEventListener('touchend', () => {
-        let highestTimeoutId = setTimeout(";");
-        for (let i = 0 ; i < highestTimeoutId ; i++) {
-            clearTimeout(i); 
-        }
-    })
 })
+const activateEditButtons = () => {
+    const editScores = document.querySelectorAll('.edit-score');
+    editScores.forEach( editScore => {
+        console.log('updating')
+        editScore.addEventListener('click', (e) => {
+            e.stopPropagation()
+            updateInningScore(editScore.parentElement)
+        })      
+    })
+}
+activateEditButtons();
 
 document.querySelector('.lineup').addEventListener('dragover', handleDragOverLineup);
 document.querySelector('.rosterLine').addEventListener('dragover', handleDragOverLineup);

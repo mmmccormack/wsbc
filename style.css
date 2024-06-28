@@ -403,11 +403,24 @@
         justify-content: center;
         align-items: center;
         font-size: 2rem;
+        position: relative;
     }
     .inning-score-total {
         margin-top: 5px;
         border-top: 6px solid blue;
         border-bottom: 6px solid blue;
+    }
+    .edit-score {
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 0 30px 30px 0px;
+        border-color: transparent transparent orange transparent;
+        transform: rotate(90deg);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 10;
     }
     @media (max-width: 890px) {
         .week {
