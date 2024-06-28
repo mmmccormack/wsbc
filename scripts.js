@@ -224,33 +224,31 @@ const updateDropZones = () => {
 // scoring functions
 const addInningScore = target => {
     const gloversOrOthers = document.querySelector(`.${target.classList[1][0]}`);
-    const oldEditScore = target.firstChild;
-    oldEditScore.remove();
-    target.innerHTML = ~~target.innerHTML + 1;
-    const editScore = document.createElement('span');
-    editScore.classList.add('edit-score');
-    target.prepend(editScore);
+    let inningScore = target.innerHTML.slice(32);
+    inningScore = ~~inningScore + 1;
+    target.innerHTML = `<span class="edit-score"></span>${~~inningScore}`;
     gloversOrOthers.innerHTML = ~~gloversOrOthers.innerHTML + 1;
-    activateEditButtons();
+    updateEditButtons();
 }
 
 const updateInningScore = target => {
-    let inningScore = prompt('Enter the score for this inning');
-    if (!~~inningScore && inningScore != 0) {
-        inningScore = prompt('Enter the score for this inning, and make it a number');
+    if (target === null) {
+        return;
     } else {
-        const oldEditScore = target.firstChild;
-        oldEditScore.remove();
-        target.innerHTML = ~~inningScore;
-        const totalBox = document.querySelector(`.${target.classList[1][0]}`);
-        let scoreTotal;
-        for (let inning = 1; inning < 8; inning++) {
-            scoreTotal = ~~scoreTotal + ~~document.querySelector(`.${target.classList[1][0]}${inning}`).innerHTML;
+        let inningScore = prompt('Enter the score for this inning');
+        if (!~~inningScore && inningScore != 0) {
+            inningScore = prompt('Enter the score for this inning, and make it a number');
+        } else {
+            target.innerHTML = `<span class="edit-score"></span>${inningScore}`;
+            const totalBox = document.querySelector(`.${target.classList[1][0]}`);
+            let scoreTotal;
+            for (let inning = 1; inning < 8; inning++) {
+                const boxScore = document.querySelector(`.${target.classList[1][0]}${inning}`).innerHTML.slice(32);
+                scoreTotal = ~~scoreTotal + ~~boxScore;
+            }
+            totalBox.innerHTML = scoreTotal;
+            updateEditButtons();
         }
-        totalBox.innerHTML = scoreTotal;
-        const editScore = document.createElement('span');
-        editScore.classList.add('edit-score');
-        target.prepend(editScore);
     }
 }
 
@@ -270,17 +268,16 @@ const inningScores = document.querySelectorAll('.inning-score');
 inningScores.forEach( inningScore => {
     inningScore.addEventListener('click', () => addInningScore(inningScore));
 })
-const activateEditButtons = () => {
+const updateEditButtons = () => {
     const editScores = document.querySelectorAll('.edit-score');
     editScores.forEach( editScore => {
-        console.log('updating')
         editScore.addEventListener('click', (e) => {
             e.stopPropagation()
             updateInningScore(editScore.parentElement)
-        })      
+        })
     })
 }
-activateEditButtons();
+updateEditButtons();
 
 document.querySelector('.lineup').addEventListener('dragover', handleDragOverLineup);
 document.querySelector('.rosterLine').addEventListener('dragover', handleDragOverLineup);
