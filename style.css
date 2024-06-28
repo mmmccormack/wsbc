@@ -316,13 +316,14 @@
         touch-action: pan-y;
         margin: 25px 0 0 0;
         background: rgb(0, 0, 50);
+        border-left: 6px solid purple;
+        border-right: 6px solid purple;
     }
     .lineup-container {
         display: grid;
         grid-template-columns: repeat(2, 70px);
         grid-template-rows: 45px 25px auto;
-        border-left: 6px solid purple;
-        border-right: 6px solid purple;
+        border: 6px solid purple;
     }
     .position-container,
     .roster-grid {
