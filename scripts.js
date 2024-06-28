@@ -236,8 +236,8 @@ const updateInningScore = target => {
         return;
     } else {
         let inningScore = prompt('Enter the score for this inning');
-        if (!~~inningScore && inningScore != 0) {
-            inningScore = prompt('Enter the score for this inning, and make it a number');
+        if (!~~inningScore) {
+            inningScore = 0;
         } else {
             target.innerHTML = `<span class="edit-score"></span>${inningScore}`;
             const totalBox = document.querySelector(`.${target.classList[1][0]}`);
