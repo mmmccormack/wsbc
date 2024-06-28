@@ -296,6 +296,24 @@
     const clearLineup = () => {
         document.querySelector('.printout').style.display = 'none';
         document.querySelector('.lineup-container').style.display = 'grid';
+        const rosterLine = document.querySelector('.rosterLine');
+        rosterLine.innerHTML = `
+                                <div draggable="true" class="box right" id="calvin">calvin</div>
+                                <div draggable="true" class="box switch" id="gabe">gabe</div>
+                                <div draggable="true" class="box right" id="jake">jake</div>
+                                <div draggable="true" class="box right" id="joe">joe</div>
+                                <div draggable="true" class="box left" id="julie">julie</div>
+                                <div draggable="true" class="box switch" id="krae">krae</div>
+                                <div draggable="true" class="box right" id="kristy">kristy</div>
+                                <div draggable="true" class="box right" id="layla">layla</div>
+                                <div draggable="true" class="box right" id="pat">pat</div>
+                                <div draggable="true" class="box right" id="shawna">shawna</div>
+                                <div draggable="true" class="box right" id="steve">steve</div>
+                                <div draggable="true" class="box right" id="tyler">tyler</div>
+                                <div draggable="true" class="box right" id="warren">warren</div>
+                                <div draggable="true" class="box switch" id="sub1">sub 1</div>
+                                <div draggable="true" class="box switch" id="sub2">sub 2</div>
+                                `;
         document.querySelector('.lineup').innerHTML = '';
 
         const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
