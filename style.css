@@ -314,7 +314,7 @@
     .printout {
         overflow-y: scroll;
         touch-action: pan-y;
-        margin: 40px 0 0 0;
+        margin: 25px 0 0 0;
         background: rgb(0, 0, 50);
     }
     .lineup-container {
@@ -327,7 +327,7 @@
     .position-container,
     .roster-grid {
         display: grid;
-        margin: 20px auto;
+        margin: 0px auto 20px auto;
         touch-action: none;
         justify-items: center;
     }
@@ -358,7 +358,7 @@
     .save-progress,
     .lineup-type {
         height: auto;
-        padding: 10px;
+        padding: 6px 10px;
         font-size: 0.8rem;
     }
     .lineup-type {
