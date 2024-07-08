@@ -39,42 +39,42 @@ let staticSwitch = true;
 
     const calcLineup = () => {
         staticSwitch = false;
-    const batterList = document.querySelectorAll('.lineup .box');
-    const rhythm = [];
-    for (let i = 0; i < 3; i++) {
-        rhythm.push(roster[batterList[i].innerHTML]);
-    }
-    const guys = [];
-    const gals = [];
-    batterList.forEach(batter => {
-        if (roster[batter.innerHTML.toLowerCase()] === "m") {
-            guys.push(batter.innerHTML.toLowerCase());
-        } else {
-            gals.push(batter.innerHTML.toLowerCase());
+        const batterList = document.querySelectorAll('.lineup .box');
+        const rhythm = [];
+        for (let i = 0; i < 3; i++) {
+            rhythm.push(roster[batterList[i].innerHTML]);
         }
-    });
-    for (let i = 1; i < 20; i++) {
-        for (let i = 0; i < rhythm.length; i++) {
-            const currentBatter = document.createElement('div');
-            currentBatter.classList.add('box');
-            let addedBatter;
-            if (roster[batterList[i].innerHTML.toLowerCase()] === "m") {
-                addedBatter = guys.shift();
-                guys.push(addedBatter);
+        const guys = [];
+        const gals = [];
+        batterList.forEach(batter => {
+            if (roster[batter.innerHTML.toLowerCase()] === "m") {
+                guys.push(batter.innerHTML.toLowerCase());
+            } else {
+                gals.push(batter.innerHTML.toLowerCase());
             }
-            if (roster[batterList[i].innerHTML.toLowerCase()] === "f") {
-                addedBatter = gals.shift();
-                gals.push(addedBatter);
+        });
+        for (let i = 1; i < 20; i++) {
+            for (let i = 0; i < rhythm.length; i++) {
+                const currentBatter = document.createElement('div');
+                currentBatter.classList.add('box');
+                let addedBatter;
+                if (roster[batterList[i].innerHTML.toLowerCase()] === "m") {
+                    addedBatter = guys.shift();
+                    guys.push(addedBatter);
+                }
+                if (roster[batterList[i].innerHTML.toLowerCase()] === "f") {
+                    addedBatter = gals.shift();
+                    gals.push(addedBatter);
+                }
+                currentBatter.innerText = addedBatter;
+                currentBatter.classList.add(stances[addedBatter]);
+                currentBatter.addEventListener('click', (e) => e.target.classList.toggle('red'));
+                printoutContainer.appendChild(currentBatter);
+                printoutContainer.style.display = 'block'
+                document.querySelector('.lineup-container').style.display = 'none';
             }
-            currentBatter.innerText = addedBatter;
-            currentBatter.classList.add(stances[addedBatter]);
-            currentBatter.addEventListener('click', (e) => e.target.classList.toggle('red'));
-            printoutContainer.appendChild(currentBatter);
-            printoutContainer.style.display = 'block'
-            document.querySelector('.lineup-container').style.display = 'none';
         }
-    }
-};
+    };
 
 // static lineup functions
 const handleDragStartLineup = ev => {
@@ -160,16 +160,6 @@ const handleDragEndPos = ev => {
   ev.target.classList.remove('over');
     return false;
 }
-// additional functions
-const clearPositions = () => {
-    const dropZones = document.querySelectorAll('.pos-sub-container.box');
-    dropZones.forEach(position => {
-        position.removeAttribute('id');
-        position.innerText = '';
-    })
-    const availablePlayers = document.querySelectorAll(`.roster-grid .box`);
-    availablePlayers.forEach(box => box.classList.remove('red'))
-}
 
 let inningCount = 0;
 const addInning = () => {
@@ -238,17 +228,17 @@ const updateInningScore = target => {
         let inningScore = prompt('Enter the score for this inning');
         if (!~~inningScore) {
             inningScore = 0;
-        } else {
-            target.innerHTML = `<span class="edit-score"></span>${inningScore}`;
-            const totalBox = document.querySelector(`.${target.classList[1][0]}`);
-            let scoreTotal;
-            for (let inning = 1; inning < 8; inning++) {
-                const boxScore = document.querySelector(`.${target.classList[1][0]}${inning}`).innerHTML.slice(32);
-                scoreTotal = ~~scoreTotal + ~~boxScore;
-            }
-            totalBox.innerHTML = scoreTotal;
-            updateEditButtons();
         }
+        target.innerHTML = `<span class="edit-score"></span>${~~inningScore}`;
+        console.log(inningScore)
+        const totalBox = document.querySelector(`.${target.classList[1][0]}`);
+        let scoreTotal;
+        for (let inning = 1; inning < 8; inning++) {
+            const boxScore = document.querySelector(`.${target.classList[1][0]}${inning}`).innerHTML.slice(32);
+            scoreTotal = ~~scoreTotal + ~~boxScore;
+        }
+        totalBox.innerHTML = scoreTotal;
+        updateEditButtons();
     }
 }
 

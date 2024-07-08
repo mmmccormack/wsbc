@@ -278,6 +278,8 @@
             position.removeAttribute('id');
             position.innerText = '';
         });
+        const availablePlayers = document.querySelectorAll(`.roster-grid .box`);
+        availablePlayers.forEach(box => box.classList.remove('red'))
         const positionContainer = document.querySelector('.position-container');
         positionContainer.innerHTML = `<div class="empty"></div>
                 <h3>1B</h3>
