@@ -12,35 +12,119 @@
 </head>
 <body>
     <div class="logo">
-        <img src="./wsbc_logo2.svg" alt="">
+        <img src="./wsbc_logo2.svg" alt="West Side Baseball Club">
     </div>
-    <h1>West Side Baseball&nbsp;Club</h1>
-    <h2 class="loading">Loading...</h2>
-    <h2>Current Standings</h2>
+    <h1>West Side Baseball Club</h1>
+    <!-- <h2 class="loading">Loading...</h2> -->
+    <h2>Season Standings</h2>
     <div class="standings">
         <div class="legend">
             <div>Team</div>
             <div class="numbers">Wins</div>
             <div class="numbers">Runs</div>
         </div>
+        <div class="cocks place">Northcocks<div class="numbers">8.5</div>
+            <div class="numbers">192</div>
+        </div>
+        <div class="glovers place">Modern Glovers<div class="numbers">5.5</div>
+            <div class="numbers">201</div>
+        </div>
+        <div class="balls place">Lucille Balls<div class="numbers">5</div>
+            <div class="numbers">199</div>
+        </div>
+        <div class="bongs place">Bongs 4 Kitties<div class="numbers">5</div>
+            <div class="numbers">174</div>
+        </div>
     </div>
 
-    <hr />
+    <!-- <hr />
     <hr />
 
     <h2>This Week's Games</h2>
     <div class="upcomingGame">
-    </div>
+    </div> -->
 
     <hr />
     <hr />
 
-    <h2>Full Season Schedule</h2>
+    <h2>Post-Season Schedule</h2>
     <div class="schedule">
+        <h2>Semi-Finals - August 18</h2>
+        <div class="week">
+            <div class="cocks team team1 week16">Northcocks</div>
+            <div class="bongs team team2 week16 secondTeam">Bongs 4 Kitties</div>
+            <div class="spacer"></div>
+            <div class="glovers team team3 week16">Modern Glovers</div>
+            <div class="balls team team4 week16 secondTeam">Lucille Balls</div>
+            <div class="home1">
+                <h6>home</h6>
+            </div>
+            <div class="away1">
+                <h6>away</h6>
+            </div>
+            <h4 class="versus versus1">vs</h4>
+            <h5 class="gameTime gameTime1">8:00pm</h5>
+            <div class="home2">
+                <h6>home</h6>
+            </div>
+            <div class="away2">
+                <h6>away</h6>
+            </div>
+            <h4 class="versus versus2">vs</h4>
+            <h5 class="gameTime gameTime2">9:00pm</h5>
+        </div>
+        <h2>Semi-Finals - August 25</h2>
+        <div class="week">
+            <div class="bongs team team1 week17">Bongs 4 Kitties</div>
+            <div class="cocks team team2 week17 secondTeam">Northcocks</div>
+            <div class="spacer"></div>
+            <div class="balls team team4 week17">Lucille Balls</div>
+            <div class="glovers team team3 week17 secondTeam">Modern Glovers</div>
+            <div class="home1">
+                <h6>home</h6>
+            </div>
+            <div class="away1">
+                <h6>away</h6>
+            </div>
+            <h4 class="versus versus1">vs</h4>
+            <h5 class="gameTime gameTime1">8:00pm</h5>
+            <div class="home2">
+                <h6>home</h6>
+            </div>
+            <div class="away2">
+                <h6>away</h6>
+            </div>
+            <h4 class="versus versus2">vs</h4>
+            <h5 class="gameTime gameTime2">9:00pm</h5>
+        </div>
+        <h2>Semi-Finals - September 1</h2>
+        <div class="week">
+            <div class="cocks team team1 week16">Northcocks</div>
+            <div class="bongs team team2 week16 secondTeam">Bongs 4 Kitties</div>
+            <div class="spacer"></div>
+            <div class="glovers team team3 week16">Modern Glovers</div>
+            <div class="balls team team4 week16 secondTeam">Lucille Balls</div>
+            <div class="home1">
+                <h6>home</h6>
+            </div>
+            <div class="away1">
+                <h6>away</h6>
+            </div>
+            <h4 class="versus versus1">vs</h4>
+            <h5 class="gameTime gameTime1">8:00pm</h5>
+            <div class="home2">
+                <h6>home</h6>
+            </div>
+            <div class="away2">
+                <h6>away</h6>
+            </div>
+            <h4 class="versus versus2">vs</h4>
+            <h5 class="gameTime gameTime2">9:00pm</h5>
+        </div>
     </div>
 
 </body>
-<script type="module">
+<!-- <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
@@ -56,6 +140,7 @@
       messagingSenderId: "167176217443",
       appId: "1:167176217443:web:1cb69cd0f4e8bcc8bc2956"
     };
+
   
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
@@ -64,7 +149,8 @@
 
     const gameTimes = [`8:00pm`, `9:00pm`];
 
-    const weeklySchedule = ['May 5','May 12', 'May 19', 'May 26', 'June 2', 'June 9', 'June 16', 'June 23', 'June 30', 'July 7', 'July 14', 'July 21', 'July 28', 'August 4', 'August 11', 'August 18', 'August 25', 'September 1', 'September 8', 'playoffs'];
+    const weeklySchedule = ['April 30','May 7', 'May 14', 'May 21', 'May 28', 'June 4', 'June 11', 'June 18', 'June 25', 'July 2', 'July 9', 'July 16', 'July 23', 'July 30', 'August 6', 'August 13', 'August 20', 'August 27', 'September 3', 'playoffs'];
+
     const weeklyScores = {
         1 : {
             'glovers' : '',
@@ -79,16 +165,16 @@
             'cocks' : ''
         },
         3 : {
-            'balls' : '0',
-            'bongs' : '0',
-            'glovers' : '0',
-            'cocks' : '0'
-        },
-        4 : {
             'balls' : '',
             'bongs' : '',
             'glovers' : '',
             'cocks' : ''
+        },
+        4 : {
+            'balls' : '0',
+            'bongs' : '0',
+            'glovers' : '0',
+            'cocks' : '0'
         },
         5 : {
             'bongs' : '',
@@ -115,16 +201,16 @@
             'bongs' : ''
         },
         9 : {
-            'bongs' : '0',
-            'glovers' : '0',
-            'balls' : '0',
-            'cocks' : '0'
-        },
-        10 : {
             'bongs' : '',
             'glovers' : '',
             'balls' : '',
             'cocks' : ''
+        },
+        10 : {
+            'bongs' : '0',
+            'glovers' : '0',
+            'balls' : '0',
+            'cocks' : '0'
         },
         11 : {
             'balls' : '',
@@ -145,40 +231,40 @@
             'bongs' : ''
         },
         14 : {
-            'cocks' : '0',
-            'glovers' : '0',
-            'bongs' : '0',
-            'balls' : '0'
-        },
-        15 : {
             'cocks' : '',
             'glovers' : '',
             'bongs' : '',
             'balls' : ''
         },
-        16 : {
-            'cocks' : 'sem',
-            'bongs' : 'sem',
-            'glovers' : 'sem',
-            'balls' : 'sem'
-        },
-        17 : {
-            'cocks' : 'sem',
-            'bongs' : 'sem',
-            'glovers' : 'sem',
-            'balls' : 'sem'
-        },
-        18 : {
+        15 : {
             'cocks' : '0',
-            'bongs' : '0',
             'glovers' : '0',
+            'bongs' : '0',
             'balls' : '0'
         },
-        19 : {
-            'cocks' : 'sem',
-            'bongs' : 'sem',
+        16 : {
             'glovers' : 'sem',
-            'balls' : 'sem'
+            'balls' : 'sem',
+            'cocks' : 'sem',
+            'bongs' : 'sem'
+        },
+        17 : {
+            'bongs' : 'sem',
+            'cocks' : 'sem',
+            'balls' : 'sem',
+            'glovers' : 'sem'
+        },
+        18 : {
+            'glovers' : 'sem',
+            'balls' : 'sem',
+            'cocks' : 'sem',
+            'bongs' : 'sem'
+        },
+        19 : {
+            'balls' : '0',
+            'bongs' : '0',
+            'glovers' : '0',
+            'cocks' : '0'
         }
     };
 
@@ -199,7 +285,7 @@ if(snapshot.exists()){
     setTimeout( () => {
         populateSchedule();
         postStandings();
-        getCurrentWeek();
+        // getCurrentWeek();
         document.querySelector(`.loading`).style.display = `none`;
     }, 2000);
 } else {
@@ -243,13 +329,16 @@ console.log(error)
 
     const populateTeams = (week, currentWeek) => {
         let teamCounter = 1;
-        for (let item in weeklyScores[currentWeek]) {
+        const weekToAdd = weeklyScores[currentWeek];
+
+        for (let item in weekToAdd) {
             const teamAndScore = document.createElement('div');
-            if (weeklyScores[currentWeek][item] === '') {
-            // if (weeklyScores[currentWeek][item] === '' || weeklyScores[currentWeek][item] === 'sem') {
+            if (weekToAdd[item] === '' || weekToAdd[item] === 'sem') {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}`;
+            } else if (weekToAdd[item] === 'win') {
+                teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; WIN`;
             } else {
-                teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[currentWeek][item]}`;
+                teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weekToAdd[item]}`;
             }
             week.appendChild(teamAndScore).classList.add(item, `team`, `team${teamCounter}`, `week${currentWeek}`);
             if (teamCounter == 2) {
@@ -262,7 +351,7 @@ console.log(error)
 
     const addWeek = (weekDiv, week, currentWeek) => {
         const weekHeading = document.createElement('h2');
-        if (currentWeek === 16 || currentWeek === 17 || currentWeek === 19) {
+        if (currentWeek === 16 || currentWeek === 17 || currentWeek === 18) {
             weekDiv.appendChild(weekHeading).innerHTML = `Semi-Finals - ${weeklySchedule[currentWeek-1]}`;
         } else {
             weekDiv.appendChild(weekHeading).innerHTML = `Week ${currentWeek} - ${weeklySchedule[currentWeek-1]}`;
@@ -289,16 +378,16 @@ console.log(error)
 
 
     const populateSchedule = () => {
-        for (let i = 1; i < weeklySchedule.length; i++) {
+        for (let i = 16; i < 19; i++) {
             const schedule = document.querySelector('.schedule');
             const week = document.createElement('div');
             addWeek(schedule, week, i);
-            if (weeklySchedule[i-1] === 'May 19' || weeklySchedule[i-1] === 'June 30' || weeklySchedule[i-1] === 'August 4' || weeklySchedule[i-1] === 'September 1') {
+            if (weeklySchedule[i-1] === 'May 21' || weeklySchedule[i-1] === 'July 2' || weeklySchedule[i-1] === 'August 6' || weeklySchedule[i-1] === 'September 3') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
-            } else if (weeklySchedule[i-1] === 'August 18' || weeklySchedule[i-1] === 'August 25' || weeklySchedule[i-1] === 'September 8') { 
-                week.innerText = 'Semi Finals' 
-                week.classList.add(`holiday`);
+            // } else if (weeklySchedule[i-1] === 'August 13' || weeklySchedule[i-1] === 'August 20' || weeklySchedule[i-1] === 'August 27') { 
+                // week.innerText = 'Semi Finals' 
+                // week.classList.add(`holiday`);
             } else {
                 populateTeams(week, i);
                 addVersusAndGameTimes(week);
@@ -324,15 +413,6 @@ console.log(error)
         object[losingTeam] = '';
     }
 
-    const tie = (object, value) => {
-        const winningTeam = Object .keys(object).find(key => object[key] === value);
-        const totalWins = totalStandings.wins[winningTeam];
-        const totalRuns = totalStandings.runs[winningTeam];
-        totalStandings.wins[winningTeam] = totalWins + 0.5;
-        totalStandings.runs[winningTeam] = totalRuns + value;
-        object[winningTeam] = '';
-    }
-
     const findWinner = (scores, week) => {
         const homeScore = scores[0];
         const visScore = scores[1];
@@ -344,11 +424,6 @@ console.log(error)
         } else if (homeScore < visScore) {
             getWinningTeam(weeklyScores[week], visScore);
             getLosingTeam(weeklyScores[week], homeScore);
-            scores.shift();
-            scores.shift();
-        } else if (homeScore === visScore || visScore === homeScore) {
-            tie(weeklyScores[week], visScore);
-            tie(weeklyScores[week], homeScore);
             scores.shift();
             scores.shift();
         } else {
@@ -375,18 +450,20 @@ console.log(error)
         // post standings inside div
         const standings = document.querySelector(`.standings`);
 
+
+
+        // this is repeated so try to make it more modular
         for (let team in totalStandings.wins) {
             const teamInfo = {};
             teamInfo.team = team;
-            teamInfo.wins = totalStandings.wins[team].toString();
-            teamInfo.runs = totalStandings.runs[team].toString();
+            teamInfo.winsRuns = `${totalStandings.wins[team]}0${totalStandings.runs[team]}`;
+            teamInfo.winsRuns = ~~teamInfo.winsRuns;
             teamAndWinsRuns.push(teamInfo)
         }
 
-        // sort teams in array based on wins, and then by runs if they have equal wins
-        teamAndWinsRuns.sort((a,b)=> (a.wins.localeCompare(b.wins) || a.runs - b.runs));
-
-
+        const compare = ( a, b ) => b - a
+        
+        teamAndWinsRuns.sort( compare );
 
         // standings are sorted in reverse order, so the for loop is run backwards to go through the array
         for (let i = 3; i > -1; i--) {
@@ -404,13 +481,13 @@ console.log(error)
     }
 
     const getCurrentWeek = () => {
-        for (let i = 1; i < weeklySchedule.length; i++) {
-            for (let item in dbSnapshot[i]) {
-                if (dbSnapshot[i][item] === '') {
+        for (let i = 16; i < weeklySchedule.length; i++) {
+            for (let item in dbSnapshot[16]) {
+                if (dbSnapshot[16][item] === 'sem') {
                     const upcomingGame = document.querySelector('.upcomingGame');
                     const week = document.createElement('div');
-                    addWeek(upcomingGame, week, i)
-                    populateTeams(week, i);
+                    addWeek(upcomingGame, week, 16)
+                    populateTeams(week, 16);
                     addVersusAndGameTimes(week);
                     return;
                 }
@@ -419,5 +496,5 @@ console.log(error)
     }
     
 
-</script>
+</script> -->
 </html>
