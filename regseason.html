@@ -157,16 +157,16 @@
             'balls' : ''
         },
         16 : {
-            'cocks' : 'sem',
-            'bongs' : 'sem',
-            'glovers' : 'sem',
-            'balls' : 'sem'
+            'cocks' : '',
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : ''
         },
         17 : {
-            'cocks' : 'sem',
-            'bongs' : 'sem',
-            'glovers' : 'sem',
-            'balls' : 'sem'
+            'cocks' : '',
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : ''
         },
         18 : {
             'cocks' : '0',
@@ -197,8 +197,8 @@ if(snapshot.exists()){
 
     });
     setTimeout( () => {
-        populateSchedule();
         postStandings();
+        populateSchedule();
         getCurrentWeek();
         document.querySelector(`.loading`).style.display = `none`;
     }, 2000);
@@ -240,6 +240,46 @@ console.log(error)
             return 'Modern Glovers';
         }
     };
+    const addPlayoffTeamInfo = team => {
+        if (team == 'Bongs') {
+            return 'bongs';
+        } else if (team == 'Lucille Balls') {
+            return 'balls';
+        } else if (team == 'Northcocks') {
+            return 'cocks';
+        } else if (team == 'Modern Glovers') {
+            return 'glovers';
+        }
+    };
+
+    const populatePlayoffs = () => {
+        const currentStandings = document.querySelectorAll('.place');
+        const standingsArray = [];
+        currentStandings.forEach(place => {
+            const row = place.innerText;
+            const num = row.indexOf(row.match(/\d/));
+            const fullTeamName = row.slice(0, num).trim();
+            standingsArray.push(addPlayoffTeamInfo(fullTeamName));
+        });
+        weeklyScores['16'] = {
+            [standingsArray[0]] : '',
+            [standingsArray[3]] : '',
+            [standingsArray[1]] : '',
+            [standingsArray[2]] : '',
+        }
+        weeklyScores['17'] = {
+            [standingsArray[3]] : '',
+            [standingsArray[0]] : '',
+            [standingsArray[2]] : '',
+            [standingsArray[1]] : '',
+        }
+        weeklyScores['19'] = {
+            [standingsArray[0]] : '',
+            [standingsArray[3]] : '',
+            [standingsArray[1]] : '',
+            [standingsArray[2]] : '',
+        }
+    }
 
     const populateTeams = (week, currentWeek) => {
         let teamCounter = 1;
@@ -263,7 +303,7 @@ console.log(error)
     const addWeek = (weekDiv, week, currentWeek) => {
         const weekHeading = document.createElement('h2');
         if (currentWeek === 16 || currentWeek === 17 || currentWeek === 19) {
-            weekDiv.appendChild(weekHeading).innerHTML = `Semi-Finals - ${weeklySchedule[currentWeek-1]}`;
+            weekDiv.appendChild(weekHeading).innerHTML = `Week ${currentWeek} - Semi-Finals - ${weeklySchedule[currentWeek-1]}`;
         } else {
             weekDiv.appendChild(weekHeading).innerHTML = `Week ${currentWeek} - ${weeklySchedule[currentWeek-1]}`;
         }
@@ -297,13 +337,12 @@ console.log(error)
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
             } else if (weeklySchedule[i-1] === 'August 18' || weeklySchedule[i-1] === 'August 25' || weeklySchedule[i-1] === 'September 8') { 
-                week.innerText = 'Semi Finals' 
-                week.classList.add(`holiday`);
+                populateTeams(week, i);
+                addVersusAndGameTimes(week);
             } else {
                 populateTeams(week, i);
                 addVersusAndGameTimes(week);
             }
-            
         };
     }
 
@@ -401,6 +440,7 @@ console.log(error)
             place.appendChild(winTotal).innerText = totalStandings.wins[teamInQuestion]
             place.appendChild(runTotal).innerText = totalStandings.runs[teamInQuestion]
         }
+        populatePlayoffs();
     }
 
     const getCurrentWeek = () => {
