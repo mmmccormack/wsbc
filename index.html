@@ -74,7 +74,7 @@
     button {
         width: 50%;
         max-width: 200px;
-        height: 5vh;
+        height: 10vh;
         margin: 20px auto;
         text-align: center;
         background: skyblue;
@@ -82,7 +82,8 @@
         border-radius: 10px;
         text-align: center;
         box-shadow: 2px 2px 2px cadetblue;
-        font-size: 1rem;
+        font-size: 2rem;
+        font-family: 'Poppins', sans-serif;
     }
     .inputBox {
         display: flex;
@@ -110,7 +111,6 @@
     <h1>West Side Baseball Club End of Season Awards</h1>
     <h2>We'll be selecting one MVP and one MFP from each team. Cast your votes here!</h2>
     <div class="wrapper">
-        <div class="submitting"><h2>submitting...</h2></div>
         <div class="inputBox" style="border: 4px solid tomato;">
             <h3>Most Valuable Player</h3>
             <h4>Pick any two players from any teams that you think were the best all around players this season. If you don't know the person's name, describe them in an accurate but hilarious fashion.</h4>
@@ -158,6 +158,7 @@
             <input type="text" name="mfpTwoName" id="mfpTwoName" placeholder="Please type player name">
 
         </div>
+        <div class="submitting"><h2>submitting...</h2></div>
         <button id="submitButton">Submit</button>
     </div>
     <div class="schedule" style="margin-top: 40px;"></div>
@@ -276,7 +277,7 @@
         document.querySelector("#mfpTwoTeam").value = "Select Team";
 
         const inputBoxes = document.querySelectorAll(".inputBox")
-        inputBoxes.forEach( box => box.style.display = "none")
+        inputBoxes.forEach( box => box.style.visibility = "hidden")
         document.querySelector(".submitting").style.display = "block";
 
         setTimeout( () => {
