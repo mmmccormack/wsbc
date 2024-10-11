@@ -446,7 +446,6 @@ console.log(error)
         teamAndWinsRuns.sort((a,b)=> (a.wins.localeCompare(b.wins) || a.ties.localeCompare(b.ties) || a.runs - b.runs));
 
 
-
         // standings are sorted in reverse order, so the for loop is run backwards to go through the array
         for (let i = 3; i > -1; i--) {
             const teamInQuestion = teamAndWinsRuns[i].team;
