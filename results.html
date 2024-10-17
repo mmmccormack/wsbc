@@ -11,6 +11,8 @@
     <title>WSBC End of Season Voting Results</title>
 </head>
 <body>
+    <h1>WSBC Awards Voting Results</h1>
+    <h2 class="scoreAdmin">You <span class="unlock">must</span> be an administrator to view results.</h2>
     <div class="resultsContainer"></div>
 </body>
 <script type="module">
@@ -60,7 +62,7 @@
                 Most Valuable Player (1): ${userVotes.mostValOneName}, ${userVotes.mostValOneTeam}<br>
                 Most Valuable Player (2): ${userVotes.mostValTwoName}, ${userVotes.mostValTwoTeam}<br>
                 `;
-
+                newDiv.style.display = 'none';
                 const resultsContainer = document.getElementById("resultsContainer");
                 document.body.insertBefore(newDiv, resultsContainer);
             })
@@ -71,6 +73,15 @@
     }).catch((error) => {
         console.log(error)
     });
+
+    const unlock = document.querySelector('.unlock');
+    const scoreAdmin = document.querySelector('.scoreAdmin');
+
+    unlock.addEventListener('click', () => {
+        scoreAdmin.style.display = 'none';
+        const results = document.querySelectorAll('p');
+        results.forEach( result => result.style.display = 'block');
+    })
 
 
 </script>
