@@ -15,7 +15,7 @@
         <img src="./wsbc_logo2.svg" alt="West Side Baseball Club">
     </div>
     <h1>West Side Baseball&nbsp;Club</h1>
-    <h2 class="loading">Loading...</h2>
+    <!-- <h2 class="loading">Loading...</h2> -->
     <h2>Current Standings</h2>
     <div class="standings">
         <div class="legend">
@@ -69,7 +69,7 @@
 
     const gameTimes = [`8:00pm`, `9:00pm`];
 
-    const weeklySchedule = ['May 5','May 12', 'May 19', 'May 26', 'June 2', 'June 9', 'June 16', 'June 23', 'June 30', 'July 7', 'July 14', 'July 21', 'July 28', 'August 4', 'August 11', 'August 18', 'August 25', 'September 1', 'September 8', 'playoffs'];
+    const weeklySchedule = ['May 4','May 11', 'May 18', 'May 25', 'June 1', 'June 8', 'June 15', 'June 22', 'June 29', 'July 6', 'July 13', 'July 20', 'July 27', 'August 3', 'August 10', 'August 17', 'August 24', 'August 31', 'September 7', 'playoffs'];
     const weeklyScores = {
         1 : {
             'glovers' : '',
@@ -180,10 +180,10 @@
             'balls' : '0'
         },
         19 : {
-            'cocks' : 'sem',
-            'bongs' : 'sem',
-            'glovers' : 'sem',
-            'balls' : 'sem'
+            'cocks' : '',
+            'bongs' : '',
+            'glovers' : '',
+            'balls' : ''
         }
     };
 
@@ -199,18 +199,16 @@ if(snapshot.exists()){
         weeklyScores[index].bongs = dbSnapshot[index].bongs;
         weeklyScores[index].glovers = dbSnapshot[index].glovers;
         weeklyScores[index].cocks = dbSnapshot[index].cocks;
-
     });
-    setTimeout( () => {
-        postStandings();
-        populateSchedule();
-        getCurrentWeek();
-        document.querySelector(`.loading`).style.display = `none`;
-    }, 2000);
 } else {
     console.log("No data available")
 }
-}).catch((error) => {
+})
+.then(() => populateSchedule())
+.then(() => postStandings())
+.then(() => populatePlayoffs())
+.then(() => getCurrentWeek())
+.catch((error) => {
 console.log(error)
 });
 
@@ -296,6 +294,23 @@ console.log(error)
             [standingsArray[1]] : '',
             [standingsArray[2]] : '',
         }
+        for (let i = 1; i < weeklySchedule.length; i++) {
+            if (i == 16 || i == 17 || i == 19){
+                const schedule = document.querySelector('.schedule');
+                const week = document.createElement('div');
+                addWeek(schedule, week, i);
+                if (weeklySchedule[i-1] === 'August 17' || weeklySchedule[i-1] === 'August 24' || weeklySchedule[i-1] === 'September 7') { 
+                    populateTeams(week, i);
+                    addVersusAndGameTimes(week);
+                } else if (weeklySchedule[i-1] === 'May 18' || weeklySchedule[i-1] === 'June 29' || weeklySchedule[i-1] === 'August 3' || weeklySchedule[i-1] === 'August 31') {
+                    week.innerText = 'Holiday Weekend - NO GAMES' 
+                    week.classList.add(`holiday`);
+                } else {
+                    populateTeams(week, i);
+                    addVersusAndGameTimes(week);
+                }
+            }
+        };
     }
 
     const populateTeams = (week, currentWeek) => {
@@ -345,16 +360,16 @@ console.log(error)
 
 
     const populateSchedule = () => {
-        for (let i = 1; i < weeklySchedule.length; i++) {
+        for (let i = 1; i < 16; i++) {
             const schedule = document.querySelector('.schedule');
             const week = document.createElement('div');
             addWeek(schedule, week, i);
-            if (weeklySchedule[i-1] === 'May 19' || weeklySchedule[i-1] === 'June 30' || weeklySchedule[i-1] === 'August 4' || weeklySchedule[i-1] === 'September 1') {
+            if (weeklySchedule[i-1] === 'May 18' || weeklySchedule[i-1] === 'June 29' || weeklySchedule[i-1] === 'August 3' || weeklySchedule[i-1] === 'August 31') {
                 week.innerText = 'Holiday Weekend - NO GAMES' 
                 week.classList.add(`holiday`);
-            } else if (weeklySchedule[i-1] === 'August 18' || weeklySchedule[i-1] === 'August 25' || weeklySchedule[i-1] === 'September 8') { 
-                populateTeams(week, i);
-                addVersusAndGameTimes(week);
+            } else if (weeklySchedule[i-1] === 'August 17' || weeklySchedule[i-1] === 'August 24' || weeklySchedule[i-1] === 'September 7') { 
+                // populateTeams(week, i);
+                // addVersusAndGameTimes(week);
             } else {
                 populateTeams(week, i);
                 addVersusAndGameTimes(week);
@@ -445,7 +460,6 @@ console.log(error)
         // sort teams in array based on wins, and then by runs if they have equal wins
         teamAndWinsRuns.sort((a,b)=> (a.wins.localeCompare(b.wins) || a.ties.localeCompare(b.ties) || a.runs - b.runs));
 
-
         // standings are sorted in reverse order, so the for loop is run backwards to go through the array
         for (let i = 3; i > -1; i--) {
             const teamInQuestion = teamAndWinsRuns[i].team;
@@ -465,7 +479,6 @@ console.log(error)
             place.appendChild(tieTotal).innerText = totalStandings.ties[teamInQuestion]
             place.appendChild(runTotal).innerText = totalStandings.runs[teamInQuestion]
         }
-        populatePlayoffs();
     }
 
     const getCurrentWeek = () => {
