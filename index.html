@@ -295,7 +295,7 @@ console.log(error)
             [standingsArray[2]] : '',
         }
         for (let i = 1; i < weeklySchedule.length; i++) {
-            if (i == 16 || i == 17 || i == 19){
+            if (i >= 16 && i <= 19){
                 const schedule = document.querySelector('.schedule');
                 const week = document.createElement('div');
                 addWeek(schedule, week, i);
