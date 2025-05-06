@@ -187,6 +187,8 @@
         }
     };
 
+    const takeBases = ['none','bongs','balls','none','cocks','balls','glovers','balls','bongs','none','glovers','cocks','balls','glovers','none'];
+
     let dbSnapshot;
 
 
@@ -313,12 +315,22 @@ console.log(error)
         };
     }
 
+    const whoTakesBases = (week, currentWeek) => {
+        const thisWeeksTeams = week.querySelectorAll('.team');
+        thisWeeksTeams.forEach(team => {
+            if (team.classList[0] == takeBases[currentWeek]) {
+                const takesTheBases = `<div class="bases"><img src="./base-01.svg" /></div>`;
+                team.innerHTML += takesTheBases;
+            }
+        })
+    }
+
     const populateTeams = (week, currentWeek) => {
         let teamCounter = 1;
         for (let item in weeklyScores[currentWeek]) {
             const teamAndScore = document.createElement('div');
             if (weeklyScores[currentWeek][item] === '') {
-                teamAndScore.innerHTML = `${addTeamInfo(item)}`;
+                teamAndScore.innerHTML = `${addTeamInfo(item)} `;
             } else {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[currentWeek][item]}`;
             }
@@ -329,6 +341,7 @@ console.log(error)
             }
             teamCounter++;
         }
+        whoTakesBases(week, currentWeek)
     }
 
     const addWeek = (weekDiv, week, currentWeek) => {
