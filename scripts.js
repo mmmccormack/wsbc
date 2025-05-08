@@ -12,7 +12,7 @@ const roster = {
     'krae': 'm',
     'joe': 'm',
     'layla': 'f',
-    'andrea' : 'f',
+    'patrick' : 'm',
     'britt' : 'f'
 }
 const stances = {
@@ -29,7 +29,7 @@ const stances = {
     'joe': 'right',
     'gabe': 'switch',
     'layla': 'right',
-    'andrea': 'switch',
+    'patrick': 'right',
     'britt': 'switch'
 }
 // non-static lineup functions
