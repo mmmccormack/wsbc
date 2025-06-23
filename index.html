@@ -489,7 +489,8 @@ console.log(error)
             runTotal.classList.add('numbers');
             place.appendChild(winTotal).innerText = totalStandings.wins[teamInQuestion]
             place.appendChild(lossTotal).innerText = totalStandings.losses[teamInQuestion]
-            place.appendChild(tieTotal).innerText = totalStandings.ties[teamInQuestion]
+            // after season remove number notation and minus one
+            place.appendChild(tieTotal).innerText = ~~(totalStandings.ties[teamInQuestion] - 1)
             place.appendChild(runTotal).innerText = totalStandings.runs[teamInQuestion]
         }
     }
