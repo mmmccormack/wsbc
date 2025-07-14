@@ -12,8 +12,10 @@ const roster = {
     'krae': 'm',
     'joe': 'm',
     'layla': 'f',
-    'patrick' : 'm',
-    'britt' : 'f'
+    'balazo' : 'm',
+    'jason' : 'm',
+    'brittany' : 'f',
+    'taylor' : 'f',
 }
 const stances = {
     'kristy': 'right',
@@ -29,8 +31,10 @@ const stances = {
     'joe': 'right',
     'gabe': 'switch',
     'layla': 'right',
-    'patrick': 'right',
-    'britt': 'switch'
+    'balazo': 'right',
+    'jason': 'left',
+    'brittany': 'right',
+    'taylor': 'right',
 }
 // non-static lineup functions
 const printoutContainer = document.querySelector('.printout');
