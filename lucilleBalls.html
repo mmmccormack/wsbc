@@ -42,23 +42,23 @@
                     <button class="save-progress">Save</button>
                 </div>
                 <div class="roster-grid" id="rosterPos">
-                    <div draggable="true" class="box right" id="balazopos">balazo</div>
-                    <div draggable="true" class="box right" id="brittanypos">brittany</div>
+                    <div draggable="true" class="box right" id="aaronpos">aaron</div>
+                    <div draggable="true" class="box right" id="leepos">lee</div>
                     <!-- <div draggable="true" class="box right" id="calvinpos">calvin</div> -->
-                    <div draggable="true" class="box switch" id="gabepos">gabe</div>
-                    <div draggable="true" class="box right" id="jakepos">jake</div>
-                    <div draggable="true" class="box left" id="jasonpos">jason</div>
-                    <div draggable="true" class="box right" id="joepos">joe</div>
-                    <div draggable="true" class="box left" id="juliepos">julie</div>
+                    <div draggable="true" class="box switch" id="stephenpos">stephen</div>
+                    <div draggable="true" class="box right" id="ryanpos">ryan</div>
+                    <div draggable="true" class="box left" id="brandonpos">brandon</div>
+                    <div draggable="true" class="box right" id="tarekpos">tarek</div>
+                    <div draggable="true" class="box left" id="emilypos">emily</div>
                     <!-- <div draggable="true" class="box switch" id="kraepos">krae</div> -->
-                    <div draggable="true" class="box right" id="kristypos">kristy</div>
-                    <div draggable="true" class="box right" id="patpos">pat</div>
-                    <div draggable="true" class="box right" id="rosypos">rosy</div>
+                    <div draggable="true" class="box right" id="sarapos">sara</div>
+                    <div draggable="true" class="box right" id="jamiepos">jamie</div>
+                    <div draggable="true" class="box right" id="jesspos">jess</div>
                     <!-- <div draggable="true" class="box right" id="shawnapos">shawna</div> -->
-                    <div draggable="true" class="box right" id="stevepos">steve</div>
-                    <div draggable="true" class="box right" id="taylorpos">taylor</div>
+                    <div draggable="true" class="box right" id="campos">cam</div>
+                    <div draggable="true" class="box right" id="judithpos">judith</div>
                     <!-- <div draggable="true" class="box right" id="tylerpos">tyler</div> -->
-                    <div draggable="true" class="box right" id="warrenpos">warren</div>
+                    <!-- <div draggable="true" class="box right" id="warrenpos">warren</div> -->
                     <!-- <div draggable="true" class="box switch" id="subpos2">sub 2</div> -->
                 </div>
             </div>
@@ -69,23 +69,23 @@
             <h3>Roster</h3>
             <h3>Lineup</h3>
             <div class="rosterLine" id="rosterLine">
-                <div draggable="true" class="box right" id="balazo">balazo</div>
-                <div draggable="true" class="box right" id="brittany">brittany</div>
+                <div draggable="true" class="box right" id="aaron">aaron</div>
+                <div draggable="true" class="box right" id="lee">lee</div>
                 <!-- <div draggable="true" class="box right" id="calvin">calvin</div> -->
-                <div draggable="true" class="box switch" id="gabe">gabe</div>
-                <div draggable="true" class="box right" id="jake">jake</div>
-                <div draggable="true" class="box left" id="jason">jason</div>
-                <div draggable="true" class="box right" id="joe">joe</div>
-                <div draggable="true" class="box left" id="julie">julie</div>
+                <div draggable="true" class="box switch" id="stephen">stephen</div>
+                <div draggable="true" class="box right" id="ryan">ryan</div>
+                <div draggable="true" class="box left" id="brandon">brandon</div>
+                <div draggable="true" class="box right" id="tarek">tarek</div>
+                <div draggable="true" class="box left" id="emily">emily</div>
                 <!-- <div draggable="true" class="box switch" id="krae">krae</div> -->
-                <div draggable="true" class="box right" id="kristy">kristy</div>
-                <div draggable="true" class="box right" id="pat">pat</div>
-                <div draggable="true" class="box right" id="rosy">rosy</div>
+                <div draggable="true" class="box right" id="sara">sara</div>
+                <div draggable="true" class="box right" id="jamie">jamie</div>
+                <div draggable="true" class="box right" id="jess">jess</div>
                 <!-- <div draggable="true" class="box right" id="shawna">shawna</div> -->
-                <div draggable="true" class="box right" id="steve">steve</div>
-                <div draggable="true" class="box right" id="taylor">taylor</div>
+                <div draggable="true" class="box right" id="cam">cam</div>
+                <div draggable="true" class="box right" id="judith">judith</div>
                 <!-- <div draggable="true" class="box right" id="tyler">tyler</div> -->
-                <div draggable="true" class="box right" id="warren">warren</div>
+                <!-- <div draggable="true" class="box right" id="warren">warren</div> -->
             </div>
             <div class="lineup" id="lineup"></div>
         </div>
@@ -121,7 +121,7 @@
     </div>
 </body>
 <script src="./DragDropTouch.js"></script>
-<script src="./scripts.js"></script>
+<script src="./ballsScripts.js"></script>
 <script type="module">
        // Import the functions you need from the SDKs you need
   
@@ -183,7 +183,7 @@
     get(dbRef).then((snapshot) => {
 
         if(snapshot.exists()){
-            dbSnapshotPos = snapshot.val()['-Nrgdz1KhyRMmouNlwOQ'];
+            dbSnapshotPos = snapshot.val()['-O7jQQ9TSrYi_9uY4aPF'];
 
             if (dbSnapshotPos !== 'positions') {
                 const savedPositionData = [];
@@ -208,7 +208,7 @@
                     positionContainer.appendChild(positionSlot);
                 });
             }
-            dbSnapshotLine = snapshot.val()['-Nrlj83_NJezVu0LOtKU'];
+            dbSnapshotLine = snapshot.val()['-O7_NymqXbfUEDx4wBNC'];
             if (dbSnapshotLine[dbSnapshotLine.length - 1] === 'static') {
                 document.querySelector('.printout').style.display = 'none';
                 const rosterLine = document.querySelectorAll('.rosterLine .box');
@@ -242,7 +242,7 @@
     });
 
     const saveLineup = (lineupType) => {
-        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const childRefLine = ref(database, '-O7_NymqXbfUEDx4wBNC');
         const lineup = document.querySelectorAll('.lineup .box');
         const lineupData = Array.from(lineup);
         const firebaseArrayLineup = [];
@@ -256,7 +256,7 @@
     const saveEverything = () => {
         console.log(staticSwitch)
         // record position data
-        const childRefPos = ref(database, '-Nrgdz1KhyRMmouNlwOQ');
+        const childRefPos = ref(database, '-O7jQQ9TSrYi_9uY4aPF');
         const positions = document.querySelectorAll('.pos-sub-container');
         const positionData = Array.from(positions);
         const firebaseArrayPositions = [];
@@ -264,7 +264,7 @@
             firebaseArrayPositions.push(box.innerHTML)
         });
         // record lineup data
-        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const childRefLine = ref(database, '-O7_NymqXbfUEDx4wBNC');
         const nonStaticLineupData = document.getElementById('printout');
         const staticLineupData = document.getElementById('lineup');
 
@@ -296,7 +296,7 @@
                 <h3>LF</h3>
                 <h3>RV</h3>
                 <h3>C</h3>`;
-        const childRefPos = ref(database, '-Nrgdz1KhyRMmouNlwOQ');
+        const childRefPos = ref(database, '-O7jQQ9TSrYi_9uY4aPF');
         return set(childRefPos, 'positions');
     }
 
@@ -305,26 +305,26 @@
         document.querySelector('.lineup-container').style.display = 'grid';
         const rosterLine = document.querySelector('.rosterLine');
         rosterLine.innerHTML = `
-                                <div draggable="true" class="box switch" id="gabe">gabe</div>
-                                <div draggable="true" class="box right" id="jake">jake</div>
-                                <div draggable="true" class="box right" id="joe">joe</div>
-                                <div draggable="true" class="box left" id="julie">julie</div>
+                                <div draggable="true" class="box switch" id="stephen">stephen</div>
+                                <div draggable="true" class="box right" id="ryan">ryan</div>
+                                <div draggable="true" class="box right" id="tarek">tarek</div>
+                                <div draggable="true" class="box left" id="emily">emily</div>
                                 <div draggable="true" class="box switch" id="krae">krae</div>
-                                <div draggable="true" class="box right" id="kristy">kristy</div>
-                                <div draggable="true" class="box right" id="rosy">rosy</div>
-                                <div draggable="true" class="box right" id="pat">pat</div>
+                                <div draggable="true" class="box right" id="sara">sara</div>
+                                <div draggable="true" class="box right" id="jess">jess</div>
+                                <div draggable="true" class="box right" id="jamie">jamie</div>
                                 <div draggable="true" class="box right" id="shawna">shawna</div>
-                                <div draggable="true" class="box right" id="steve">steve</div>
+                                <div draggable="true" class="box right" id="cam">cam</div>
                                 <div draggable="true" class="box right" id="tyler">tyler</div>
                                 <div draggable="true" class="box right" id="warren">warren</div>
-                                <div draggable="true" class="box right" id="balazo">balazo</div>
-                                <div draggable="true" class="box left" id="jason">jason</div>
-                                <div draggable="true" class="box right" id="brittany">brittany</div>
-                                <div draggable="true" class="box right" id="taylor">taylor</div>
+                                <div draggable="true" class="box right" id="aaron">aaron</div>
+                                <div draggable="true" class="box left" id="brandon">brandon</div>
+                                <div draggable="true" class="box right" id="lee">lee</div>
+                                <div draggable="true" class="box right" id="judith">judith</div>
                                 `;
         document.querySelector('.lineup').innerHTML = '';
 
-        const childRefLine = ref(database, '-Nrlj83_NJezVu0LOtKU');
+        const childRefLine = ref(database, '-O7_NymqXbfUEDx4wBNC');
         return set(childRefLine, 'lineup');
     }
 
