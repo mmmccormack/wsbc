@@ -11,6 +11,7 @@ const roster = {
     'jamie': 'm',
     'cam': 'm',
     'judith': 'f',
+    'marley': 'f',
 }
 const stances = {
     'emily': 'left',
@@ -25,6 +26,7 @@ const stances = {
     'jamie': 'right',
     'cam': 'right',
     'judith': 'right',
+    'marley': 'right',
 }
 // const roster = {
 //     'kristy': 'f',
