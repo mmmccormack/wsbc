@@ -28,6 +28,9 @@
     </div>
 
     <hr />
+    <div class="rules">
+        <a href="./rules.html">View the WSBC Rulebook</a>
+    </div>
     <hr />
 
     <h2>This Week's Games</h2>
@@ -41,9 +44,6 @@
     <div class="schedule">
     </div>
 
-    <div class="rules">
-        <a href="./rules.html">View the WSBC Rulebook</a>
-    </div>
 </body>
 <script type="module">
     // Import the functions you need from the SDKs you need
@@ -187,6 +187,8 @@
         }
     };
 
+    const takeBases = ['none','bongs','balls','none','cocks','balls','glovers','balls','bongs','none','glovers','cocks','balls','glovers','none','bongs'];
+
     let dbSnapshot;
 
 
@@ -283,10 +285,10 @@ console.log(error)
             [standingsArray[2]] : '',
         }
         weeklyScores['17'] = {
-            [standingsArray[3]] : '',
-            [standingsArray[0]] : '',
             [standingsArray[2]] : '',
             [standingsArray[1]] : '',
+            [standingsArray[3]] : '',
+            [standingsArray[0]] : '',
         }
         weeklyScores['19'] = {
             [standingsArray[0]] : '',
@@ -295,7 +297,7 @@ console.log(error)
             [standingsArray[2]] : '',
         }
         for (let i = 1; i < weeklySchedule.length; i++) {
-            if (i == 16 || i == 17 || i == 19){
+            if (i >= 16 && i <= 19){
                 const schedule = document.querySelector('.schedule');
                 const week = document.createElement('div');
                 addWeek(schedule, week, i);
@@ -313,12 +315,22 @@ console.log(error)
         };
     }
 
+    const whoTakesBases = (week, currentWeek) => {
+        const thisWeeksTeams = week.querySelectorAll('.team');
+        thisWeeksTeams.forEach(team => {
+            if (team.classList[0] == takeBases[currentWeek]) {
+                const takesTheBases = `<div class="bases"><img src="./base-01.svg" /></div>`;
+                team.innerHTML += takesTheBases;
+            }
+        })
+    }
+
     const populateTeams = (week, currentWeek) => {
         let teamCounter = 1;
         for (let item in weeklyScores[currentWeek]) {
             const teamAndScore = document.createElement('div');
             if (weeklyScores[currentWeek][item] === '') {
-                teamAndScore.innerHTML = `${addTeamInfo(item)}`;
+                teamAndScore.innerHTML = `${addTeamInfo(item)} `;
             } else {
                 teamAndScore.innerHTML = `${addTeamInfo(item)}  &ndash; ${weeklyScores[currentWeek][item]}`;
             }
@@ -329,6 +341,7 @@ console.log(error)
             }
             teamCounter++;
         }
+        whoTakesBases(week, currentWeek)
     }
 
     const addWeek = (weekDiv, week, currentWeek) => {
@@ -476,7 +489,8 @@ console.log(error)
             runTotal.classList.add('numbers');
             place.appendChild(winTotal).innerText = totalStandings.wins[teamInQuestion]
             place.appendChild(lossTotal).innerText = totalStandings.losses[teamInQuestion]
-            place.appendChild(tieTotal).innerText = totalStandings.ties[teamInQuestion]
+            // after season remove number notation and minus one
+            place.appendChild(tieTotal).innerText = ~~(totalStandings.ties[teamInQuestion] - 1)
             place.appendChild(runTotal).innerText = totalStandings.runs[teamInQuestion]
         }
     }

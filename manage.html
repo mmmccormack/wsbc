@@ -44,7 +44,7 @@
                 <div class="roster-grid" id="rosterPos">
                     <div draggable="true" class="box right" id="balazopos">balazo</div>
                     <div draggable="true" class="box right" id="brittanypos">brittany</div>
-                    <!-- <div draggable="true" class="box right" id="calvinpos">calvin</div> -->
+                    <div draggable="true" class="box right" id="calvinpos">calvin</div>
                     <div draggable="true" class="box switch" id="gabepos">gabe</div>
                     <div draggable="true" class="box right" id="jakepos">jake</div>
                     <div draggable="true" class="box left" id="jasonpos">jason</div>
@@ -53,11 +53,10 @@
                     <div draggable="true" class="box switch" id="kraepos">krae</div>
                     <div draggable="true" class="box right" id="kristypos">kristy</div>
                     <div draggable="true" class="box right" id="patpos">pat</div>
-                    <div draggable="true" class="box right" id="rosypos">rosy</div>
-                    <!-- <div draggable="true" class="box right" id="shawnapos">shawna</div> -->
+                    <div draggable="true" class="box right" id="shawnapos">shawna</div>
                     <div draggable="true" class="box right" id="stevepos">steve</div>
                     <div draggable="true" class="box right" id="taylorpos">taylor</div>
-                    <!-- <div draggable="true" class="box right" id="tylerpos">tyler</div> -->
+                    <div draggable="true" class="box right" id="tylerpos">tyler</div>
                     <div draggable="true" class="box right" id="warrenpos">warren</div>
                     <!-- <div draggable="true" class="box switch" id="subpos2">sub 2</div> -->
                 </div>
@@ -71,7 +70,7 @@
             <div class="rosterLine" id="rosterLine">
                 <div draggable="true" class="box right" id="balazo">balazo</div>
                 <div draggable="true" class="box right" id="brittany">brittany</div>
-                <!-- <div draggable="true" class="box right" id="calvin">calvin</div> -->
+                <div draggable="true" class="box right" id="calvin">calvin</div>
                 <div draggable="true" class="box switch" id="gabe">gabe</div>
                 <div draggable="true" class="box right" id="jake">jake</div>
                 <div draggable="true" class="box left" id="jason">jason</div>
@@ -80,11 +79,10 @@
                 <div draggable="true" class="box switch" id="krae">krae</div>
                 <div draggable="true" class="box right" id="kristy">kristy</div>
                 <div draggable="true" class="box right" id="pat">pat</div>
-                <div draggable="true" class="box right" id="rosy">rosy</div>
-                <!-- <div draggable="true" class="box right" id="shawna">shawna</div> -->
+                <div draggable="true" class="box right" id="shawna">shawna</div>
                 <div draggable="true" class="box right" id="steve">steve</div>
                 <div draggable="true" class="box right" id="taylor">taylor</div>
-                <!-- <div draggable="true" class="box right" id="tyler">tyler</div> -->
+                <div draggable="true" class="box right" id="tyler">tyler</div>
                 <div draggable="true" class="box right" id="warren">warren</div>
             </div>
             <div class="lineup" id="lineup"></div>
@@ -149,7 +147,6 @@
     const addInning = () => {
         const currentInning = document.querySelectorAll('.position-container h3');
         const lastInning = currentInning[currentInning.length -1];
-        console.log(lastInning)
         inningCount++;
         const positionContainer = document.querySelector('.position-container');
         const inningHeading = document.createElement('h3');
@@ -254,7 +251,6 @@
     }
 
     const saveEverything = () => {
-        console.log(staticSwitch)
         // record position data
         const childRefPos = ref(database, '-Nrgdz1KhyRMmouNlwOQ');
         const positions = document.querySelectorAll('.pos-sub-container');
@@ -311,7 +307,6 @@
                                 <div draggable="true" class="box left" id="julie">julie</div>
                                 <div draggable="true" class="box switch" id="krae">krae</div>
                                 <div draggable="true" class="box right" id="kristy">kristy</div>
-                                <div draggable="true" class="box right" id="rosy">rosy</div>
                                 <div draggable="true" class="box right" id="pat">pat</div>
                                 <div draggable="true" class="box right" id="shawna">shawna</div>
                                 <div draggable="true" class="box right" id="steve">steve</div>

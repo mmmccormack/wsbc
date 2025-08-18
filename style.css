@@ -446,6 +446,12 @@
         .versus2 {
             top: 72%;
         }
+        .playoffs1 {
+            top: 16%;
+        }
+        .playoffs2 {
+            top: 66%;
+        }
         .home1 {
             top: 0%;
         }
@@ -496,6 +502,12 @@
         }
         .versus2 {
             top: 71%;
+        }
+        .playoffs1 {
+            top: 14%;
+        }
+        .playoffs2 {
+            top: 65%;
         }
         .bases {
             width: 30px;
