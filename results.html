@@ -51,20 +51,25 @@
         if(snapshot.exists()){
 
             snapshot.forEach(result => {
-                const userVotes = result.val();
+                
+                if (result.key == '-Nrgdz1KhyRMmouNlwOQ' || result.key == '-Nrlj83_NJezVu0LOtKU' || result.key == '-O7_NymqXbfUEDx4wBNC' || result.key == '-O7jQQ9TSrYi_9uY4aPF') {
+                    
+                } else {
+                    const userVotes = result.val();
+                    const newDiv = document.createElement("p");
+    
+                    newDiv.innerHTML = `
+                    <strong><em>${result.key}</em></strong><br>
+                    Most Fun Player (1): ${userVotes.mostFunOneName}, ${userVotes.mostFunOneTeam}<br>
+                    Most Fun Player (2): ${userVotes.mostFunTwoName}, ${userVotes.mostFunTwoTeam}<br>
+                    Most Valuable Player (1): ${userVotes.mostValOneName}, ${userVotes.mostValOneTeam}<br>
+                    Most Valuable Player (2): ${userVotes.mostValTwoName}, ${userVotes.mostValTwoTeam}<br>
+                    `;
+                    newDiv.style.display = 'none';
+                    const resultsContainer = document.getElementById("resultsContainer");
+                    document.body.insertBefore(newDiv, resultsContainer);
 
-                const newDiv = document.createElement("p");
-
-                newDiv.innerHTML = `
-                <strong><em>${result.key}</em></strong><br>
-                Most Fun Player (1): ${userVotes.mostFunOneName}, ${userVotes.mostFunOneTeam}<br>
-                Most Fun Player (2): ${userVotes.mostFunTwoName}, ${userVotes.mostFunTwoTeam}<br>
-                Most Valuable Player (1): ${userVotes.mostValOneName}, ${userVotes.mostValOneTeam}<br>
-                Most Valuable Player (2): ${userVotes.mostValTwoName}, ${userVotes.mostValTwoTeam}<br>
-                `;
-                newDiv.style.display = 'none';
-                const resultsContainer = document.getElementById("resultsContainer");
-                document.body.insertBefore(newDiv, resultsContainer);
+                }
             })
 
         } else {
