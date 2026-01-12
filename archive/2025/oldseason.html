@@ -15,7 +15,7 @@
         <img src="./wsbc_logo2.svg" alt="West Side Baseball Club">
     </div>
     <h1>West Side Baseball Club</h1>
-    <!-- <h2 class="loading">Loading...</h2> -->
+    <h2 class="loading">Loading...</h2>
     <h2>Season Standings</h2>
     <div class="standings">
         <div class="legend">
@@ -23,7 +23,7 @@
             <div class="numbers">Wins</div>
             <div class="numbers">Runs</div>
         </div>
-        <div class="cocks place">Northcocks<div class="numbers">7</div>
+        <!-- <div class="cocks place">Northcocks<div class="numbers">7</div>
             <div class="numbers">191</div>
         </div>
         <div class="glovers place">Modern Glovers<div class="numbers">6</div>
@@ -34,22 +34,22 @@
         </div>
         <div class="balls place">Lucille Balls<div class="numbers">3</div>
             <div class="numbers">142</div>
-        </div>
+        </div> -->
     </div>
 
-    <!-- <hr />
+    <hr />
     <hr />
 
     <h2>This Week's Games</h2>
     <div class="upcomingGame">
-    </div> -->
+    </div>
 
     <hr />
     <hr />
 
-    <h2>Post-Season Schedule</h2>
+    <!-- <h2>Post-Season Schedule</h2> -->
     <div class="schedule">
-        <h2>Semi-Finals - August 17</h2>
+        <!-- <h2>Semi-Finals - August 17</h2>
         <div class="week">
             <div class="cocks team team1 week16">Northcocks - 5</div>
             <div class="balls team team2 week16 secondTeam">Lucille Balls - 9</div>
@@ -120,11 +120,11 @@
             </div>
             <h4 class="versus versus2 playoffs2">vs</h4>
             <h5 class="gameTime gameTime2">9:00pm</h5>
-        </div>
+        </div> -->
     </div>
 
 </body>
-<!-- <script type="module">
+<script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
@@ -378,7 +378,7 @@ console.log(error)
 
 
     const populateSchedule = () => {
-        for (let i = 16; i < 19; i++) {
+        for (let i = 1; i < 19; i++) {
             const schedule = document.querySelector('.schedule');
             const week = document.createElement('div');
             addWeek(schedule, week, i);
@@ -496,5 +496,5 @@ console.log(error)
     }
     
 
-</script> -->
+</script>
 </html>
