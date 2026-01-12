@@ -252,7 +252,7 @@ const whoTakesBases = (week, currentWeek) => {
     const thisWeeksTeams = week.querySelectorAll('.team');
     thisWeeksTeams.forEach(team => {
         if (team.classList[0] == takeBases[currentWeek]) {
-            const takesTheBases = `<div class="bases"><img src="./base-01.svg" /></div>`;
+            const takesTheBases = `<div class="bases"><img src="./assets/base-01.svg" /></div>`;
             team.innerHTML += takesTheBases;
         }
     })
