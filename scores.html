@@ -77,7 +77,6 @@
         dbSnapshot.forEach((week, index) => {
             weeklyScores[index] = week;
         })
-        console.log(dbSnapshot)
     } else {
         console.log("No data available")
     }
@@ -110,25 +109,42 @@
             }
             scoreKeeper.appendChild(teamInput);
         }
+        const rainOutContainer = document.createElement('div');
+        rainOutContainer.classList.add('rainOutContainer');
+        const rainOutCheck = document.createElement('input');
+        rainOutCheck.type = 'checkbox';
+        rainOutCheck.id = 'rainOut';
+        rainOutCheck.name = 'rainOut';
         submitButton.disabled = false;
+        const rainOutLabel = document.createElement('label');
+        rainOutLabel.htmlFor = 'rainOut';
+        rainOutLabel.appendChild(document.createTextNode('Game rained out'));
+        rainOutContainer.appendChild(rainOutLabel);
+        rainOutContainer.appendChild(rainOutCheck);
+        scoreKeeper.appendChild(rainOutContainer);
     })
 
     submitButton.addEventListener('click', e => {
         e.preventDefault();
-        const weeksScores = document.querySelectorAll('input');
+        const weeksScores = document.querySelectorAll('input[type="text"], input:not([type="checkbox"])');
         let weekInQuestion = 0;
         weeksScores.forEach(team => {
-            const score = Number(team.value);
             let scoreForTeam;
-            // if no value is entered in when you first add scores, the empty fields will be set to zero
-            if (team.placeholder.slice(-2) === 're' && score === 0) {
-                alert(`You did not enter a value for ${team.id.slice(0, -1)}, so they will have a score of zero unless otherwise changed.`);
-                scoreForTeam = 0;
-            // if you're re-entering scores and you leave one empty, it will keep the previous value that you put into the field.
-            } else if (typeof Number(team.placeholder.slice(-2)) === 'number' && team.value === ''){
-                scoreForTeam = Number(team.placeholder.slice(-2));
+            const score = Number(team.value);
+            // if rain out check box is NOT checked, perform checks below. If it is checked, give every team a score of "rain"
+            if (!document.getElementById('rainOut').checked) {
+                // if no value is entered in when you first add scores, the empty fields will be set to zero
+                if (team.placeholder.slice(-2) === 're' && score === 0) {
+                    alert(`You did not enter a value for ${team.id.slice(0, -1)}, so they will have a score of zero unless otherwise changed.`);
+                    scoreForTeam = 0;
+                // if you're re-entering scores and you leave one empty, it will keep the previous value that you put into the field.
+                } else if (typeof Number(team.placeholder.slice(-2)) === 'number' && team.value === ''){
+                    scoreForTeam = Number(team.placeholder.slice(-2));
+                } else {
+                    scoreForTeam = score;
+                }
             } else {
-                scoreForTeam = score;
+                scoreForTeam = `rain`;
             }
             // each team gets the score added to the input box for the week in question added to an object for the week's scores
             const teamToScore = team["id"].replace(/[0-9]/g, '');

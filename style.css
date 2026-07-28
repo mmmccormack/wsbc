@@ -389,9 +389,47 @@
         background: tomato;
     }
     .score-container {
-    display: grid;
+        display: grid;
       grid-template-columns: repeat(3, 70px);
       grid-template-rows: 25px repeat(8, 50px);
+    }
+    .rainOutContainer {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px auto;
+        max-width: 330px;
+        width: 100%;
+    }
+    #rainOut {
+        /* width: max-content;
+        max-width: max-content;
+        margin: 0 10px; */
+        display: grid;
+        place-content: center;
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #050505;
+        margin: 0;
+        font: inherit;
+        color: #efefef;
+        width: 2em;
+        height: 2em;
+        border: 0.25em solid #efefef;
+        border-radius: .5em;
+        transform: translateY(-0.075em);
+    }
+    #rainOut::before {
+        content: "";
+        width: 0.65em;
+        height: 0.65em;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em dodgerblue;
+        transform-origin: center;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+    #rainOut:checked::before {
+        transform: scale(1.5);
     }
     .inning {
         display: flex;
