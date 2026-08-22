@@ -1,5 +1,6 @@
 const roster = {
-    'emily': 'f',
+    'emily g': 'f',
+    'emily s': 'f',
     'jess': 'f',
     'sara': 'f',
     'drew': 'm',
@@ -9,13 +10,14 @@ const roster = {
     'ryan': 'm',
     'brandon': 'm',
     'tarek': 'm',
-    'jamie': 'm',
+    'matt': 'm',
     'cam': 'm',
-    'judith': 'f',
+    'ali': 'f',
     'marley': 'f',
 }
 const stances = {
-    'emily': 'left',
+    'emily g': 'left',
+    'emily s': 'right',
     'jess': 'right',
     'sara': 'right',
     'drew': 'right',
@@ -25,9 +27,9 @@ const stances = {
     'ryan': 'right',
     'brandon': 'right',
     'tarek': 'right',
-    'jamie': 'right',
+    'matt': 'right',
     'cam': 'right',
-    'judith': 'right',
+    'ali': 'right',
     'marley': 'right',
 }
 // const roster = {
