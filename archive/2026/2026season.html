@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet"> 
+    <title>West Side Baseball Club</title>
+</head>
+<body>
+    <div class="logo">
+        <img src="./assets/wsbc_logo2.svg" alt="West Side Baseball Club">
+    </div>
+    <h1>West Side Baseball&nbsp;Club</h1>
+    <h2 class="loading">Loading...</h2>
+    <h2>Current Standings</h2>
+    <div class="standings">
+        <div class="legend">
+            <div>Team</div>
+            <div class="numbers">W<span class="abbrev">ins</span></div>
+            <div class="numbers">L<span class="abbrev">osses</span></div>
+            <div class="numbers">T<span class="abbrev">ies</span></div>
+            <div class="numbers">Runs</div>
+        </div>
+    </div>
+
+    <hr />
+    <div class="rules">
+        <a href="./rules.html">View the WSBC Rulebook</a>
+    </div>
+    <hr />
+
+    <h2>This Week's Games</h2>
+    <div class="upcomingGame">
+    </div>
+
+    <hr />
+    <hr />
+
+    <h2>Full Season Schedule</h2>
+    <div class="schedule">
+    </div>
+
+</body>
+<script type="module" src="./firebase.js"></script>
+<script type="module" src="./mainPage.js"></script>
+</html>
